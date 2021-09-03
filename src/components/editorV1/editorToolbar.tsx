@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import Select, { StylesConfig } from 'react-select';
-import styles from './editor.module.scss';
+// import styles from './editor.module.scss';
 
 type EditorToolbarProps = {
 

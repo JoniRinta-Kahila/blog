@@ -22,7 +22,7 @@ const App: React.FC = () => {
               <h2>console.log('Hello, User!');</h2>
             </div>
             <Switch>
-              // /category/datetime/header
+              {/* /category/datetime/header */}
               <Route exact path='/editor' component={CreateNewPost}/>
               <Route exact path='/example' component={PostView} />
             </Switch>

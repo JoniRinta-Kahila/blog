@@ -1,6 +1,6 @@
 import React from "react";
 import ManagerMenuItems from './managerMenuItems';
-import styles from './managerMenu.module.scss';
+// import styles from './managerMenu.module.scss';
 import { Link } from 'react-router-dom';
 
 interface ManagerMenuProps {
