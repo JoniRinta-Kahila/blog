@@ -2,14 +2,14 @@ import React from "react";
 
 interface IManagerMenuItem {
     name: string
-    url: string
+    to: string
     key: number
 }
 
 const ManagerMenuItems: IManagerMenuItem[] = [
     {
         name: 'Editor',
-        url: '/editor',
+        to: '/editor',
         key: 1,
     }
 ]

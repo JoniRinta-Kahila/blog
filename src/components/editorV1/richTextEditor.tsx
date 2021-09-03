@@ -1,26 +1,19 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { createEditor, Descendant, Editor, Transforms } from 'slate';
 import { Slate, Editable, withReact, RenderElementProps } from 'slate-react';
-import DataDeserializer from './dataDeserializer';
 import EditorCodeElement from './editorElements/editor.codeElement';
 import EditorDefaultElement from './editorElements/editor.defaultElement';
 import EditorGistElement from './editorElements/editor.gistElement';
 import EditorParagraphElement from './editorElements/editor.paragraphElement';
 
 type RichTextEditorProps = {
-
+  editorValue: Descendant[],
+  editorValueSetter: React.Dispatch<React.SetStateAction<Descendant[]>>
 }
 
-const RichTextEditor: React.FC<RichTextEditorProps> = () => {
+const RichTextEditor: React.FC<RichTextEditorProps> = ({ editorValue, editorValueSetter }) => {
 
   const editor = useMemo(() => withReact(createEditor()), []);
-  const [value, setValue] = useState<Descendant[]>([
-    {
-      type: 'paragraph',
-      children: [{text: ''}],
-      uuid: `${new Date().getTime()}`
-    }
-  ]);
 
   const renderElement = useCallback((props: RenderElementProps) => {
     console.log(props);
@@ -39,7 +32,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = () => {
     return (
     <div style={{paddingRight: '20px'}}>
 
-      <Slate editor={editor} value={value} onChange={setValue}>
+      <Slate editor={editor} value={editorValue} onChange={editorValueSetter}>
         <Editable
           renderElement={renderElement}
 
@@ -52,7 +45,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = () => {
             // Ctrl for check the shortcut
             if (event.key === '.' && event.ctrlKey) {
               // parse output value to find last string
-              const lastValueObj: any = (value[value.length - 1] as any);
+              const lastValueObj: any = (editorValue[editorValue.length - 1] as any);
               const lastValueObjLastChildStr: string = lastValueObj.children[lastValueObj.children.length - 1].text;
 
               if (!lastValueObjLastChildStr.length) return;
@@ -129,8 +122,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = () => {
           }}
         />
       </Slate>
-      <DataDeserializer data={value} />
-      <p>{JSON.stringify(value)}</p>
     </div>
   )
 }
