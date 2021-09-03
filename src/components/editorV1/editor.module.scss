@@ -1,4 +1,70 @@
-// menuitem styles
-.header1 {
-    font-size: 4px;
+// richText Editor
+.richTextEditorContainer {
+    padding-right: 20px;
+}
+
+// toolbar
+.toolbarContainer {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid black;
+    border-left: none;
+    border-right: none;
+
+    button {
+        margin-left: 8px;
+        height: 38px;
+        width: 38px;
+    }
+
+    button b {
+        font-size: 25px;
+    }
+}
+
+// editor elements
+.editorElPara {
+    background: azure;
+}
+
+.editorElHeader {
+ background: orange;
+}
+
+.editorElGist {
+    background: lightblue;
+    color: black;
+    border: 1px solid black;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    div input {
+        background: lightblue;
+        outline: none;
+        border: none;
+        color: red;
+        font-weight: 700;
+        font-size: 15px;
+        height: 15px;
+        width: 75px;
+        padding-right: 8px;
+    }
+
+    div p {
+        border: 1px solid black;
+        width: 60%;
+        font-weight: 700;
+    }
+}
+
+.editorElCode {
+    background: black;
+    color: white;
 }

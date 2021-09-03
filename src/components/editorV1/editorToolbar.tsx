@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import Select, { StylesConfig } from 'react-select';
-// import styles from './editor.module.scss';
+import styles from './editor.module.scss';
 
 type EditorToolbarProps = {
 
@@ -42,38 +42,25 @@ const EditorToolbar: React.FC<EditorToolbarProps> = () => {
             }
         },
         control: (provided, state) => {
-            
-            // provided has CSSObject type
-            // state has ControlProps type
-        
-            // return type is CSSObject which means this line will throw error if uncommented
-            // return false;
             return {
               ...provided,
               ...customControlStyles,
             };
           },
-          
-        // singleValue: (provided, state) => {
-        //     return {
-        //         ...provided,
-        //         color: state.data.fontSize
-        //     }
-        // },
       }
 
   return (
-    <div style={{height: '50px', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', border: '2px solid black', borderLeft: 'none', borderRight: 'none'}}>
+    <div className={styles.toolbarContainer}>
         <Select
             options={options}
             styles={selectStyle}
             maxMenuHeight={250}
             
             />
-        <button style={{marginLeft: '8px', height: '38px', width: '38px'}}><b style={{fontSize: '25px'}}>B</b></button>
-        <button style={{marginLeft: '8px', height: '38px', width: '38px'}}><b style={{fontSize: '25px'}}><i>I</i></b></button>
-        <button style={{marginLeft: '8px', height: '38px', width: '38px'}}><b style={{fontSize: '25px'}}><u>U</u></b></button>
-        <button style={{marginLeft: '8px', height: '38px', width: '38px'}}><b style={{fontSize: '25px'}}><del>S</del></b></button>
+        <button><b>B</b></button>
+        <button><b><i>I</i></b></button>
+        <button><b><u>U</u></b></button>
+        <button><b><del>S</del></b></button>
     </div>
   )
 }

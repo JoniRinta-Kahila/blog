@@ -5,6 +5,7 @@ import EditorCodeElement from './editorElements/editor.codeElement';
 import EditorDefaultElement from './editorElements/editor.defaultElement';
 import EditorGistElement from './editorElements/editor.gistElement';
 import EditorParagraphElement from './editorElements/editor.paragraphElement';
+import styles from './editor.module.scss';
 
 type RichTextEditorProps = {
   editorValue: Descendant[],
@@ -30,7 +31,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ editorValue, editorValu
   }, []);
 
     return (
-    <div style={{paddingRight: '20px'}}>
+    <div className={styles.richTextEditorContainer}>
 
       <Slate editor={editor} value={editorValue} onChange={editorValueSetter}>
         <Editable
