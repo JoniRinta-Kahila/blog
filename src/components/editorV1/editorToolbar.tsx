@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties } from 'react';
 import Select, { StylesConfig } from 'react-select';
 import styles from './editor.module.scss';
 import { FaGithubSquare } from 'react-icons/fa';

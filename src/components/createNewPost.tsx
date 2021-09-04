@@ -12,8 +12,6 @@ interface CreateNewPostProps {
 
 const CreateNewPost: React.FC<CreateNewPostProps> = () => {
 
-  const [previewState, setPreviewState] = useState<boolean>(false)
-
   const [editorValue, setEditorValue] = useState<Descendant[]>([
     {
       type: 'paragraph',
