@@ -30,7 +30,6 @@ const App: React.FC = () => {
         </div>
         <div className={styles.sidebar}>
           <h2>Page sidebar</h2>
-          <p>&larr; Fixed Width &rarr;</p>
           <ManagerMenu />
           <Link to='example' >Example post</Link>
         </div>

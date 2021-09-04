@@ -1,15 +1,14 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
 import styles from './editor.module.scss';
+import { FaGithubSquare } from 'react-icons/fa';
 
 type EditorToolbarProps = {
 
 }
 
 const EditorToolbar: React.FC<EditorToolbarProps> = () => {
-
-    // react-select styling: https://stackoverflow.com/a/63699270
-
+    
     type MyOptionType = {
         label: string;
         value: string;
@@ -26,6 +25,7 @@ const EditorToolbar: React.FC<EditorToolbarProps> = () => {
         { value: 'h6', label: 'Header-6', fontSize: '0.75em' },
       ];
       
+      // react-select styling: https://stackoverflow.com/a/63699270
       const customControlStyles: CSSProperties = {
         color: 'white',
         width: 200,
@@ -55,12 +55,15 @@ const EditorToolbar: React.FC<EditorToolbarProps> = () => {
             options={options}
             styles={selectStyle}
             maxMenuHeight={250}
+            defaultValue={options[0]}
             
             />
         <button><b>B</b></button>
         <button><b><i>I</i></b></button>
         <button><b><u>U</u></b></button>
         <button><b><del>S</del></b></button>
+        <button className={styles.iconButton}><FaGithubSquare size={35}/></button>
+        
     </div>
   )
 }

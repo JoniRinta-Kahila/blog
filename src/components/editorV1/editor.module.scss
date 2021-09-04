@@ -10,9 +10,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border: 2px solid black;
-    border-left: none;
-    border-right: none;
+    border: 1px solid black;
+    padding-left: 8px;
 
     button {
         margin-left: 8px;
@@ -23,11 +22,18 @@
     button b {
         font-size: 25px;
     }
+
+    .iconButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
 }
 
 // editor elements
 .editorElPara {
-    background: azure;
+  background: azure;
 }
 
 .editorElHeader {
