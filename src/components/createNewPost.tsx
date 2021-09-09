@@ -5,6 +5,7 @@ import EditorToolbar from "./editorV1/editorToolbar";
 import RichTextEditor from "./editorV1/richTextEditor";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.scss';
+import EditorContextProvider from "./editorV1/EditorContextProvider";
 
 interface CreateNewPostProps {
 
@@ -30,8 +31,10 @@ const CreateNewPost: React.FC<CreateNewPostProps> = () => {
           <Tab>Output</Tab>
         </TabList>
         <TabPanel>
-          <EditorToolbar />
-          <RichTextEditor editorValue={editorValue} editorValueSetter={setEditorValue} />
+          <EditorContextProvider>
+            <EditorToolbar />
+            <RichTextEditor editorValue={editorValue} editorValueSetter={setEditorValue} />
+          </EditorContextProvider>
         </TabPanel>
         <TabPanel>
           <DataDeserializer data={editorValue} />

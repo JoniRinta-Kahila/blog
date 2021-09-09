@@ -2,13 +2,17 @@ import React, { CSSProperties } from 'react';
 import Select, { StylesConfig } from 'react-select';
 import styles from './editor.module.scss';
 import { FaGithubSquare } from 'react-icons/fa';
+import { useEditor } from './editorContext';
+import * as Actions from './editorActions';
 
 type EditorToolbarProps = {
-
+//  editor: BaseEditor & ReactEditor & HistoryEditor
 }
 
 const EditorToolbar: React.FC<EditorToolbarProps> = () => {
-    
+
+    const { editor } = useEditor();
+
     type MyOptionType = {
         label: string;
         value: string;
@@ -49,6 +53,13 @@ const EditorToolbar: React.FC<EditorToolbarProps> = () => {
           },
       }
 
+  if (!editor) {
+    return (
+      <h1>
+        Loading Editor...
+      </h1>
+    )
+  }
   return (
     <div className={styles.toolbarContainer}>
         <Select
@@ -58,11 +69,36 @@ const EditorToolbar: React.FC<EditorToolbarProps> = () => {
             defaultValue={options[0]}
             
             />
-        <button><b>B</b></button>
-        <button><b><i>I</i></b></button>
-        <button><b><u>U</u></b></button>
-        <button><b><del>S</del></b></button>
-        <button className={styles.iconButton}><FaGithubSquare size={35}/></button>
+        <button
+          onClick={() => Actions.Bold(editor)}
+        >
+          <b>B</b>
+        </button>
+
+        <button
+          onClick={() => Actions.Italic(editor)}
+        >
+          <b><i>I</i></b>
+        </button>
+
+        <button
+          onClick={() => Actions.Underline(editor)}
+        >
+          <b><u>U</u></b>
+        </button>
+
+        <button
+          onClick={() => Actions.Deleted(editor)}
+        >
+          <b><del>S</del></b>
+        </button>
+
+        <button
+          onClick={() => Actions.Gist(editor)}
+          className={styles.iconButton}
+          >
+            <FaGithubSquare size={35}/>
+        </button>
         
     </div>
   )

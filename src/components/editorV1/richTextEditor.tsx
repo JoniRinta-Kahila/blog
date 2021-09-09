@@ -1,11 +1,16 @@
-import React, { useCallback, useMemo } from 'react'
-import { createEditor, Descendant, Editor, Transforms } from 'slate';
-import { Slate, Editable, withReact, RenderElementProps } from 'slate-react';
-import EditorCodeElement from './editorElements/editor.codeElement';
+import React, { useCallback } from 'react'
+import { Descendant } from 'slate';
+import { Slate, Editable, RenderElementProps } from 'slate-react';
 import EditorDefaultElement from './editorElements/editor.defaultElement';
 import EditorGistElement from './editorElements/editor.gistElement';
 import EditorParagraphElement from './editorElements/editor.paragraphElement';
 import styles from './editor.module.scss';
+import { useEditor } from './editorContext';
+import * as Actions from './editorActions';
+import EditorBoldElement from './editorElements/editor.boldElement';
+import EditorItalicElement from './editorElements/editor.italicElement';
+import EditorUnderlineElement from './editorElements/editor.underlineElement';
+import EditorDeletedElement from './editorElements/editor.deletedElement';
 
 type RichTextEditorProps = {
   editorValue: Descendant[],
@@ -13,26 +18,35 @@ type RichTextEditorProps = {
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ editorValue, editorValueSetter }) => {
-
-  const editor = useMemo(() => withReact(createEditor()), []);
-
+  const { editor } = useEditor()
+  
+  // IN-EDITOR TEXT FORMAT
   const renderElement = useCallback((props: RenderElementProps) => {
     console.log(props);
     switch (props.element.type) {
       case 'paragraph':
         return <EditorParagraphElement {...props} />
-      case 'code':
-        return <EditorCodeElement {...props} />
       case 'gist':
         return <EditorGistElement {...props} />
+      case 'bold':
+        return <EditorBoldElement {...props} />
+      case 'italic':
+        return <EditorItalicElement {...props} />
+      case 'underline':
+        return <EditorUnderlineElement {...props} />
+      case 'deleted':
+        return <EditorDeletedElement {...props} />
       default:
         return <EditorDefaultElement {...props} />
     }
   }, []);
 
+    if (!editor) {
+      return <h1>Editor loading...</h1>
+    }
+
     return (
     <div className={styles.richTextEditorContainer}>
-
       <Slate editor={editor} value={editorValue} onChange={editorValueSetter}>
         <Editable
           renderElement={renderElement}
@@ -55,54 +69,36 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ editorValue, editorValu
               const wordArr = lastValueObjLastChildStr.split(' ').filter(str => /\S/.test(str));
               const lastWord = wordArr[wordArr.length - 1];
 
-              // check if language is listed, select the codeblock
-              // const langs = Object.assign(progLangs)
-              // if (langs[lastWord]) {
-              //   const selectedProgLang = langs[lastWord];
-              //   console.log('selected codeblock with lang:', selectedProgLang);
-
-              //   // remove codeblock selector from editor
-              //   editor.deleteBackward('word');
-
-              //   Transforms.setNodes(
-              //     editor,
-              //     { type: 'code', language: selectedProgLang, uuid: `${new Date().getTime()}`},
-              //     { match: n => Editor.isBlock(editor, n)},
-              //   );
-              //   return;
-              // }
-
-              console.log('last word', lastWord)
-
               // Gist
               if (lastWord.toLowerCase() === 'gist') {
                 editor.deleteBackward('word');
-
-                editor.insertNode({
-                  type: 'gist',
-                  children: [
-                    {text: 'asd', randStr: 'foo'},
-                    {text: 'dsa', randStr: 'bar'}
-                  ],
-                  uuid: `${new Date().getTime()}`
-                })
-
-                editor.insertBreak()
-                Transforms.setNodes(
-                  editor,
-                  { type: 'paragraph', uuid: `${new Date().getTime()}`},
-                  { match: n => Editor.isBlock(editor, n)},
-                )
+                Actions.Gist(editor);
               }
 
               // Paragraph
               if (lastWord === 'p') {
                 editor.deleteBackward('character');
-                Transforms.setNodes(
-                  editor,
-                  { type: 'paragraph', uuid: `${new Date().getTime()}`},
-                  { match: n => Editor.isBlock(editor, n)},
-                )
+                Actions.Paragraph(editor);
+              }
+
+              if (lastWord === 'b') {
+                editor.deleteBackward('character');
+                Actions.Bold(editor);
+              }
+
+              if (lastWord === 'i') {
+                editor.deleteBackward('character');
+                Actions.Italic(editor);
+              }
+
+              if (lastWord === 'u') {
+                editor.deleteBackward('character');
+                Actions.Underline(editor);
+              }
+
+              if (lastWord === 'd') {
+                editor.deleteBackward('character');
+                Actions.Deleted(editor);
               }
 
               // headings
@@ -113,11 +109,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ editorValue, editorValu
                 }
 
                 editor.deleteBackward('word');
-                Transforms.setNodes(
-                  editor,
-                  { type: 'heading', level: headingLevel, uuid: `${new Date().getTime()}`},
-                  { match: n => Editor.isBlock(editor, n)},
-                )
+                Actions.Heading(editor, headingLevel);
               }
             }
           }}

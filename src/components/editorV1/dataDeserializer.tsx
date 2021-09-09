@@ -1,6 +1,7 @@
 import React from 'react';
 import Gist from 'react-gist';
 import { Descendant } from 'slate';
+import { CustomElement, CustomElement2 } from '../../react-app-env';
 
 type DataDeserializerProps = {
   data: Descendant[]
@@ -8,12 +9,18 @@ type DataDeserializerProps = {
 
 const DataDeserializer: React.FC<DataDeserializerProps> = ({ data }) => {
 
-  const deSerializeNodes: (element: any) => React.ReactNode = el => {
+  const deSerializeNodes: (element: CustomElement|CustomElement2) => React.ReactNode = el => {
     switch (el.type) {
-      case 'code':
-        return <b key={el.uuid}>code</b>
       case 'paragraph':
         return <p key={el.uuid}>{el.children[0].text}</p>
+      case 'bold':
+        return <p key={el.uuid}><b>{el.children[0].text}</b></p>
+      case 'italic':
+        return <p key={el.uuid}><i>{el.children[0].text}</i></p>
+      case 'underline':
+        return <p key={el.uuid}><u>{el.children[0].text}</u></p>
+      case 'deleted':
+        return <p key={el.uuid}><del>{el.children[0].text}</del></p>
       case 'gist':
 
         if (el.children[0]?.text && el.children[0]?.text) {

@@ -24,11 +24,28 @@ export type HeadingElement = {
   uuid: string
 }
 
-export type CodeElement = {
-  type: 'code'
-  language: string,
-  children: CustomText[],
-  uuid: string,
+export type BoldElement = {
+  type: 'bold',
+  children: CustomText[]
+  uuid: string
+}
+
+export type ItalicElement = {
+  type: 'italic',
+  children: CustomText[]
+  uuid: string
+}
+
+export type UnderlineElement = {
+  type: 'underline',
+  children: CustomText[]
+  uuid: string
+}
+
+export type DeletedElement = {
+  type: 'deleted',
+  children: CustomText[]
+  uuid: string
 }
 
 export type GistElement = {
@@ -39,7 +56,7 @@ export type GistElement = {
   uuid: string
 }
 
-export type CustomElement = ParagraphElement | HeadingElement | CodeElement;
+export type CustomElement = ParagraphElement | HeadingElement | ItalicElement | BoldElement | UnderlineElement | DeletedElement;
 export type FormattedText = { text: string; bold?: true };
 export type CustomText = FormattedText;
 
