@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import * as customCkeditor5 from 'ckeditor5-custom-build/build/ckeditor';
+import Editor from 'ckeditor5-custom-build/build/ckeditor';
 
 type RichTextEditorProps = {
 
@@ -58,8 +58,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = () => {
   const [editorValue, setEditorValue] = useState<string>('<p>Hello from CKEditor 5!</p>')
   return (
     <div>
-      <CKEditor 
-        editor={customCkeditor5}
+      <CKEditor
+        editor={Editor}
         data={editorValue}
         config={editorConfig}
         onReady={editor => {

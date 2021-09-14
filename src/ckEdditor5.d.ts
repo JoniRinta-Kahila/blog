@@ -1,3 +1,4 @@
+declare module 'ckeditor5-custom-build/build/ckeditor';
 declare module '@ckeditor/ckeditor5-react' {
   import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   import Event from '@ckeditor/ckeditor5-utils/src/eventinfo'

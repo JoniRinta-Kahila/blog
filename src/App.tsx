@@ -14,7 +14,7 @@ const App: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Router basename='blog'>
+      <Router>
         <div className={styles.wrapper}>
           <div className={styles.content}>
             <div className={styles.contentHeader}>
