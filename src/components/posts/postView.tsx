@@ -3,16 +3,13 @@ import { IoCalendarSharp } from 'react-icons/io5';
 import { RiFlag2Fill } from 'react-icons/ri';
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import styles from './postView.module.scss';
-import { Descendant } from 'slate';
-import { ExampleData } from './examplePost';
-import DataDeserializer from '../editorV1/dataDeserializer';
 
 type PostViewProps = {
 
 };
 
 const PostView: React.FC<PostViewProps> = () => {
-  const data = JSON.parse(ExampleData) as Descendant[];
+  
   return (
     <article>
       
@@ -26,7 +23,6 @@ const PostView: React.FC<PostViewProps> = () => {
       </div>
 
       {/* ARTICLE CONTENT */}
-      <DataDeserializer data={data} />
 
     </article>
   )

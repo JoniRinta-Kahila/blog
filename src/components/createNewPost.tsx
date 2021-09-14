@@ -1,25 +1,13 @@
-import React, { useState } from "react";
-import { Descendant } from "slate";
-import DataDeserializer from "./editorV1/dataDeserializer";
-import EditorToolbar from "./editorV1/editorToolbar";
+import React from "react";
 import RichTextEditor from "./editorV1/richTextEditor";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.scss';
-import EditorContextProvider from "./editorV1/EditorContextProvider";
 
 interface CreateNewPostProps {
 
 }
 
 const CreateNewPost: React.FC<CreateNewPostProps> = () => {
-
-  const [editorValue, setEditorValue] = useState<Descendant[]>([
-    {
-      type: 'paragraph',
-      children: [{ text: '' }],
-      uuid: `${new Date().getTime()}`
-    }
-  ]);
 
   return (
     <>
@@ -31,16 +19,13 @@ const CreateNewPost: React.FC<CreateNewPostProps> = () => {
           <Tab>Output</Tab>
         </TabList>
         <TabPanel>
-          <EditorContextProvider>
-            <EditorToolbar />
-            <RichTextEditor editorValue={editorValue} editorValueSetter={setEditorValue} />
-          </EditorContextProvider>
+          <RichTextEditor />
         </TabPanel>
         <TabPanel>
-          <DataDeserializer data={editorValue} />
+          <p>Preview coming here</p>
         </TabPanel>
         <TabPanel>
-          <p>{JSON.stringify(editorValue)}</p>
+          <p>output coming here</p>
         </TabPanel>
       </Tabs>
     </div>
