@@ -10,8 +10,6 @@ jobs:
       - name: Install ckeditor5 module 🐣
         run: |
           cd ckeditor5-custom-editor
-          rm -r node_modules
-          rm package-lock.json
           npm install
           npm run build
           cd ..
@@ -25,3 +23,4 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
+          

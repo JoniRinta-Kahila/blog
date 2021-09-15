@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /ckeditor5-custom-editor/node_modules
+/ckeditor5-custom-editor/package-lock.json
 
 # testing
 /coverage
