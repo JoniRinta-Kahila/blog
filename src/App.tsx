@@ -1,14 +1,12 @@
 import React from 'react';
 import styles from './app.module.scss';
 import ManagerMenu from './components/managerComponents/sidebar/managerMenu';
-import PostView from './components/posts/postView';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from 'react-router-dom';
-import CreateNewPost from './components/createNewPost';
+import CreateNewPost from './components/editorV1/createNewPost';
 
 const App: React.FC = () => {
 
@@ -24,14 +22,14 @@ const App: React.FC = () => {
             <Switch>
               {/* /category/datetime/header */}
               <Route exact path='/editor' component={CreateNewPost}/>
-              <Route exact path='/example' component={PostView} />
+              {/* <Route exact path='/example' component={PostView} /> */}
             </Switch>
           </div>
         </div>
         <div className={styles.sidebar}>
           <h2>Page sidebar</h2>
           <ManagerMenu />
-          <Link to='example' >Example post</Link>
+          {/* <Link to='example' >Example post</Link> */}
         </div>
       </Router>
     </div>

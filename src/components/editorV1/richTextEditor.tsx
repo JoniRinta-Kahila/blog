@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
+import { BlogPost } from './createNewPost';
 
 type RichTextEditorProps = {
-
+  setNewPostObj: React.Dispatch<React.SetStateAction<BlogPost>>,
+  newPostObj: BlogPost
 }
 
 const editorConfig = {
@@ -54,13 +56,12 @@ const editorConfig = {
   licenseKey: '',
 }
 
-const RichTextEditor: React.FC<RichTextEditorProps> = () => {
-  const [editorValue, setEditorValue] = useState<string>('<p>Hello from CKEditor 5!</p>')
+const RichTextEditor: React.FC<RichTextEditorProps> = ({ newPostObj, setNewPostObj}) => {
   return (
     <div>
       <CKEditor
         editor={Editor}
-        data={editorValue}
+        data={newPostObj.contentHTML}
         config={editorConfig}
         onReady={editor => {
           console.log( 'Editor is ready to use!', editor );
@@ -73,13 +74,12 @@ const RichTextEditor: React.FC<RichTextEditorProps> = () => {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          setEditorValue(data)
+          setNewPostObj({...newPostObj, contentHTML: data})
         }}
         onError={(event, editor) => {
           // onerror
         }}
       />
-      <div dangerouslySetInnerHTML={{__html: editorValue}} />
     </div>
   )
 }
