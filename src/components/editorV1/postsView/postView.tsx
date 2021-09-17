@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IoCalendarSharp } from 'react-icons/io5';
 import { RiFlag2Fill } from 'react-icons/ri';
 import { AiOutlineShareAlt } from 'react-icons/ai';
@@ -7,6 +7,9 @@ import { BlogPost } from '../createNewPost';
 import TimeAgo from '../../../helper/timeElapsed';
 import ArticleHeader from '../components/articleHeader';
 import ArticleCategory from '../components/articleCategory';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
+
 
 type PostViewProps = {
   blogPost: BlogPost 
@@ -14,6 +17,14 @@ type PostViewProps = {
 
 
 const PostView: React.FC<PostViewProps> = ({ blogPost }) => {
+  useEffect(() => {
+    console.log('Hilight update')
+    document.querySelectorAll('pre code').forEach((el: any) => {
+      el.classList.add(styles.codeblock);
+      hljs.highlightElement(el);
+    })
+  }, [blogPost])
+
   return (
     <article>
 

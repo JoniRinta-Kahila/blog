@@ -31,7 +31,7 @@ const CreateNewPost: React.FC<CreateNewPostProps> = () => {
     inEditor: true,
     editorVersion: '1.0'
   });
-
+  
   return (
     <>
     <div style={{marginRight: '15px'}}>
@@ -53,7 +53,7 @@ const CreateNewPost: React.FC<CreateNewPostProps> = () => {
         </TabPanel>
         <TabPanel>
           {/* POST HTML PREVIEW */}
-          <pre>{newPostObj.contentHTML}</pre>
+          <p>{newPostObj.contentHTML}</p>
         </TabPanel>
       </Tabs>
     </div>
