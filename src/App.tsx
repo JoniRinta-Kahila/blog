@@ -12,7 +12,7 @@ const App: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Router>
+      <Router basename='blog'>
         <div className={styles.wrapper}>
           <div className={styles.content}>
             <div className={styles.contentHeader}>
