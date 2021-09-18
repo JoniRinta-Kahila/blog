@@ -110,30 +110,46 @@
 				toolbar: {
 					items: [
 						'heading',
-						'fontSize',
+						'|',
 						'bold',
 						'italic',
 						'underline',
+						'strikethrough',
+						'|',
+						'fontSize',
+						'fontFamily',
+						'|',
+						'outdent',
+						'indent',
+						'subscript',
+						'superscript',
+						'alignment',
+						'|',
 						'fontColor',
+						'fontBackgroundColor',
+						'highlight',
+						'|',
+						'findAndReplace',
+						'undo',
+						'redo',
+						'-',
+						'sourceEditing',
+						'|',
+						'horizontalLine',
 						'blockQuote',
 						'link',
 						'bulletedList',
 						'numberedList',
 						'|',
-						'imageUpload',
-						'mediaEmbed',
+						'htmlEmbed',
+						'codeBlock',
+						'code',
 						'|',
 						'insertTable',
-						'code',
-						'codeBlock',
-						'htmlEmbed',
-						'|',
-						'outdent',
-						'indent',
-						'|',
-						'undo',
-						'redo'
-					]
+						'imageUpload',
+						'mediaEmbed'
+					],
+					shouldNotGroupWhenFull: true
 				},
 				language: 'en',
 				image: {
@@ -141,14 +157,16 @@
 						'imageTextAlternative',
 						'imageStyle:inline',
 						'imageStyle:block',
-						'imageStyle:side'
+						'imageStyle:side',
+						'linkImage'
 					]
 				},
 				table: {
 					contentToolbar: [
 						'tableColumn',
 						'tableRow',
-						'mergeTableCells'
+						'mergeTableCells',
+						'tableCellProperties'
 					]
 				},
 					licenseKey: '',
@@ -166,7 +184,7 @@
 				.catch( error => {
 					console.error( 'Oops, something went wrong!' );
 					console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
-					console.warn( 'Build id: f69uf7dbfpl4-c36swtuijs8v' );
+					console.warn( 'Build id: hkddqsguctdd-ajymjp1q6e0l' );
 					console.error( error );
 				} );
 		</script>
