@@ -16,27 +16,6 @@ const firebaseConfig = {
 
 let firebaseInstance: FirebaseApp;
 
-// const GetAuthInstance = () => {
-//   if (!firebaseInstance) {
-//     firebaseInstance = initializeApp(firebaseConfig);
-//   }
-//   return getAuth(firebaseInstance);
-// }
-
-// const GetStorageInstance = () => {
-//   if (!firebaseInstance) {
-//     firebaseInstance = initializeApp(firebaseConfig);
-//   }
-//   return getStorage(firebaseInstance);
-// }
-
-// const GetFirestoreInstance = () => {
-//   if (!firebaseInstance) {
-//     firebaseInstance = initializeApp(firebaseConfig);
-//   }
-//   return getFirestore(firebaseInstance);
-// }
-
 const InitializeAppCheck = () => {
   if (!firebaseInstance) {
     firebaseInstance = initializeApp(firebaseConfig);
