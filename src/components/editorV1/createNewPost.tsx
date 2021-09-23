@@ -5,6 +5,8 @@ import 'react-tabs/style/react-tabs.scss';
 import PostView from "./postsView/postView";
 import PostDetailForm from "./components/postDetailForm";
 import EditorActions from "./components/editorActions";
+import outputStyles from './outputStyle.module.scss';
+import './output.css'
 
 interface CreateNewPostProps {
 
@@ -53,7 +55,7 @@ const CreateNewPost: React.FC<CreateNewPostProps> = () => {
         </TabPanel>
         <TabPanel>
           {/* POST HTML PREVIEW */}
-          <p>{newPostObj.contentHTML}</p>
+          <div className={outputStyles.container}>{newPostObj.contentHTML}</div>
         </TabPanel>
       </Tabs>
     </div>

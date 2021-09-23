@@ -2,6 +2,7 @@ import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { BlogPost } from './createNewPost';
+import ImageUploadAdapter from './plugins/imageUploadAdapter';
 
 type RichTextEditorProps = {
   setNewPostObj: React.Dispatch<React.SetStateAction<BlogPost>>,
@@ -10,6 +11,7 @@ type RichTextEditorProps = {
 
 const editorConfig = {
   toolbar: {
+    // plugins: [ImageUploadAdapter],
     items: [
       'heading',
       '|',
@@ -82,6 +84,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ newPostObj, setNewPostO
         config={editorConfig}
         onReady={editor => {
           console.log( 'Editor is ready to use!', editor );
+          editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+            return new ImageUploadAdapter(loader)
+          }
         }}
         onBlur={(event, editor) => {
           // onblur

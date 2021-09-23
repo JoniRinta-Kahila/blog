@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './app.module.scss';
 import ManagerMenu from './components/managerComponents/sidebar/managerMenu';
 import {
@@ -7,9 +7,26 @@ import {
   Route,
 } from 'react-router-dom';
 import CreateNewPost from './components/editorV1/createNewPost';
+import ProtectedRoute from './components/auth/protectedRoute';
+import Login from './components/auth/login';
+
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import FirebaseServices from './firebase/firebaseServices';
 
 const App: React.FC = () => {
 
+  useEffect(() => {
+    const firebase = FirebaseServices.getFirestoreInstance();
+    const q = query(collection(firebase, 'post'), where('published', '==', true))
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        console.log(doc.data())
+      })
+    })
+
+    return () => unsubscribe();
+  })
+  
   return (
     <div className={styles.container}>
       <Router basename='blog'>
@@ -20,16 +37,14 @@ const App: React.FC = () => {
               <h2>console.log('Hello, User!');</h2>
             </div>
             <Switch>
-              {/* /category/datetime/header */}
-              <Route exact path='/editor' component={CreateNewPost}/>
-              {/* <Route exact path='/example' component={PostView} /> */}
+              <Route exact path='/login' component={Login} />
+              <ProtectedRoute exact path='/editor' component={CreateNewPost} />
             </Switch>
           </div>
         </div>
         <div className={styles.sidebar}>
           <h2>Page sidebar</h2>
           <ManagerMenu />
-          {/* <Link to='example' >Example post</Link> */}
         </div>
       </Router>
     </div>
@@ -37,4 +52,3 @@ const App: React.FC = () => {
 }
 
 export default App
-
