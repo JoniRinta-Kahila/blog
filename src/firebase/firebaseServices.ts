@@ -3,6 +3,7 @@ import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from 'firebase/firestore';
+import IsLocalhost from '../helper/isLocalhost';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCGGqVYPqKow-6QoV6c9MbpDeqjPb1OQnk",
@@ -15,6 +16,7 @@ const firebaseConfig = {
 };
 
 let firebaseInstance: FirebaseApp;
+const debug = IsLocalhost();
 
 const InitializeAppCheck = () => {
   if (!firebaseInstance) {
@@ -42,10 +44,33 @@ const GetStorageInstance = () => {
   return getStorage(appCheckInstance.app);
 }
 
+const InitializeAppDebug = () => {
+  if (!firebaseInstance) {
+    firebaseInstance = initializeApp(firebaseConfig);
+  }
+
+  return firebaseInstance;
+}
+
+const GetAuthDebugInstance = () => {
+  const appCheckInstance = InitializeAppDebug();
+  return getAuth(appCheckInstance);
+}
+
+const GetFirestoreDebugInstance = () => {
+  const appCheckInstance = InitializeAppDebug();
+  return getFirestore(appCheckInstance);
+}
+
+const GetStorageDebugInstance = () => {
+  const appCheckInstance = InitializeAppDebug();
+  return getStorage(appCheckInstance);
+}
+
 const FirebaseServices = {
-  getAuthInstance: GetAuthInstance,
-  getFirestoreInstance: GetFirestoreInstance,
-  getStorageInstance: GetStorageInstance,
+  getAuthInstance: debug ? GetAuthDebugInstance : GetAuthInstance,
+  getFirestoreInstance: debug ? GetFirestoreDebugInstance : GetFirestoreInstance,
+  getStorageInstance: debug ? GetStorageDebugInstance : GetStorageInstance,
 }
 
 export default FirebaseServices;

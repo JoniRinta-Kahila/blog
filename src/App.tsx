@@ -9,7 +9,6 @@ import {
 import CreateNewPost from './components/editorV1/createNewPost';
 import ProtectedRoute from './components/auth/protectedRoute';
 import Login from './components/auth/login';
-
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import FirebaseServices from './firebase/firebaseServices';
 
@@ -22,7 +21,7 @@ const App: React.FC = () => {
       querySnapshot.forEach(doc => {
         console.log(doc.data())
       })
-    })
+    });
 
     return () => unsubscribe();
   })
@@ -51,4 +50,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default App;

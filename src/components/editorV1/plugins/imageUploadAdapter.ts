@@ -13,7 +13,7 @@ interface IFileLoader {
 
 class ImageUploadAdapter {
   public loader;
-  private storage
+  private storage;
 
   constructor(props: IFileLoader) {
     //ckEditor5 file loader instance

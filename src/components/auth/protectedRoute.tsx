@@ -1,6 +1,6 @@
 import { onAuthStateChanged, User } from '@firebase/auth';
-import React, { useEffect, useState } from 'react'
-import { Route, RouteProps } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Route, RouteProps } from 'react-router-dom';
 import Login from './login';
 import { Squares } from "react-activity";
 import FirebaseServices from '../../firebase/firebaseServices';
