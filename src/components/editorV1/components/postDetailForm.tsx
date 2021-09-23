@@ -21,8 +21,8 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
           style={{marginLeft: '8px', marginRight: '8px'}}
           type='text'
           name="header"
-          value={newPostObj.header}
-          onChange={(event) => setNewPostObj({ ...newPostObj, header: event.target.value })}
+          value={newPostObj.caption}
+          onChange={(event) => setNewPostObj({ ...newPostObj, caption: event.target.value })}
         />
       </label>
       <label>
@@ -37,8 +37,8 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
       </label>
       <label>
         Release date:
-        <input style={{marginLeft: '8px', marginRight: '8px'}} type='text' value={new Date(newPostObj.releaseDate).toISOString()} name="category" disabled/>
-        <input type='button' value='date update' onClick={() => setNewPostObj({ ...newPostObj, releaseDate: new Date().getTime()}) } />
+        <input style={{marginLeft: '8px', marginRight: '8px'}} type='text' value={new Date(newPostObj.time).toISOString()} name="category" disabled/>
+        <input type='button' value='date update' onClick={() => setNewPostObj({ ...newPostObj, time: new Date().getTime()}) } />
       </label>
     </div>
   )

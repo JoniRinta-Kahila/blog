@@ -11,25 +11,28 @@ interface CreateNewPostProps {
 }
 
 export type BlogPost = {
-  header: string,
+  caption: string,
   category: string,
   tags: string[]
   contentHTML: string,
-  releaseDate: number,
-  inEditor: boolean;
-  editorVersion: string;
+  time: number,
+  inEditor: boolean,
+  editorVersion: string,
+  published: boolean,
+  userId?: string,
 }
 
 const CreateNewPost: React.FC<CreateNewPostProps> = () => {
 
   const [newPostObj, setNewPostObj] = useState<BlogPost>({
-    header: '',
+    caption: '',
     category: '',
     tags: [],
     contentHTML: '<p>Hello from ckEditor5!</p>',
-    releaseDate: new Date().getTime(),
+    time: new Date().getTime(),
     inEditor: true,
-    editorVersion: '1.0'
+    editorVersion: '1.0',
+    published: false,
   });
   
   return (
@@ -45,7 +48,7 @@ const CreateNewPost: React.FC<CreateNewPostProps> = () => {
           {/* EDITOR */}
           <PostDetailForm newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
           <RichTextEditor newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
-          <EditorActions />
+          <EditorActions newPost={newPostObj} />
         </TabPanel>
         <TabPanel>
           {/* POST PREVIEW */}
