@@ -38,7 +38,7 @@ const PostView: React.FC<PostViewProps> = ({ blogPost }) => {
       </div>
 
       {/* ARTICLE CONTENT */}
-      <div dangerouslySetInnerHTML={{__html: blogPost.contentHTML}} />
+      <div className='ck-content' dangerouslySetInnerHTML={{__html: blogPost.contentHTML}} />
 
     </article>
   )

@@ -62,7 +62,7 @@ const editorConfig = {
       'imageStyle:inline',
       'imageStyle:block',
       'imageStyle:side'
-    ]
+    ],
   },
   table: {
     contentToolbar: [
