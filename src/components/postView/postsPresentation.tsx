@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStores } from '../../mst/rootStoreContext';
-import ArticleCardWidePostfix from './articleCardWidePostfix';
+import ArticleCardWide from './articleCardWide';
 
 type PostsPresentationProps = {
 
@@ -13,7 +13,7 @@ const PostsPresentation: React.FC<PostsPresentationProps> = () => {
       {
         rootStore.posts.map((x, i) => {
           return(
-            <ArticleCardWidePostfix prefix={i%2 !== 0} key={x.time} blogPost={x}/>
+            <ArticleCardWide prefix={i%2 !== 0} key={x.time} blogPost={x}/>
           )
       })
       }

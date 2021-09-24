@@ -14,6 +14,7 @@ import { RootStore } from './mst';
 import { setupRootStore } from './mst/setup';
 import FirestoreSnapshotProvider from './firebase/context/firestoreSnapshotProvider';
 import PostsPresentation from './components/postView/postsPresentation';
+import PostView from './components/postView/postView';
 
 const App: React.FC = () => {
 
@@ -40,9 +41,10 @@ const App: React.FC = () => {
                   <h2>console.log('Hello, User!');</h2>
                 </div>
                 <Switch>
-                  <Route exact path='/' component={PostsPresentation} />
-                  <Route exact path='/login' component={Login} />
                   <ProtectedRoute exact path='/editor' component={CreateNewPost} />
+                  <Route exact path='/login' component={Login} />
+                  <Route exact path='/' component={PostsPresentation} />
+                  <Route exact path='/posts/:postId' component={PostView} />
                 </Switch>
               </div>
             </div>

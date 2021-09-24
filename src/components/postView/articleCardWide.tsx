@@ -5,14 +5,15 @@ import { Post } from '../../mst';
 import styles from './articleCardWide.module.scss';
 import { BiCalendarCheck } from 'react-icons/bi';
 import { IoMdPricetags } from 'react-icons/io';
+import { GoArrowRight } from 'react-icons/go';
 
-type ArticleCardWidePostfixProps = {
+type ArticleCardWideProps = {
   blogPost: Post,
   prefix?: boolean,
   key?: string|number,
 }
 
-const ArticleCardWidePostfix: React.FC<ArticleCardWidePostfixProps> = ({ blogPost, prefix = false }) => {
+const ArticleCardWide: React.FC<ArticleCardWideProps> = ({ blogPost, prefix = false }) => {
 const [imgUrl, setImgUrl] = useState<string>('');
 const [p, setP] = useState<string>('');
 
@@ -66,11 +67,12 @@ const [p, setP] = useState<string>('');
       <h2>Sub-header comes here</h2>
       <p>{p}</p>
       <p className={styles.readMore}>
-        <Link to=''>Read More</Link>
+        <Link to={`posts/${blogPost.time}`}>Read More<GoArrowRight/></Link>
+        
       </p>
     </div>
   </div>
   )
 }
 
-export default ArticleCardWidePostfix
+export default ArticleCardWide
