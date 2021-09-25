@@ -20,7 +20,8 @@ const Login: React.FC<LoginProps> = ({ user }) => {
 
   useEffect(() => {
     console.log(user)
-  }, [user])
+  }, [user]);
+  
   return user
   ? (
     <div>
