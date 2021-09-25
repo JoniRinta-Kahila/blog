@@ -1,15 +1,13 @@
-import { signInWithEmailAndPassword, User } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
+import { useFirebaseAuthContext } from '../../firebase/context/firebaseAuthContextProvider';
 import FirebaseServices from '../../firebase/firebaseServices';
 
-type LoginProps = {
-  user: User|null
-}
-
-const Login: React.FC<LoginProps> = ({ user }) => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+  const user = useFirebaseAuthContext();
   const auth = FirebaseServices.getAuthInstance();
 
   const handleLogin = () => {

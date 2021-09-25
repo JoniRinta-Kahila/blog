@@ -2,16 +2,15 @@ import React from "react";
 import ManagerMenuItems from './managerMenuItems';
 import { Link } from 'react-router-dom';
 import FirebaseServices from "../../../firebase/firebaseServices";
+import { useFirebaseAuthContext } from '../../../firebase/context/firebaseAuthContextProvider';
 
-interface ManagerMenuProps {
+const ManagerMenu : React.FC = () => {
+  const user = useFirebaseAuthContext();
+  const authInstance = FirebaseServices.getAuthInstance();
+  const handleLogout = () => authInstance.signOut();
 
-};
+  if (!user) return null;
 
-const ManagerMenu : React.FC<ManagerMenuProps> = () => {
-  const auth = FirebaseServices.getAuthInstance();
-  const handleLogout = () => {
-    auth.signOut();
-  }
   return (
     <div style={{ marginBottom: '15px', paddingBottom: '15px'}}>
       <h3 style={{color: 'magenta'}}>Manager tools</h3>

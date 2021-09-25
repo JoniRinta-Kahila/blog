@@ -1,20 +1,17 @@
-import { User } from '@firebase/auth';
 import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import Login from './login';
 import { Squares } from "react-activity";
-interface ProtectedRouteProps extends RouteProps {
-  user: User|null,
-}
+import { useFirebaseAuthContext } from '../../firebase/context/firebaseAuthContextProvider';
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({user, ...rest}) => {
-
+const ProtectedRoute: React.FC<RouteProps> = ({...rest}) => {
+  const user = useFirebaseAuthContext()
   if (user === undefined) {
     return <Squares />
   }
 
   return !user
-    ? <Login user={user} />
+    ? <Login />
     : <Route {...rest} />
 }
 
