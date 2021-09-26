@@ -1,18 +1,26 @@
 import React from 'react';
-import { Route, RouteProps } from 'react-router-dom';
-import Login from './login';
+import { Route, RouteProps, } from 'react-router-dom';
+// import Login from './login';
 import { Squares } from "react-activity";
 import { useFirebaseAuthContext } from '../../firebase/context/firebaseAuthContextProvider';
 
-const ProtectedRoute: React.FC<RouteProps> = ({...rest}) => {
-  const user = useFirebaseAuthContext()
+interface ProtectedRouteProps extends RouteProps {
+  currentPath: string;
+  // nextComponent: React.FC
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({currentPath, ...rest}) => {
+
+  const user = useFirebaseAuthContext();
+
   if (user === undefined) {
     return <Squares />
   }
 
-  return !user
-    ? <Login />
-    : <Route {...rest} />
+  if (user === null) return null;
+
+  return <Route {...rest} />
+
 }
 
 export default ProtectedRoute;
