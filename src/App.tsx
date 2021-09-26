@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './app.module.scss';
-import ManagerMenu from './components/managerComponents/sidebar/managerMenu';
 import {
-  // BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
@@ -17,7 +15,8 @@ import PostsPresentation from './components/postView/postsPresentation';
 import PostView from './components/postView/postView';
 import FirebaseAuthContextProvider from './firebase/context/firebaseAuthContextProvider';
 import LoginPopupContextProvider from './components/auth/loginPopupContextProvider';
-import SidebarLinks from './components/sidebar/sidebarLinks';
+import Header from './components/basic/header';
+import Sidebar from './components/sidebar/sidebar';
 
 const App: React.FC = () => {
 
@@ -32,15 +31,6 @@ const App: React.FC = () => {
     return <h1>ROOT-TREE ERROR</h1>
   }
 
-  const parsePath = (): string => {
-    const pathname = window.location.pathname;
-    if (pathname.startsWith('/blog/')) {
-      const res = pathname.replace('/blog/', '')
-      return res
-    }
-    return pathname
-  }
-
   return (
     <RootStoreProvider value={rootTree}>
       <FirebaseAuthContextProvider>
@@ -49,24 +39,16 @@ const App: React.FC = () => {
             <div className={styles.container}>
                 <div className={styles.wrapper}>
                   <div className={styles.content}>
-                    <div className={styles.contentHeader}>
-                      <h1>My Blog</h1>
-                      <h2>console.log('Hello, User!');</h2>
-                    </div>
-                      <p>{parsePath()}</p>
+                    <Header />
                     <Switch>
-                      <ProtectedRoute exact currentPath={parsePath()} path='/editor' component={CreateNewPost} />
+                      <ProtectedRoute exact path='/editor' component={CreateNewPost} />
                       <Route exact path='/login' component={Login} />
                       <Route exact path='/' component={PostsPresentation} />
                       <Route exact path='/posts/:postId' component={PostView} />
                     </Switch>
                   </div>
                 </div>
-                <div className={styles.sidebar}>
-                  <h2>Page sidebar</h2>
-                  <SidebarLinks />
-                  <ManagerMenu />
-                </div>
+              <Sidebar />
             </div>
           </FirestoreSnapshotProvider>
         </LoginPopupContextProvider>
