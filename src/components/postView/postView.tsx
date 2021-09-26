@@ -10,11 +10,7 @@ import ArticleCategory from '../editorV1/components/articleCategory';
 import TimeAgo from '../../helper/timeElapsed';
 import styles from './postView.module.scss';
 
-type PostViewProps = {
-
-}
-
-const PostView: React.FC<PostViewProps> = () => {
+const PostView: React.FC = () => {
   const [currentPost, setCurrentPost] = useState<Post>();
   const params = useParams<any>();
   const postId = params.postId;
@@ -30,11 +26,12 @@ const PostView: React.FC<PostViewProps> = () => {
     }
 
     if (!found) {
-      // redirect to NotFound
+      // TODO: redirect to 404
     }
   }, [postId, rootStore.posts]);
 
   if (!currentPost) {
+    // TODO: redirect to 404
     return <h1>Post not found =(</h1>
   }
 

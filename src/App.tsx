@@ -17,6 +17,7 @@ import FirebaseAuthContextProvider from './firebase/context/firebaseAuthContextP
 import LoginPopupContextProvider from './components/auth/loginPopupContextProvider';
 import Header from './components/basic/header';
 import Sidebar from './components/sidebar/sidebar';
+import { Squares } from "react-activity";
 
 const App: React.FC = () => {
 
@@ -28,7 +29,7 @@ const App: React.FC = () => {
   }, []);
 
   if (!rootTree) {
-    return <h1>ROOT-TREE ERROR</h1>
+    return <Squares />
   }
 
   return (
