@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, RouteProps, } from 'react-router-dom';
 import { Squares } from "react-activity";
-import { useFirebaseAuthContext } from '../../firebase/context/firebaseAuthContextProvider';
+import { useFirebaseAuthContext } from '../../firebase/context/firebaseUserContextProvider';
 
 interface ProtectedRouteProps extends RouteProps {
 

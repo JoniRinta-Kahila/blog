@@ -2,7 +2,7 @@ import React from "react";
 import ManagerMenuItems from './managerMenuItems';
 import { Link } from 'react-router-dom';
 import FirebaseServices from "../../../firebase/firebaseServices";
-import { useFirebaseAuthContext } from '../../../firebase/context/firebaseAuthContextProvider';
+import { useFirebaseAuthContext } from '../../../firebase/context/firebaseUserContextProvider';
 
 const ManagerMenu : React.FC = () => {
   const user = useFirebaseAuthContext();

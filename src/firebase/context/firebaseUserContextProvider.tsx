@@ -2,24 +2,34 @@ import { onAuthStateChanged, User } from '@firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import FirebaseServices from '../firebaseServices';
 
-const FirebaseAuthContext = createContext<User|null>(null);
+interface UserContext {
+  user: User|null,
+  isAdmin: boolean,
+}
+
+const FirebaseUserContext = createContext<UserContext>({user: null, isAdmin: false});
 
 export const useFirebaseAuthContext = () => {
-  const context = useContext(FirebaseAuthContext);
+  const context = useContext(FirebaseUserContext);
   
   if (context === undefined)
     throw new Error('Call "useFirebaseAuthContext" only inside a FirebaseAuthContextProvider');
-  
+    
   return context;
 }
 
-const FirebaseAuthContextProvider: React.FC = ({children}) => {
+const FirebaseUserContextProvider: React.FC = ({children}) => {
   const authInstance = FirebaseServices.getAuthInstance();
   const [user, setUser] = useState<User|null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authInstance, user => {
       if (user) {
+        user.getIdTokenResult()
+          .then(idTokenResult => {
+            setIsAdmin(!!idTokenResult.claims.admin);
+          })
         setUser(user);
       } else {
         setUser(null);
@@ -29,10 +39,10 @@ const FirebaseAuthContextProvider: React.FC = ({children}) => {
   });
 
   return (
-    <FirebaseAuthContext.Provider value={user}>
+    <FirebaseUserContext.Provider value={{user: user, isAdmin: isAdmin}}>
       { children }
-    </FirebaseAuthContext.Provider>
+    </FirebaseUserContext.Provider>
   )
 }
 
-export default FirebaseAuthContextProvider;
+export default FirebaseUserContextProvider;

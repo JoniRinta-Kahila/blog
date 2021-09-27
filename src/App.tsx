@@ -13,7 +13,7 @@ import { setupRootStore } from './mst/setup';
 import FirestoreSnapshotProvider from './firebase/context/firestoreSnapshotProvider';
 import PostsPresentation from './components/postView/postsPresentation';
 import PostView from './components/postView/postView';
-import FirebaseAuthContextProvider from './firebase/context/firebaseAuthContextProvider';
+import FirebaseUserContextProvider from './firebase/context/firebaseUserContextProvider';
 import LoginPopupContextProvider from './components/auth/loginPopupContextProvider';
 import Header from './components/basic/header';
 import Sidebar from './components/sidebar/sidebar';
@@ -34,7 +34,7 @@ const App: React.FC = () => {
 
   return (
     <RootStoreProvider value={rootTree}>
-      <FirebaseAuthContextProvider>
+      <FirebaseUserContextProvider>
         <LoginPopupContextProvider>
           <FirestoreSnapshotProvider>
             <div className={styles.container}>
@@ -53,7 +53,7 @@ const App: React.FC = () => {
             </div>
           </FirestoreSnapshotProvider>
         </LoginPopupContextProvider>
-      </FirebaseAuthContextProvider>
+      </FirebaseUserContextProvider>
     </RootStoreProvider>
   )
 }

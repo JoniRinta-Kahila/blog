@@ -6,10 +6,6 @@ import PostView from "./postsView/postView";
 import PostDetailForm from "./components/postDetailForm";
 import EditorActions from "./components/editorActions";
 
-interface CreateNewPostProps {
-
-}
-
 export type BlogPost = {
   caption: string,
   category: string,
@@ -22,7 +18,7 @@ export type BlogPost = {
   userId?: string,
 }
 
-const CreateNewPost: React.FC<CreateNewPostProps> = () => {
+const CreateNewPost: React.FC = () => {
 
   const [newPostObj, setNewPostObj] = useState<BlogPost>({
     caption: '',

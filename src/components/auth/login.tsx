@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useFirebaseAuthContext } from '../../firebase/context/firebaseAuthContextProvider';
 import FirebaseServices from '../../firebase/firebaseServices';
 import styles from './login.module.scss';
 import { AiOutlineUser } from 'react-icons/ai';
 import { BiKey } from 'react-icons/bi';
 import { useLoginPopupStateContext } from './loginPopupContextProvider';
-import { Redirect } from 'react-router';
 
 interface LoginProps {
-  goTo?: string|undefined,
 }
 
-const Login: React.FC<LoginProps> = ({ goTo }) => {
+const Login: React.FC<LoginProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-
-  const user = useFirebaseAuthContext();
   const auth = FirebaseServices.getAuthInstance();
 
   const setPopupState = useLoginPopupStateContext().setState;
@@ -25,7 +20,6 @@ const Login: React.FC<LoginProps> = ({ goTo }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         setPopupState(false);
-        if (goTo) return <Redirect to={goTo} />
       })
       .catch(error => {
         console.log(error.code, error.message);
@@ -33,13 +27,7 @@ const Login: React.FC<LoginProps> = ({ goTo }) => {
       })
   }
   
-  return user
-  ? (
-    <div>
-      Logged in
-    </div>
-  )
-  : (
+  return (
     <div className={styles.container}>
 
       <div className={styles.loginForm}>
