@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route, RouteProps, } from 'react-router-dom';
+import { Redirect, Route, RouteProps, } from 'react-router-dom';
 import { Squares } from "react-activity";
-import { useFirebaseAuthContext } from '../../firebase/context/firebaseUserContextProvider';
+import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 
 interface ProtectedRouteProps extends RouteProps {
 
@@ -9,13 +9,13 @@ interface ProtectedRouteProps extends RouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ ...rest}) => {
 
-  const user = useFirebaseAuthContext();
+  const user = useFirebaseUserContext();
 
   if (user === undefined) {
     return <Squares />
   }
 
-  if (user === null) return null;
+  if (user === null) return <Redirect to='' />;
 
   return <Route {...rest} />
 

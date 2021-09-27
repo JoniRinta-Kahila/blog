@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useFirebaseAuthContext } from '../../firebase/context/firebaseUserContextProvider';
+import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 import FirebaseServices from '../../firebase/firebaseServices';
 import { useLoginPopupStateContext } from '../auth/loginPopupContextProvider';
 import { SidebarLinksData } from './sidebarLinksData';
@@ -10,7 +10,7 @@ type SidebarLinksProps = {
 }
 
 const SidebarLinks: React.FC<SidebarLinksProps> = () => {
-  const user = useFirebaseAuthContext();
+  const user = useFirebaseUserContext();
   const auth = FirebaseServices.getAuthInstance();
   const { setState } = useLoginPopupStateContext();
   return (

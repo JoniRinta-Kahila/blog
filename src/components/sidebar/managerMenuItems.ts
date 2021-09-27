@@ -1,25 +1,29 @@
 interface IManagerMenuItem {
     name: string
     to: string
+    requireAdmin: boolean
     key: number
 }
 
 const ManagerMenuItems: IManagerMenuItem[] = [
   {
-    name: 'Editor',
-    to: '/editor',
+    name: 'Dashboard',
+    to: '/manage',
+    requireAdmin: true,
     key: 1,
   },
   {
-    name: 'All Posts',
-    to: '',
+    name: 'Editor',
+    to: '/manage/editor',
+    requireAdmin: true,
     key: 2,
-  }, 
-  {
-    name: 'Account',
-    to: '',
-    key: 3,
   },
+  {
+    name: 'Sign out',
+    to: '',
+    requireAdmin: false,
+    key: 3,
+  }
 ];
 
 export default ManagerMenuItems;

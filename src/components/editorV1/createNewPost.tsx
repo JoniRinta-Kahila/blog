@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import RichTextEditor from "./richTextEditor";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.scss';
+
 import PostView from "./postsView/postView";
 import PostDetailForm from "./components/postDetailForm";
 import EditorActions from "./components/editorActions";
+import { useFirebaseUserContext } from "../../firebase/context/firebaseUserContextProvider";
+import { Redirect } from "react-router-dom";
 
 export type BlogPost = {
   caption: string,
@@ -19,7 +21,7 @@ export type BlogPost = {
 }
 
 const CreateNewPost: React.FC = () => {
-
+  const { isAdmin } = useFirebaseUserContext();
   const [newPostObj, setNewPostObj] = useState<BlogPost>({
     caption: '',
     category: '',
@@ -31,8 +33,11 @@ const CreateNewPost: React.FC = () => {
     published: false,
   });
   
+  if (!isAdmin) {
+    return <Redirect to='' />
+  }
+
   return (
-    <>
     <div style={{marginRight: '15px'}}>
       <Tabs>
         <TabList>
@@ -56,7 +61,6 @@ const CreateNewPost: React.FC = () => {
         </TabPanel>
       </Tabs>
     </div>
-    </>
   );
 }
 

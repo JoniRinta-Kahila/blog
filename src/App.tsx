@@ -18,6 +18,7 @@ import LoginPopupContextProvider from './components/auth/loginPopupContextProvid
 import Header from './components/basic/header';
 import Sidebar from './components/sidebar/sidebar';
 import { Squares } from "react-activity";
+import Dashboard from './components/managerComponents/dashboard';
 
 const App: React.FC = () => {
 
@@ -42,7 +43,8 @@ const App: React.FC = () => {
                   <div className={styles.content}>
                     <Header />
                     <Switch>
-                      <ProtectedRoute exact path='/editor' component={CreateNewPost} />
+                      <ProtectedRoute exact path='/manage' component={Dashboard} />
+                      <ProtectedRoute exact path='/manage/editor' component={CreateNewPost} />
                       <Route exact path='/login' component={Login} />
                       <Route exact path='/' component={PostsPresentation} />
                       <Route exact path='/posts/:postId' component={PostView} />

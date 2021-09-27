@@ -7,6 +7,7 @@ import { Basename } from './appProperties';
 import './fonts/mukta/Mukta-ExtraBold.ttf';
 import 'reactjs-popup/dist/index.css';
 import "react-activity/dist/Dots.css";
+import 'react-tabs/style/react-tabs.scss';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -9,7 +9,7 @@ interface UserContext {
 
 const FirebaseUserContext = createContext<UserContext>({user: null, isAdmin: false});
 
-export const useFirebaseAuthContext = () => {
+export const useFirebaseUserContext = () => {
   const context = useContext(FirebaseUserContext);
   
   if (context === undefined)
