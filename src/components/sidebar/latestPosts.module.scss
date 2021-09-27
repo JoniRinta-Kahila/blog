@@ -1,0 +1,27 @@
+.container {
+  h3 {
+    color: azure;
+    text-shadow: 2px 2px #444444;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+  span {
+    display: flex;
+    flex-direction: row;
+    padding-right: 5px;
+    color: orangered;
+  }
+  a {
+    text-decoration: none;
+    color: azure;
+    font-weight: 700;
+    padding-left: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+      color: #fff;
+      padding-left: 13px;
+    }
+  }
+}

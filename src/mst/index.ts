@@ -15,6 +15,10 @@ export const PostModel = t.model('Post', {
   userId: t.string,
 });
 
+const onlyUnique = (value:any, index:number, self:any) => {
+  return self.indexOf(value) === index;
+}
+
 export const RootStoreModel = t
   .model('Root', {
     posts: t.array(PostModel),
@@ -22,6 +26,20 @@ export const RootStoreModel = t
   .actions(self => ({
     setPosts(data: Post[]) {
       self.posts.replace(data);
+    },
+    getLatestNPost(n: number) {
+      const sorted = self.posts.sort((a,b) => a.time - b.time);
+      return sorted.slice(0, sorted.length < n ? sorted.length : n);
+    },
+    getArrOfAllPostTags() {
+      const tagsArrs = self.posts.map(x => x.tags);
+      const mergedAndFiltered = tagsArrs.flat(1).filter(onlyUnique);
+      return mergedAndFiltered;
+    },
+    getArrOfAllPostCategories() {
+      const categoriesArr = self.posts.map(x => x.category);
+      const categoriesFiltered = categoriesArr.filter(onlyUnique);
+      return categoriesFiltered;
     }
   }));
 
