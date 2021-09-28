@@ -1,1 +1,1 @@
-export const Basename = 'blog/index';
+export const Basename = '';
