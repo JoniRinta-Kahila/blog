@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, } from 'react-router-dom';
-// import { Basename } from './appProperties';
 import './fonts/mukta/Mukta-ExtraBold.ttf';
 import 'reactjs-popup/dist/index.css';
 import "react-activity/dist/Dots.css";
