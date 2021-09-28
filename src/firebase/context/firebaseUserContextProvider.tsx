@@ -33,6 +33,7 @@ const FirebaseUserContextProvider: React.FC = ({children}) => {
         setUser(user);
       } else {
         setUser(null);
+        setIsAdmin(false);
       }
     });
     return () => unsubscribe();

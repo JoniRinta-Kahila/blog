@@ -1,9 +1,6 @@
 .container {
-  // display: flex;
-  // flex-direction: column;
-  vertical-align: middle;
-  
-  bottom: 0;
+  position: absolute;
+  bottom: 25px;
   h3 {
     color: azure;
     text-shadow: 2px 2px #444444;
@@ -14,7 +11,7 @@
     display: flex;
     flex-direction: row;
     padding-right: 5px;
-    color: orangered;
+    color: coral;
   }
   a {
     text-decoration: none;
