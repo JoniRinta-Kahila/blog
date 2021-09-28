@@ -31,7 +31,10 @@ const [p, setP] = useState<string>('');
     const paraElArr = Array.from(paraEls).map(x => x);
     
     const paragraph = paraElArr[1];
-    const url = imageElArr[0].src;
+    let url: string = '';
+    if (imageElArr.length) {
+      url = imageElArr[0]?.src ?? '';
+    }
 
     setP(paragraph.textContent ?? '')
     setImgUrl(url);

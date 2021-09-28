@@ -22,10 +22,12 @@ const onlyUnique = (value:any, index:number, self:any) => {
 export const RootStoreModel = t
   .model('Root', {
     posts: t.array(PostModel),
+    unpublishedPosts: t.array(PostModel),
   })
   .actions(self => ({
     setPosts(data: Post[]) {
-      self.posts.replace(data);
+      self.unpublishedPosts.replace(data.filter(x => x.published === false))
+      self.posts.replace(data.filter(x => x.published === true));
     },
     getLatestNPost(n: number) {
       const sorted = self.posts.sort((a,b) => a.time - b.time);
@@ -40,6 +42,12 @@ export const RootStoreModel = t
       const categoriesArr = self.posts.map(x => x.category);
       const categoriesFiltered = categoriesArr.filter(onlyUnique);
       return categoriesFiltered;
+    },
+    getAllPublishedPosts() {
+      return self.posts.filter(x => x.published);
+    },
+    getAllUnpublishedPosts() {
+      return self.posts.filter(x => !x.published);
     }
   }));
 
