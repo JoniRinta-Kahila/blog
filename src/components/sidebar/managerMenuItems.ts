@@ -13,16 +13,10 @@ const ManagerMenuItems: IManagerMenuItem[] = [
     key: 1,
   },
   {
-    name: 'Editor',
-    to: '/manage/editor',
+    name: 'Create new post',
+    to: 'manage/create',
     requireAdmin: true,
     key: 2,
-  },
-  {
-    name: 'Sign out',
-    to: '',
-    requireAdmin: false,
-    key: 3,
   }
 ];
 
