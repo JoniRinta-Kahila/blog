@@ -28,6 +28,10 @@ const ManagerMenu: React.FC = () => {
     }
   }
 
+  if (!isAdmin && !user) {
+    return null;
+  }
+
   return (
     <div className={styles.container}>
       <h3>Management</h3>

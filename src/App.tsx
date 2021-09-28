@@ -43,11 +43,11 @@ const App: React.FC = () => {
                   <div className={styles.content}>
                     <Header />
                     <Switch>
+                      <Route exact path='/' component={PostsPresentation} />
+                      <Route exact path='/login' component={Login} />
+                      <Route exact path='/posts/:postId' component={PostView} />
                       <ProtectedRoute exact path='/manage' component={Dashboard} />
                       <ProtectedRoute exact path='/manage/editor' component={CreateNewPost} />
-                      <Route exact path='/login' component={Login} />
-                      <Route exact path='/' component={PostsPresentation} />
-                      <Route exact path='/posts/:postId' component={PostView} />
                     </Switch>
                   </div>
                 </div>
