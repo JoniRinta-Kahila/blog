@@ -14,13 +14,13 @@ type ListOfLatestPostsProps = {
  * @returns React.Fc
  */
 const ListOfLatestPosts: React.FC<ListOfLatestPostsProps> = observer(({ maxItems = 5 }) => {
-  const { getLatestNPost } = useStores();
-  const latestPost = getLatestNPost(maxItems);
+  const { latestFivePost } = useStores();
+
   return (  
     <div className={styles.container}>
       <h3>Latest posts</h3>
       {
-        latestPost.map(x => {
+        latestFivePost.map(x => {
           return (
             <span key={x.time}>
               <b>|</b>

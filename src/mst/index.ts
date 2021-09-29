@@ -25,14 +25,15 @@ export const RootStoreModel = t
     posts: t.array(PostModel),
     unpublishedPosts: t.array(PostModel),
   })
+  .views(self => ({
+    get latestFivePost() {
+      return self.posts.slice(0,4);
+    }
+  }))
   .actions(self => ({
     setPosts(data: Post[]) {
       self.unpublishedPosts.replace(data.filter(x => x.published === false))
       self.posts.replace(data.filter(x => x.published === true));
-    },
-    getLatestNPost(n: number) {
-      const sorted = self.posts.sort((a,b) => a.time - b.time);
-      return sorted.slice(0, sorted.length < n ? sorted.length : n);
     },
     getArrOfAllPostTags() {
       const tagsArrs = self.posts.map(x => x.tags);
@@ -44,12 +45,12 @@ export const RootStoreModel = t
       const categoriesFiltered = categoriesArr.filter(onlyUnique);
       return categoriesFiltered;
     },
-    getAllPublishedPosts() {
-      return self.posts.filter(x => x.published);
-    },
-    getAllUnpublishedPosts() {
-      return self.posts.filter(x => !x.published);
-    }
+    // getAllPublishedPosts() {
+    //   return self.posts.filter(x => x.published);
+    // },
+    // getAllUnpublishedPosts() {
+    //   return self.posts.filter(x => !x.published);
+    // }
   }));
 
 export interface Post extends Instance<typeof PostModel> { };
