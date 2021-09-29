@@ -2,6 +2,7 @@ import React from 'react';
 import { useStores } from '../../mst/rootStoreContext';
 import { Link } from 'react-router-dom';
 import styles from './latestPosts.module.scss';
+import { observer } from 'mobx-react-lite';
 
 type ListOfLatestPostsProps = {
   maxItems?: number,
@@ -12,7 +13,7 @@ type ListOfLatestPostsProps = {
  * @param maxItems Max length of visible posts captions, default = 5. 
  * @returns React.Fc
  */
-const ListOfLatestPosts: React.FC<ListOfLatestPostsProps> = ({ maxItems = 5 }) => {
+const ListOfLatestPosts: React.FC<ListOfLatestPostsProps> = observer(({ maxItems = 5 }) => {
   const { getLatestNPost } = useStores();
   const latestPost = getLatestNPost(maxItems);
   return (  
@@ -30,6 +31,6 @@ const ListOfLatestPosts: React.FC<ListOfLatestPostsProps> = ({ maxItems = 5 }) =
       }
     </div>
   )
-}
+})
 
 export default ListOfLatestPosts;

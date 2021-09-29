@@ -1,12 +1,13 @@
 import React from 'react'
 import { useStores } from '../../mst/rootStoreContext';
 import ArticleCardWide from './articleCardWide';
+import { observer } from 'mobx-react-lite';
 
 type PostsPresentationProps = {
 
 }
 
-const PostsPresentation: React.FC<PostsPresentationProps> = () => {
+const PostsPresentation: React.FC<PostsPresentationProps> = observer(() => {
   const rootStore = useStores();
   return (
     <div>
@@ -19,6 +20,6 @@ const PostsPresentation: React.FC<PostsPresentationProps> = () => {
       }
     </div>
   )
-}
+})
 
 export default PostsPresentation

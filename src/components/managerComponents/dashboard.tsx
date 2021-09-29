@@ -7,12 +7,13 @@ import TimeAgo from '../../helper/timeElapsed';
 import FirebaseServices from '../../firebase/firebaseServices';
 import { doc, updateDoc } from "firebase/firestore";
 import { Squares } from "react-activity";
+import { observer } from 'mobx-react-lite';
 
 type DashboardProps = {
 
 }
 
-const Dashboard: React.FC<DashboardProps> = () => {
+const Dashboard: React.FC<DashboardProps> = observer(() => {
   const { isAdmin } = useFirebaseUserContext();
   const { unpublishedPosts, posts } = useStores();
   const firestore = FirebaseServices.getFirestoreInstance();
@@ -102,6 +103,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       </div>
   </div>
   )
-}
+})
 
 export default Dashboard;

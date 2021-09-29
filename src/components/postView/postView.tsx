@@ -9,8 +9,9 @@ import { AiOutlineShareAlt } from 'react-icons/ai';
 import ArticleCategory from '../editorV1/components/articleCategory';
 import TimeAgo from '../../helper/timeElapsed';
 import styles from './postView.module.scss';
+import { observer } from 'mobx-react-lite';
 
-const PostView: React.FC = () => {
+const PostView: React.FC = observer(() => {
   const [currentPost, setCurrentPost] = useState<Post>();
   const params = useParams<any>();
   const postId = params.postId;
@@ -52,6 +53,6 @@ const PostView: React.FC = () => {
 
     </article>
   )
-}
+})
 
 export default PostView;
