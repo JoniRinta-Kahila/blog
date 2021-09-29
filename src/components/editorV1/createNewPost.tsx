@@ -8,10 +8,15 @@ import { useFirebaseUserContext } from "../../firebase/context/firebaseUserConte
 import { Redirect } from "react-router-dom";
 import { IEditorItem } from "./types/editorItem";
 import { EditorDefaults } from "./configs/editorDefaults";
+import { Squares } from "react-activity";
 
 const CreateNewPost: React.FC = () => {
   const { isAdmin } = useFirebaseUserContext();
   const [newPostObj, setNewPostObj] = useState<IEditorItem>(EditorDefaults);
+  
+  if (isAdmin === undefined) {
+    return <Squares />
+  }
   
   if (!isAdmin) {
     return <Redirect to='' />
