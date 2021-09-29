@@ -17,14 +17,14 @@ class ImageUploadAdapter {
 
   constructor(props: IFileLoader) {
     //ckEditor5 file loader instance
-    this.loader = props
+    this.loader = props;
     this.storage = FirebaseServices.getStorageInstance();
-  }
+  };
 
   upload() {
     return this.loader.file
     .then((file: File) => {
-      const storageRef = ref(this.storage, `images/${file.name}`)
+      const storageRef = ref(this.storage, `images/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
       return new Promise((resolve, reject) => {
         
@@ -38,7 +38,7 @@ class ImageUploadAdapter {
             case 'running':
               console.log('Upload is running');
               break;
-          }
+          };
         },
         error => {
           switch (error.code) {
@@ -54,7 +54,7 @@ class ImageUploadAdapter {
             default:
               reject('Unknown error occurred');
               break;
-          }
+          };
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref)
@@ -62,18 +62,18 @@ class ImageUploadAdapter {
               console.log('Upload ready!', downloadUrl)
               resolve({
                 default: downloadUrl
-              })
-            })
+              });
+            });
         });
 
-      })
-    })
+      });
+    });
 
-  }
+  };
 
   abort() {
     console.log('AABBOOORRT!!!')
-  }
-}
+  };
+};
 
 export default ImageUploadAdapter;

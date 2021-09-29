@@ -1,78 +1,13 @@
 import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
-import { BlogPost } from './createNewPost';
 import ImageUploadAdapter from './plugins/imageUploadAdapter';
+import { IEditorItem } from './types/editorItem';
+import { EditorConfig } from './configs/editorConfig';
 
 type RichTextEditorProps = {
-  setNewPostObj: React.Dispatch<React.SetStateAction<BlogPost>>,
-  newPostObj: BlogPost
-}
-
-const editorConfig = {
-  toolbar: {
-    // plugins: [ImageUploadAdapter],
-    items: [
-      'heading',
-      '|',
-      'bold',
-      'italic',
-      'underline',
-      'strikethrough',
-      '|',
-      'fontSize',
-      'fontFamily',
-      '|',
-      'outdent',
-      'indent',
-      'subscript',
-      'superscript',
-      'alignment',
-      '|',
-      'fontColor',
-      'fontBackgroundColor',
-      'highlight',
-      '|',
-      'findAndReplace',
-      'undo',
-      'redo',
-      '-',
-      'sourceEditing',
-      '|',
-      'horizontalLine',
-      'blockQuote',
-      'link',
-      'bulletedList',
-      'numberedList',
-      '|',
-      'htmlEmbed',
-      'codeBlock',
-      'code',
-      '|',
-      'insertTable',
-      'imageUpload',
-      'mediaEmbed'
-    ],
-    shouldNotGroupWhenFull: true,
-  },
-  language: 'en',
-  image: {
-    toolbar: [
-      'imageTextAlternative',
-      'imageStyle:inline',
-      'imageStyle:block',
-      'imageStyle:side'
-    ],
-  },
-  table: {
-    contentToolbar: [
-      'tableColumn',
-      'tableRow',
-      'mergeTableCells',
-      'tableCellProperties',
-    ]
-  },
-  licenseKey: '',
+  setNewPostObj: React.Dispatch<React.SetStateAction<IEditorItem>>,
+  newPostObj: IEditorItem
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ newPostObj, setNewPostObj}) => {
@@ -81,7 +16,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ newPostObj, setNewPostO
       <CKEditor
         editor={Editor}
         data={newPostObj.contentHTML}
-        config={editorConfig}
+        config={EditorConfig}
         onReady={editor => {
           console.log( 'Editor is ready to use!', editor );
           editor.plugins.get('FileRepository').createUploadAdapter = loader => {
@@ -106,4 +41,4 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ newPostObj, setNewPostO
   )
 }
 
-export default RichTextEditor
+export default RichTextEditor;

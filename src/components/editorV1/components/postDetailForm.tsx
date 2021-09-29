@@ -1,24 +1,18 @@
-import React from 'react'
-import { BlogPost } from '../createNewPost'
+import React from 'react';
+import { IEditorItem } from '../types/editorItem';
+import styles from './postDetailForm.module.scss';
 
 type PostDetailFormProps = {
-  newPostObj: BlogPost,
-  setNewPostObj: React.Dispatch<React.SetStateAction<BlogPost>>,
+  newPostObj: IEditorItem,
+  setNewPostObj: React.Dispatch<React.SetStateAction<IEditorItem>>,
 }
 
 const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostObj }) => {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'start',
-      minHeight: '32px'
-    }}>
+    <div className={styles.container}>
       <label>
         Header:
         <input
-          style={{marginLeft: '8px', marginRight: '8px'}}
           type='text'
           name="header"
           value={newPostObj.caption}
@@ -28,20 +22,14 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
       <label>
         Category:
         <input
-          style={{marginLeft: '8px', marginRight: '8px'}}
           type='text'
           name="category"
           value={newPostObj.category}
           onChange={(event) => setNewPostObj({ ...newPostObj, category: event.target.value })}
         />
       </label>
-      <label>
-        Release date:
-        <input style={{marginLeft: '8px', marginRight: '8px'}} type='text' value={new Date(newPostObj.time).toISOString()} name="category" disabled/>
-        <input type='button' value='date update' onClick={() => setNewPostObj({ ...newPostObj, time: new Date().getTime()}) } />
-      </label>
     </div>
-  )
-}
+  );
+};
 
-export default PostDetailForm
+export default PostDetailForm;

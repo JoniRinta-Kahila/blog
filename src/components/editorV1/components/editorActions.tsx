@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import FirebaseServices from '../../../firebase/firebaseServices';
-import { BlogPost } from '../createNewPost';
 import { collection, addDoc } from "firebase/firestore"; 
+import { IEditorItem } from '../types/editorItem';
+import styles from './editorActions.module.scss';
 
 type EditorActionsProps = {
-  newPost: BlogPost,
-}
+  newPost: IEditorItem,
+};
 
 const EditorActions: React.FC<EditorActionsProps> = ({ newPost }) => {
+  // TODO add activity indicator
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [inProgress, setInProgress] = useState<boolean>(false);
 
@@ -58,54 +60,26 @@ const EditorActions: React.FC<EditorActionsProps> = ({ newPost }) => {
       console.error('Rejected', err)
     })
     .finally(() => setInProgress(false));
-  }
+  };
 
   return (
-    <div style={{
-      borderTop:'none',
-      padding:'10px',
-      borderRadius: '2px'
-    }}>
-      <div style={{
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'end',
-        alignItems: 'center'
-      }}>
+    <div className={styles.container}>
+      <div className={styles.actions}>
         <button
-          onClick={() => {
-            handle(false);
-          }}
-          style={{
-            marginRight:'10px',
-            maxWidth: '50%',
-            width: '100px',
-            background: 'rgb(247,242,25)',
-            color: '#000',
-            border: '1px solid grey',
-            cursor: 'pointer',
-            fontWeight: 700,
-            borderRadius: '3px'
-          }}
-        >Save</button>
+          onClick={() => handle(false)}
+          className={styles.btnSave}
+        >
+          Save
+        </button>
         <button
-          onClick={() => {
-            handle(true);
-          }}
-          style={{
-            maxWidth: '50%',
-            width: '100px',
-            background: 'rgb(103,193,41)',
-            color: '#fff',
-            border: '1px solid grey',
-            cursor: 'pointer',
-            fontWeight: 700,
-            borderRadius: '3px'
-          }}
-        >Publish</button>
+          onClick={() => handle(true)}
+          className={styles.btnPublish}
+        >
+          Publish
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditorActions
+export default EditorActions;

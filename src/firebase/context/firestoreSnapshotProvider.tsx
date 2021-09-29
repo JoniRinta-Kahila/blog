@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import FirebaseServices from '../firebaseServices';
 import { useStores } from '../../mst/rootStoreContext';
-import { BlogPost } from '../../components/editorV1/createNewPost';
 import { useFirebaseUserContext } from './firebaseUserContextProvider';
+import { Post } from '../../mst';
 
 const FirestoreSnapshotProvider: React.FC = ({children}) => {
   const rootStore = useStores();
@@ -21,7 +21,7 @@ const FirestoreSnapshotProvider: React.FC = ({children}) => {
       const data = querySnapshot.docs.map(x => {
         let row = x.data()
         row.id = x.id;
-        return row as BlogPost;
+        return row as Post;
       });
 
       rootStore.setPosts(data as any);

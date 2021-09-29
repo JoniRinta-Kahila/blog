@@ -1,0 +1,33 @@
+.container {
+  border-top: none;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+
+  button {
+    max-width: 50%;
+    width: 100px;
+    border: 1px solid grey;
+    cursor: pointer;
+    font-weight: 700;
+    border-radius: 3px;
+  }
+}
+
+.btnSave{
+  margin: 10px;
+  background: rgb(247,242,25);
+  color: #000;
+}
+
+.btnPublish {
+  margin: 10px 0;
+  background: rgb(103,193,41);
+  color: #fff;
+}
