@@ -17,7 +17,14 @@ const FirestoreSnapshotProvider: React.FC = ({children}) => {
       : query(collection(firebase, 'post'), where('published', '==', true))
 
     const unsubscribe = onSnapshot(qu, (querySnapshot) => {
-      const data = querySnapshot.docs.map(x => x.data() as BlogPost);
+      // const data = querySnapshot.docs.map(x => x.data() as BlogPost);
+
+      const data = querySnapshot.docs.map(x => {
+        let row = x.data()
+        row.id = x.id;
+        return row as BlogPost;
+      });
+
       rootStore.setPosts(data as any);
     });
     return () => unsubscribe();

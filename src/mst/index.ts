@@ -5,6 +5,7 @@ import {
 } from 'mobx-state-tree';
 
 export const PostModel = t.model('Post', {
+  id: t.string,
   caption: t.string,
   category: t.string,
   contentHTML: t.string,

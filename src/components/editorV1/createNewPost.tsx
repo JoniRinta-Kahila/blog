@@ -18,6 +18,7 @@ export type BlogPost = {
   editorVersion: string,
   published: boolean,
   userId?: string,
+  id?: string,
 }
 
 const CreateNewPost: React.FC = () => {
