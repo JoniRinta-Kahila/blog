@@ -1,6 +1,6 @@
-.container {
-  background: rgb(250, 250, 250);
-}
+// .container {
+//   // background: rgb(250, 250, 250);
+// }
 
 .okBall {
   display: flex;
@@ -18,6 +18,15 @@
   }
 }
 
+.notOkBall {
+  display: flex;
+  margin-left: 10px;
+  svg {
+    color: red;
+    font-size: 20px;
+  }
+}
+
 .flexRow {
   display: flex;
   flex-direction: row;
@@ -26,4 +35,14 @@
 
 .progressState, .flexRow {
   height: '50px'
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  button {
+    margin-left: 5px;
+    cursor: pointer;
+  }
 }

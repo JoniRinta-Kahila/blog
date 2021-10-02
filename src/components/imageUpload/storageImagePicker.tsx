@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDropzone, DropzoneProps } from 'react-dropzone';
 import Album, { AlbumProps, IImageSource } from '../album/album';
 import styles from './storageImagePicker.module.scss';
@@ -17,10 +17,6 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
 
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [progressState, setProgressState] = useState<string|null>(null);
-
-  useEffect(() => {
-    console.log(progressState);
-  })
 
   const updloadImage = async (file: File) => {
     const md5 = await FileToMD5Hash(file);
@@ -67,12 +63,16 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
     });
   };
 
+  const [dragOver, setDragOver] = useState<boolean>(false);
   const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
     noClick: true,
     noKeyboard: true,
     maxFiles: 1,
-    accept: 'image/jped, image/png, image/jpg',
+    accept: ['image/jpeg', 'image/png', 'image/jpg'],
     onDrop: async (file, event) => updloadImage(file[0]),
+    onDragOver: () => setDragOver(true),
+    onDragLeave: () => setDragOver(false),
+    
   });
 
   const IconEl = () => {
@@ -112,7 +112,7 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
   }
   
   return (
-    <fieldset className={styles.container}>
+    <fieldset style={{background: dragOver ? 'green' : 'rgb(250, 250, 250)'}} className={styles.container}>
       {legend ? <legend>{legend}</legend> : null}
       <Album 
         storageAlbumOpenState={storageAlbumOpenState}
@@ -125,29 +125,34 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
       />
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
+
+        <div className={styles.progressState}>
+          {
+            progressState === 'running'
+              ? <div style={{display: 'flex', flexDirection:'row', width: '100%', alignItems: 'center'}}>
+                  <div style={{
+                    lineHeight: '50px',
+                    borderBottom: '3px solid green',
+                    width: `${uploadProgress}%`,
+                    marginRight: '5px',
+                  }}/>
+                <p>{uploadProgress}%</p>
+              </div>
+              : <ProgressStateElement />
+          }
+        </div>
+
         <div className={styles.buttons}>
           <button type="button" onClick={open}>
-            Add new image
+            Local image
           </button>
           <button onClick={() => setStorageAlbumOpenState(true)}>
-            Select storage image
+            Storage image
           </button>
         </div>
-      </div>
-      <div className={styles.progressState}>
-        {
-          progressState === 'running'
-            ? <div style={{display: 'flex', flexDirection:'row', width: '100%', alignItems: 'center'}}>
-                <div style={{
-                  lineHeight: '50px',
-                  borderBottom: '3px solid green',
-                  width: `${uploadProgress}%`,
-                  marginRight: '5px',
-                }}/>
-              <p>{uploadProgress}%</p>
-            </div>
-            : <ProgressStateElement />
-        }
+
+
+
       </div>
     </fieldset>
   )
