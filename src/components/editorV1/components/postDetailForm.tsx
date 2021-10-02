@@ -17,7 +17,7 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
       <Album 
         isOpen={storageAlbumOpenState}
         setIsOpen={setStorageAlbumOpenState}
-        onImageClick={(event) => console.log(event.src)}
+        onImageClick={(event) => setNewPostObj({ ...newPostObj, displayImage: event.src })}
       />
       <div className={styles.form}>
         <div className={styles.column}>
@@ -56,13 +56,13 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
               type='text'
               name="category"
               value={newPostObj.category}
-              onChange={(event) => setNewPostObj({ ...newPostObj, category: event.target.value })}
+              onChange={(event) => setNewPostObj({ ...newPostObj, tags: event.target.value.split(' ') as any })}
             />
           </label>
         </div>
         <div className={styles.column}>
           <fieldset>
-            <legend>Display image <BiErrorAlt /> <IoCheckmarkOutline /></legend>
+            <legend>Display image {newPostObj.displayImage ? <IoCheckmarkOutline color='green' /> : <BiErrorAlt color='red' />}</legend>
             <button onClick={() => setStorageAlbumOpenState(true)}>
               Storage image
             </button>

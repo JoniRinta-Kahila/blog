@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FirebaseServices from '../../firebase/firebaseServices';
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import styles from './album.module.scss';
+import { async } from '@firebase/util';
 
 type AlbumProps = {
   onImageClick?: ((image: IImageSource) => void)|null;
@@ -22,27 +23,31 @@ interface IImageSource {
  */
 const Album: React.FC<AlbumProps> = ({onImageClick = null, setIsOpen, isOpen}) => {
   const [imagesUrls, setImagesUrls] = useState<IImageSource[]|undefined>();
-  
-  useEffect(() => {
-    if (!imagesUrls) { console.log('Fetching Firebase storage image data.') }
-    const getUrls = async () => {
-      const storageInstance = FirebaseServices.getStorageInstance();
-      const listRef = ref(storageInstance, 'images');
-      const listResult = await listAll(listRef);
-      const itemsRefs = listResult.items;
-  
-      let urls: IImageSource[] = [];
-      for (const item of itemsRefs) {
-        const url = await getDownloadURL(item);
-        urls.push({src: url, alt: item.name})
-      }
-  
-      setImagesUrls(urls);
+
+  const getUrls = async () => {
+    const storageInstance = FirebaseServices.getStorageInstance();
+    const listRef = ref(storageInstance, 'images');
+    const listResult = await listAll(listRef);
+    const itemsRefs = listResult.items;
+
+    let urls: IImageSource[] = [];
+    for (const item of itemsRefs) {
+      const url = await getDownloadURL(item);
+      urls.push({src: url, alt: item.name})
     }
 
-    getUrls();
+    setImagesUrls(urls);
+  }
 
-  });
+  useEffect(() => {
+    (async () => {
+      try {
+        await getUrls();
+      } catch (error: any) {
+        console.error('album: getUrls()',error.message);
+      }
+    })();
+  }, []);
 
   return isOpen ? (
     <div className={styles.container}>
