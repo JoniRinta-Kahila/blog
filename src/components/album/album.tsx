@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import FirebaseServices from '../../firebase/firebaseServices';
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import styles from './album.module.scss';
-import { async } from '@firebase/util';
 
 type AlbumProps = {
   onImageClick?: ((image: IImageSource) => void)|null;
