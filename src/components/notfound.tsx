@@ -23,7 +23,7 @@ const Notfound: React.FC<NotfoundProps> = () => {
       </audio>
       <h1 style={{fontSize: '80px', textAlign:'center', margin: '0'}}>OOPS... 404</h1>
       <p style={{textAlign: 'center'}}>the page you tried to retrieve does not exist</p>
-      <h2 style={{textAlign: 'center'}}>But still, you found something <button onClick={() => {
+      <h2 style={{textAlign: 'center'}}>But still, you found something <button className={styles.shakeButton} onClick={() => {
         playAudio();
         setAppear(true);
       }}><h2>Cool</h2></button></h2>
