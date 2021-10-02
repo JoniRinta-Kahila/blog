@@ -6,9 +6,10 @@ import styles from './editorActions.module.scss';
 
 type EditorActionsProps = {
   newPost: IEditorItem,
+  previewOnly?: boolean,
 };
 
-const EditorActions: React.FC<EditorActionsProps> = ({ newPost }) => {
+const EditorActions: React.FC<EditorActionsProps> = ({ newPost, previewOnly = false }) => {
   // TODO add activity indicator
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [inProgress, setInProgress] = useState<boolean>(false);
@@ -62,24 +63,42 @@ const EditorActions: React.FC<EditorActionsProps> = ({ newPost }) => {
     .finally(() => setInProgress(false));
   };
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.actions}>
-        <button
-          onClick={() => handle(false)}
-          className={styles.btnSave}
-        >
-          Save
-        </button>
-        <button
-          onClick={() => handle(true)}
-          className={styles.btnPublish}
-        >
-          Publish
-        </button>
+  return !previewOnly
+    ? (
+      <div className={styles.container}>
+        <div className={styles.actions}>
+          <button
+            onClick={() => handle(false)}
+            className={styles.btnSave}
+          >
+            Save
+          </button>
+          <button
+            onClick={() => handle(true)}
+            className={styles.btnPublish}
+          >
+            Publish
+          </button>
+        </div>
       </div>
-    </div>
-  );
+      )
+    : (
+      <div className={styles.container}>
+        <div className={styles.actions}>
+          <button
+            onClick={() => {
+              const previewTab = document.querySelector('#react-tabs-2') as HTMLElement;
+              if (previewTab) {
+                previewTab.click()
+              }
+            }}
+            className={styles.btnSave}
+          >
+            Preview
+          </button>
+        </div>
+      </div>
+    )
 };
 
 export default EditorActions;

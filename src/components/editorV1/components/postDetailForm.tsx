@@ -32,6 +32,15 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
               onChange={(event) => setNewPostObj({ ...newPostObj, subHeader: event.target.value })}
             />
           </label>
+          <label>
+            Caption:
+            <textarea
+              style={{float: 'right', marginLeft: '8px', marginRight: '8px', width: '177px'}}
+              rows={2}
+              value={newPostObj.caption}
+              onChange={(event) => setNewPostObj({ ...newPostObj, caption: event.target.value})}
+            />
+          </label>
         </div>
         <div className={styles.column}>
           <label>
