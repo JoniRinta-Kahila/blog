@@ -10,6 +10,7 @@ $color_grey_dark: #a2a2a2;
 .container {
   display: flex;
   flex-direction: column;
+  min-height: 215px;
   margin: 1rem auto;
   box-shadow: 0 3px 7px -1px rgba(#000, .1);
   margin-bottom: 1.6%;

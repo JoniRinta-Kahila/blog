@@ -7,13 +7,20 @@ import FirebaseServices from '../../firebase/firebaseServices';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
+import { PostDetailFormProps } from '../editorV1/components/postDetailForm';
 
-interface StorageImagePickerProps extends DropzoneProps, AlbumProps {
+interface StorageImagePickerProps extends DropzoneProps, AlbumProps, PostDetailFormProps {
   legend?: string,
   onImageClick?: (event: IImageSource) => void,
 };
 
-const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onImageClick, setStorageAlbumOpenState, storageAlbumOpenState}) => {
+const StorageImagePicker: React.FC<StorageImagePickerProps> = ({
+  legend = '', onImageClick,
+  setStorageAlbumOpenState,
+  storageAlbumOpenState,
+  newPostObj,
+  setNewPostObj,
+}) => {
 
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [progressState, setProgressState] = useState<string|null>(null);
@@ -55,6 +62,7 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
             console.log('Upload ready!', downloadUrl);
             setProgressState('ready');
             setUploadProgress(0);
+            setNewPostObj({ ...newPostObj, displayImage: downloadUrl })
             resolve({
               default: downloadUrl,
             });

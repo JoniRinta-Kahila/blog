@@ -14,7 +14,6 @@ type ArticleCardWideProps = {
 }
 
 const ArticleCardWide: React.FC<ArticleCardWideProps> = ({ blogPost, prefix = false }) => {
-const [imgUrl, setImgUrl] = useState<string>('');
 const [p, setP] = useState<string>('');
 
   useMemo(() => {
@@ -22,22 +21,13 @@ const [p, setP] = useState<string>('');
     const el = document.createElement('html');
     el.innerHTML = content;
 
-    // parse imagelinks
-    const postImageEls = el.getElementsByTagName('img');
-    const imageElArr = Array.from(postImageEls).map(x => x);
-
     // parse paragraphs
     const paraEls = el.getElementsByTagName('p');
     const paraElArr = Array.from(paraEls).map(x => x);
     
     const paragraph = paraElArr[1];
-    let url: string = '';
-    if (imageElArr.length) {
-      url = imageElArr[0]?.src ?? '';
-    }
 
     setP(paragraph.textContent ?? '')
-    setImgUrl(url);
   }, [blogPost])
 
   const timeAgo = TimeAgo(blogPost.time);
@@ -46,7 +36,7 @@ const [p, setP] = useState<string>('');
     <div className={`${styles.container} ${prefix ? styles.alt : null} `}>
     <div className={styles.meta}>
       <div className={styles.photo} style={{
-        backgroundImage: `url(${imgUrl})`}}></div>
+        backgroundImage: `url(${blogPost.displayImage ?? ''})`}}></div>
       <ul className={styles.details}>
           <li className={styles.date}><BiCalendarCheck/> {timeAgo}</li>
         <li>
@@ -67,7 +57,7 @@ const [p, setP] = useState<string>('');
     </div>
     <div className={styles.description}>
       <h1>{blogPost.header}</h1>
-      <h2>Sub-header comes here</h2>
+      <h2>{blogPost.subHeader}</h2>
       <p>{p}</p>
       <p className={styles.readMore}>
         <Link to={`posts/${blogPost.time}`}>Read More<GoArrowRight/></Link>

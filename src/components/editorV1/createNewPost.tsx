@@ -9,6 +9,8 @@ import { Redirect } from "react-router-dom";
 import { IEditorItem } from "./types/editorItem";
 import { EditorDefaults } from "./configs/editorDefaults";
 import { Squares } from "react-activity";
+import ArticleCardWide from "../postView/articleCardWide";
+import { Post } from "../../mst";
 
 const CreateNewPost: React.FC = () => {
   const { isAdmin } = useFirebaseUserContext();
@@ -37,8 +39,12 @@ const CreateNewPost: React.FC = () => {
         </TabPanel>
         <TabPanel>
           {/* POST PREVIEW */}
+          <h3>Details</h3>
           <PostDetailForm newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
+          <h3>PostView</h3>
           <PostView blogPost={newPostObj} />
+          <h3>Preview view</h3>
+          <ArticleCardWide blogPost={newPostObj as Post}/>
         </TabPanel>
         <TabPanel>
           {/* POST HTML PREVIEW */}

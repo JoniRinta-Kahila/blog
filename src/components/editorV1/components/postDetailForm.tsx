@@ -3,7 +3,7 @@ import { IEditorItem } from '../types/editorItem';
 import styles from './postDetailForm.module.scss';
 import StorageImagePicker from '../../imageUpload/storageImagePicker';
 
-type PostDetailFormProps = {
+export interface PostDetailFormProps {
   newPostObj: IEditorItem,
   setNewPostObj: React.Dispatch<React.SetStateAction<IEditorItem>>,
 }
@@ -57,6 +57,8 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
           legend='Display image'
           setStorageAlbumOpenState={setStorageAlbumOpenState}
           storageAlbumOpenState={storageAlbumOpenState}
+          newPostObj={newPostObj}
+          setNewPostObj={setNewPostObj}
         />
       </div>
     </div>
