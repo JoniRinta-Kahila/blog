@@ -48,7 +48,7 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
             <input
               type='text'
               name="category"
-              value={newPostObj.category}
+              value={newPostObj.tags.join(' ')}
               onChange={(event) => setNewPostObj({ ...newPostObj, tags: event.target.value.split(' ') as any })}
             />
           </label>

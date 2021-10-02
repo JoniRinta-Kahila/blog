@@ -32,12 +32,12 @@ const CreateNewPost: React.FC = () => {
         </TabList>
         <TabPanel>
           {/* EDITOR */}
-          <PostDetailForm newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
           <RichTextEditor newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
           <EditorActions newPost={newPostObj} />
         </TabPanel>
         <TabPanel>
           {/* POST PREVIEW */}
+          <PostDetailForm newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
           <PostView blogPost={newPostObj} />
         </TabPanel>
         <TabPanel>
