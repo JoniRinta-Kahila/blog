@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import TimeAgo from '../../helper/timeElapsed';
 import { Post } from '../../mst';
@@ -14,22 +14,6 @@ type ArticleCardWideProps = {
 }
 
 const ArticleCardWide: React.FC<ArticleCardWideProps> = ({ blogPost, prefix = false }) => {
-const [p, setP] = useState<string>('');
-
-  useMemo(() => {
-    const content = blogPost.contentHTML;
-    const el = document.createElement('html');
-    el.innerHTML = content;
-
-    // parse paragraphs
-    const paraEls = el.getElementsByTagName('p');
-    const paraElArr = Array.from(paraEls).map(x => x);
-    
-    const paragraph = paraElArr[1];
-
-    setP(paragraph.textContent ?? '')
-  }, [blogPost])
-
   const timeAgo = TimeAgo(blogPost.time);
 
   return (
@@ -58,7 +42,7 @@ const [p, setP] = useState<string>('');
     <div className={styles.description}>
       <h1>{blogPost.header}</h1>
       <h2>{blogPost.subHeader}</h2>
-      <p>{p}</p>
+      <p>{blogPost.caption}</p>
       <p className={styles.readMore}>
         <Link to={`posts/${blogPost.time}`}>Read More<GoArrowRight/></Link>
         
