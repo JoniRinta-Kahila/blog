@@ -19,6 +19,7 @@ import Header from './components/basic/header';
 import Sidebar from './components/sidebar/sidebar';
 import { Squares } from "react-activity";
 import Dashboard from './components/managerComponents/dashboard';
+import Notfound from './components/notfound';
 
 const App: React.FC = () => {
 
@@ -49,6 +50,7 @@ const App: React.FC = () => {
                       <ProtectedRoute exact path='/manage' component={Dashboard} />
                       <ProtectedRoute exact path='/manage/create' component={CreateNewPost} />
                       <ProtectedRoute exact path='/manage/edit/:postId' component={CreateNewPost} />
+                      <Route component={Notfound} />
                     </Switch>
                   </div>
                 </div>
