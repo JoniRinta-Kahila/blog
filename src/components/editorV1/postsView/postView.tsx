@@ -26,7 +26,7 @@ const PostView: React.FC<PostViewProps> = ({ blogPost }) => {
   return (
     <article>
       {/* ARTICLE HEADER */}
-      <ArticleHeader str={blogPost.caption} inEditor={blogPost.inEditor} />
+      <ArticleHeader str={blogPost.header} inEditor={blogPost.inEditor} />
       {/* ARTICLE INFO-BAR */}
       <div className={styles.infoBar}>
         <span style={{}}><IoCalendarSharp/><p style={{marginLeft: '6px', fontSize: '13px'}}>{TimeAgo(blogPost.time)}</p></span>

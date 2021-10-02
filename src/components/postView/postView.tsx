@@ -40,7 +40,7 @@ const PostView: React.FC = observer(() => {
     <article>
 
       {/* ARTICLE HEADER */}
-      <ArticleHeader str={currentPost.caption} inEditor={false} />
+      <ArticleHeader str={currentPost.header} inEditor={false} />
       {/* ARTICLE INFO-BAR */}
       <div className={styles.infoBar}>
         <span style={{}}><IoCalendarSharp/><p style={{marginLeft: '6px', fontSize: '13px'}}>{TimeAgo(currentPost.time)}</p></span>

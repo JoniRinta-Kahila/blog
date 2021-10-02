@@ -6,7 +6,9 @@ import {
 
 export const PostModel = t.model('Post', {
   id: t.string,
-  caption: t.string,
+  header: t.string,
+  subHeader: t.string,
+  displayImage: t.string,
   category: t.string,
   contentHTML: t.string,
   editorVersion: t.string,

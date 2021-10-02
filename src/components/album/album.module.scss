@@ -1,0 +1,94 @@
+$gallery-maxWidth: 800px;
+
+.container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(126, 80, 80, 0.212);
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  z-index: 100;
+  width: 100vw;
+}
+
+.container .gallery {
+  padding: 20px;
+  background: #fff;
+  line-height: 0;
+  -webkit-column-count: 4; /* split it into 5 columns */
+  -webkit-column-gap: 5px; /* give it a 5px gap between columns */
+  -moz-column-count: 4;
+  -moz-column-gap: 5px;
+  column-count: 4;
+  column-gap: 5px;
+  max-height: 100vh;
+  max-width: $gallery-maxWidth;
+
+  img {
+    object-fit: cover;
+    width: 100% !important;
+    height: auto !important;
+    margin: 5px; /* to match column gap */
+    cursor: pointer;
+  }
+}
+
+.topBar {
+  display: flex;
+  flex-direction: row;
+  background: blue;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  max-width: $gallery-maxWidth;
+  height: 40px;
+  align-items: center;
+  h3 {
+    padding: 15px;
+    color: azure;
+    width: 100%;
+  }
+  button {
+    background-color: orangered;
+    border-radius: 5px;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .gallery {
+   -moz-column-count: 4;
+   -webkit-column-count: 4;
+   column-count: 4;
+  }
+}
+
+@media (max-width: 1000px) {
+  #gallery {
+   -moz-column-count: 3;
+   -webkit-column-count: 3;
+   column-count: 3;
+  }
+}
+
+@media (max-width: 800px) {
+  #gallery {
+   -moz-column-count: 2;
+   -webkit-column-count: 2;
+   column-count: 2;
+  }
+}
+
+@media (max-width: 400px) {
+  #gallery {
+   -moz-column-count: 1;
+   -webkit-column-count: 1;
+   column-count: 1;
+  }
+}

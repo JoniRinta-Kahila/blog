@@ -15,7 +15,7 @@ const EditorActions: React.FC<EditorActionsProps> = ({ newPost }) => {
 
   const handle = async (publish: boolean) => {
 
-    if (!newPost.caption) {
+    if (!newPost.header) {
       alert('Caption missing!');
       return;
     }
@@ -47,7 +47,7 @@ const EditorActions: React.FC<EditorActionsProps> = ({ newPost }) => {
     setInProgress(true);
 
     await addDoc(collection(firestore, 'post'), {
-      caption: newPost.caption,
+      caption: newPost.header,
       category: newPost.category,
       contentHTML: newPost.contentHTML,
       editorVersion: newPost.editorVersion,

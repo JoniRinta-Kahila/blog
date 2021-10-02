@@ -1,7 +1,9 @@
 import { IEditorItem } from "../types/editorItem";
 
 export const EditorDefaults: IEditorItem = {
-  caption: '',
+  header: '',
+  subHeader: '',
+  displayImage: '',
   category: '',
   tags: [] as any,
   contentHTML: '<p>Hello from ckEditor5!</p>',

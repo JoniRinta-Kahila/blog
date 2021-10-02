@@ -66,7 +66,7 @@ const [p, setP] = useState<string>('');
       </ul>
     </div>
     <div className={styles.description}>
-      <h1>{blogPost.caption}</h1>
+      <h1>{blogPost.header}</h1>
       <h2>Sub-header comes here</h2>
       <p>{p}</p>
       <p className={styles.readMore}>

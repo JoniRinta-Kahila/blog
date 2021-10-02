@@ -59,7 +59,7 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
               unpublishedPosts.map(x => {
                 return (
                   <li key={x.id} style={{display:'flex', flexDirection:'row', alignItems:'center', height:'20px', marginBottom:'4px'}}>
-                    <p style={{padding:'4px'}}>{x.caption}</p>
+                    <p style={{padding:'4px'}}>{x.header}</p>
                     <p style={{padding:'4px', color:'yellow'}}>Unpublished</p>
                     <p style={{padding:'4px'}}>{TimeAgo(x.time)}</p>
                     <button>Edit</button>
@@ -80,7 +80,7 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
               posts.map(x => {
                 return (
                   <li key={x.id} style={{display:'flex', flexDirection:'row', alignItems:'center', height:'20px', marginBottom:'4px', margin:'5px', borderBottom:'1px dotted black'}}>
-                    <p style={{padding:'4px'}}>{x.caption}</p>
+                    <p style={{padding:'4px'}}>{x.header}</p>
                     <p style={{padding:'4px', color:'greenyellow'}}>Published</p>
                     <p style={{padding:'4px'}}>{TimeAgo(x.time)}</p>
                     <div style={{float:'right'}}>
