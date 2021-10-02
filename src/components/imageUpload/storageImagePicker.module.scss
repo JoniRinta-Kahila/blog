@@ -1,3 +1,29 @@
 .container {
   background: rgb(250, 250, 250);
 }
+
+.okBall {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  background: green;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  border-radius: 30px;
+
+  svg {
+    color: white;
+    font-size: 20px;
+  }
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.progressState, .flexRow {
+  height: '50px'
+}
