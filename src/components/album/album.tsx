@@ -3,13 +3,13 @@ import FirebaseServices from '../../firebase/firebaseServices';
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import styles from './album.module.scss';
 
-type AlbumProps = {
+export interface AlbumProps {
   onImageClick?: ((image: IImageSource) => void)|null;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  isOpen: boolean;
+  setStorageAlbumOpenState: React.Dispatch<React.SetStateAction<boolean>>
+  storageAlbumOpenState: boolean;
 }
 
-interface IImageSource {
+export interface IImageSource {
   src: string
   alt: string
 }
@@ -20,7 +20,7 @@ interface IImageSource {
  * @param isOpen boolean 
  * @returns React.FC<AlbumProps>
  */
-const Album: React.FC<AlbumProps> = ({onImageClick = null, setIsOpen, isOpen}) => {
+const Album: React.FC<AlbumProps> = ({onImageClick = null, setStorageAlbumOpenState: setIsOpen, storageAlbumOpenState: isOpen}) => {
   const [imagesUrls, setImagesUrls] = useState<IImageSource[]|undefined>();
 
   const getUrls = async () => {

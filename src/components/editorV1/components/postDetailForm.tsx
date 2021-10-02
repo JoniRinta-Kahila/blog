@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { IEditorItem } from '../types/editorItem';
 import styles from './postDetailForm.module.scss';
-import { IoCheckmarkOutline } from 'react-icons/io5';
-import { BiErrorAlt } from 'react-icons/bi';
-import Album from '../../album/album';
+import StorageImagePicker from '../../imageUpload/storageImagePicker';
 
 type PostDetailFormProps = {
   newPostObj: IEditorItem,
@@ -14,11 +12,6 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
   const [storageAlbumOpenState, setStorageAlbumOpenState] = useState<boolean>(false);
   return (
     <div className={styles.container}>
-      <Album 
-        isOpen={storageAlbumOpenState}
-        setIsOpen={setStorageAlbumOpenState}
-        onImageClick={(event) => setNewPostObj({ ...newPostObj, displayImage: event.src })}
-      />
       <div className={styles.form}>
         <div className={styles.column}>
           <label>
@@ -60,18 +53,11 @@ const PostDetailForm: React.FC<PostDetailFormProps> = ({ newPostObj, setNewPostO
             />
           </label>
         </div>
-        <div className={styles.column}>
-          <fieldset>
-            <legend>Display image {newPostObj.displayImage ? <IoCheckmarkOutline color='green' /> : <BiErrorAlt color='red' />}</legend>
-            <button onClick={() => setStorageAlbumOpenState(true)}>
-              Storage image
-            </button>
-            <button>
-              New image
-            </button>
-          </fieldset>
-        </div>
-
+        <StorageImagePicker
+          legend='Display image'
+          setStorageAlbumOpenState={setStorageAlbumOpenState}
+          storageAlbumOpenState={storageAlbumOpenState}
+        />
       </div>
     </div>
   );
