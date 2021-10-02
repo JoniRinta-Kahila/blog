@@ -112,20 +112,20 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
   }
   
   return (
-    <fieldset style={{background: dragOver ? 'green' : 'rgb(250, 250, 250)'}} className={styles.container}>
-      {legend ? <legend>{legend}</legend> : null}
-      <Album 
-        storageAlbumOpenState={storageAlbumOpenState}
-        setStorageAlbumOpenState={setStorageAlbumOpenState}
-        onImageClick={(event) => {
-          if (onImageClick) {
-            onImageClick(event);
-          }
-        }}
-      />
-      <div {...getRootProps({className: 'dropzone'})}>
+    <>
+    <Album 
+      storageAlbumOpenState={storageAlbumOpenState}
+      setStorageAlbumOpenState={setStorageAlbumOpenState}
+      onImageClick={(event) => {
+        if (onImageClick) {
+          onImageClick(event);
+        }
+      }}
+    />
+    {/* <div {...getRootProps({className: 'dropzone'})}> */}
+      <fieldset {...getRootProps({className: 'dropzone'})} style={{background: dragOver ? 'green' : 'rgb(250, 250, 250)'}}>
         <input {...getInputProps()} />
-
+        {legend ? <legend>{legend}</legend> : null}
         <div className={styles.progressState}>
           {
             progressState === 'running'
@@ -141,7 +141,6 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
               : <ProgressStateElement />
           }
         </div>
-
         <div className={styles.buttons}>
           <button type="button" onClick={open}>
             Local image
@@ -150,11 +149,9 @@ const StorageImagePicker: React.FC<StorageImagePickerProps> = ({legend = '', onI
             Storage image
           </button>
         </div>
-
-
-
-      </div>
-    </fieldset>
+      </fieldset>
+    {/* </div> */}
+    </>
   )
 }
 
