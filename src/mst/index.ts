@@ -8,6 +8,7 @@ export const PostModel = t.model('Post', {
   id: t.string,
   header: t.string,
   subHeader: t.string,
+  caption: t.string,
   displayImage: t.string,
   category: t.string,
   contentHTML: t.string,
@@ -47,12 +48,6 @@ export const RootStoreModel = t
       const categoriesFiltered = categoriesArr.filter(onlyUnique);
       return categoriesFiltered;
     },
-    // getAllPublishedPosts() {
-    //   return self.posts.filter(x => x.published);
-    // },
-    // getAllUnpublishedPosts() {
-    //   return self.posts.filter(x => !x.published);
-    // }
   }));
 
 export interface Post extends Instance<typeof PostModel> { };

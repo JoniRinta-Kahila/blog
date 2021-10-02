@@ -3,6 +3,7 @@ import { IEditorItem } from "../types/editorItem";
 export const EditorDefaults: IEditorItem = {
   header: '',
   subHeader: '',
+  caption: '',
   displayImage: '',
   category: '',
   tags: [] as any,
