@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {useParams } from "react-router-dom";
 import { Post } from '../../mst';
 import { useStores } from '../../mst/rootStoreContext';
@@ -10,12 +10,21 @@ import ArticleCategory from '../editorV1/components/articleCategory';
 import TimeAgo from '../../helper/timeElapsed';
 import styles from './postView.module.scss';
 import { observer } from 'mobx-react-lite';
+import hljs from 'highlight.js';
 
 const PostView: React.FC = observer(() => {
   const [currentPost, setCurrentPost] = useState<Post>();
   const params = useParams<any>();
   const postId = params.postId;
   const rootStore = useStores();
+
+  useEffect(() => {
+    console.log('Hilight update')
+    document.querySelectorAll('pre code').forEach((el: any) => {
+      el.classList.add(styles.codeblock);
+      hljs.highlightElement(el);
+    })
+  }, [currentPost]);
 
   useMemo(() => {
     let found = false;
