@@ -14,7 +14,7 @@ const ManagerMenuItems: IManagerMenuItem[] = [
   },
   {
     name: 'Create new post',
-    to: 'manage/create',
+    to: '/manage/create',
     requireAdmin: true,
     key: 2,
   }
