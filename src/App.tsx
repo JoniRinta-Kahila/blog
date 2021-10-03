@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import CreateNewPost from './components/editorV1/createNewPost';
+import CreateAndEditPost from './components/editorV1/createAndEditPost';
 import ProtectedRoute from './components/auth/protectedRoute';
 import Login from './components/auth/login';
 import { RootStoreProvider } from './mst/rootStoreContext';
@@ -48,8 +48,8 @@ const App: React.FC = () => {
                       <Route exact path='/login' component={Login} />
                       <Route exact path='/posts/:postId' component={PostView} />
                       <ProtectedRoute exact path='/manage' component={Dashboard} />
-                      <ProtectedRoute exact path='/manage/create' component={CreateNewPost} />
-                      <ProtectedRoute exact path='/manage/edit/:postId' component={CreateNewPost} />
+                      <ProtectedRoute exact path='/manage/create' component={CreateAndEditPost} />
+                      <ProtectedRoute exact path='/manage/edit/:postId' component={CreateAndEditPost} />
                       <Route component={Notfound} />
                     </Switch>
                   </div>

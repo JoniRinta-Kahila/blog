@@ -12,9 +12,9 @@ import { Squares } from "react-activity";
 import ArticleCardWide from "../postView/articleCardWide";
 import { Post } from "../../mst";
 
-const CreateNewPost: React.FC = () => {
+const CreateAndEditPost: React.FC = () => {
   const { isAdmin } = useFirebaseUserContext();
-  const [newPostObj, setNewPostObj] = useState<IEditorItem>(EditorDefaults);
+  const [postObj, setPostObj] = useState<IEditorItem>(EditorDefaults);
   
   if (isAdmin === undefined) {
     return <Squares />
@@ -34,26 +34,26 @@ const CreateNewPost: React.FC = () => {
         </TabList>
         <TabPanel>
           {/* EDITOR */}
-          <RichTextEditor newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
-          <EditorActions previewOnly newPost={newPostObj} />
+          <RichTextEditor newPostObj={postObj} setNewPostObj={setPostObj} />
+          <EditorActions previewOnly newPost={postObj} />
         </TabPanel>
         <TabPanel>
           {/* POST PREVIEW */}
           <h3>Details</h3>
-          <PostDetailForm newPostObj={newPostObj} setNewPostObj={setNewPostObj} />
+          <PostDetailForm newPostObj={postObj} setNewPostObj={setPostObj} />
           <h3>PostView</h3>
-          <PostView blogPost={newPostObj} />
+          <PostView blogPost={postObj} />
           <h3>Preview view</h3>
-          <ArticleCardWide blogPost={newPostObj as Post}/>
-          <EditorActions newPost={newPostObj} />
+          <ArticleCardWide blogPost={postObj as Post}/>
+          <EditorActions newPost={postObj} />
         </TabPanel>
         <TabPanel>
           {/* POST HTML PREVIEW */}
-          <div>{newPostObj.contentHTML}</div>
+          <div>{postObj.contentHTML}</div>
         </TabPanel>
       </Tabs>
     </div>
   );
 }
 
-export default CreateNewPost;
+export default CreateAndEditPost;
