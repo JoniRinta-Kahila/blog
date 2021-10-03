@@ -1,42 +1,106 @@
 import React, { useState } from 'react';
 import FirebaseServices from '../../../firebase/firebaseServices';
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore"; 
 import { IEditorItem } from '../types/editorItem';
 import styles from './editorActions.module.scss';
 
 type EditorActionsProps = {
-  newPost: IEditorItem,
+  postObj: IEditorItem,
   previewOnly?: boolean,
 };
 
-const EditorActions: React.FC<EditorActionsProps> = ({ newPost, previewOnly = false }) => {
+interface IFirebaseActionResult {
+  canResolve: boolean,
+  error?: any,
+}
+
+const addFirebaseDocument = async (data: IEditorItem, publish: boolean): Promise<IFirebaseActionResult> => {
+  const firestore = FirebaseServices.getFirestoreInstance();
+  const auth = FirebaseServices.getAuthInstance();
+  const uid = auth.currentUser?.uid;
+
+  return await addDoc(collection(firestore, 'post'), {
+    header: data.header,
+    subHeader: data.subHeader,
+    caption: data.caption,
+    category: data.category,
+    contentHTML: data.contentHTML,
+    displayImage: data.displayImage,
+    editorVersion: data.editorVersion,
+    tags: data.tags,
+    published: publish,
+    time: new Date().getTime(),
+    userId: uid,
+
+  })
+  .then(() => {
+    return { canResolve: true}
+  })
+  .catch((err) => {
+    return { canResolve: false, error: err}
+  });
+};
+
+const updateFirebaseDocument = async (data: IEditorItem, publish: boolean): Promise<IFirebaseActionResult> => {
+  const firestoreInstance = FirebaseServices.getFirestoreInstance();
+  const docRef = doc(firestoreInstance, 'post', data.id);
+  const auth = FirebaseServices.getAuthInstance();
+  const uid = auth.currentUser?.uid;
+
+  return await updateDoc(docRef, {
+    header: data.header,
+    subHeader: data.subHeader,
+    caption: data.caption,
+    category: data.category,
+    contentHTML: data.contentHTML,
+    displayImage: data.displayImage,
+    editorVersion: data.editorVersion,
+    tags: data.tags,
+    published: publish,
+    time: data.time,
+    userId: uid,
+  })
+  .then(() => {
+    return { canResolve: true}
+  })
+  .catch((err) => {
+    return { canResolve: false, error: err}
+  });
+};
+
+/**
+ * 
+ * @param postObj: IEditorItem
+ * @param previewOnly boolean, if true: display preview button only.
+ * @returns React.FC<EditorActionsProps>
+ */
+const EditorActions: React.FC<EditorActionsProps> = ({ postObj, previewOnly = false }) => {
   // TODO add activity indicator
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [inProgress, setInProgress] = useState<boolean>(false);
 
   const handle = async (publish: boolean) => {
 
-    if (!newPost.header) {
+    if (!postObj.header) {
       alert('Caption missing!');
       return;
     }
 
-    if (!newPost.category) {
+    if (!postObj.category) {
       alert('Category missing!');
       return;
     }
 
-    if (!newPost.contentHTML) {
+    if (!postObj.contentHTML) {
       alert('Post content cannot be empty!');
       return;
     }
 
-    if (newPost.editorVersion !== '1.0') {
+    if (postObj.editorVersion !== '1.0') {
       alert('Wrong editor version!');
       return;
     }
     
-    const firestore = FirebaseServices.getFirestoreInstance();
     const auth = FirebaseServices.getAuthInstance();
     const uid = auth.currentUser?.uid;
 
@@ -47,24 +111,19 @@ const EditorActions: React.FC<EditorActionsProps> = ({ newPost, previewOnly = fa
 
     setInProgress(true);
 
-    await addDoc(collection(firestore, 'post'), {
-      header: newPost.header,
-      subHeader: newPost.subHeader,
-      caption: newPost.caption,
-      category: newPost.category,
-      contentHTML: newPost.contentHTML,
-      displayImage: newPost.displayImage,
-      editorVersion: newPost.editorVersion,
-      tags: newPost.tags,
-      published: publish,
-      time: new Date().getTime(),
-      userId: uid,
+    const action = postObj.new
+      ? addFirebaseDocument
+      : updateFirebaseDocument
 
-    })
-    .catch((err) => {
-      console.error('Rejected', err)
-    })
-    .finally(() => setInProgress(false));
+    await action(postObj, publish)
+      .then((res) => {
+        if (res.canResolve) {
+          console.log('Firebase action', action.name, 'completed!');
+        } else {
+          console.error('Firebase action', action.name, 'rejected!', res.error);
+        }
+      })
+      .finally(() => setInProgress(false));
   };
 
   return !previewOnly

@@ -54,7 +54,7 @@ const CreateAndEditPost: React.FC = () => {
         <TabPanel>
           {/* EDITOR */}
           <RichTextEditor newPostObj={postObj} setNewPostObj={setPostObj} />
-          <EditorActions previewOnly newPost={postObj} />
+          <EditorActions previewOnly postObj={postObj} />
         </TabPanel>
         <TabPanel>
           {/* POST PREVIEW */}
@@ -64,7 +64,7 @@ const CreateAndEditPost: React.FC = () => {
           <PostView blogPost={postObj} />
           <h3>Preview view</h3>
           <ArticleCardWide blogPost={postObj as Post}/>
-          <EditorActions newPost={postObj} />
+          <EditorActions postObj={postObj} />
         </TabPanel>
         <TabPanel>
           {/* POST HTML PREVIEW */}
