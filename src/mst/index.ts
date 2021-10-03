@@ -31,6 +31,9 @@ export const RootStoreModel = t
   .views(self => ({
     get latestFivePost() {
       return self.posts.slice(0,4);
+    },
+    get allSaved() {
+      return [...self.posts, ...self.unpublishedPosts]
     }
   }))
   .actions(self => ({

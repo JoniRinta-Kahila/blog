@@ -1,24 +1,39 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import RichTextEditor from "./richTextEditor";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PostView from "./postsView/postView";
 import PostDetailForm from "./components/postDetailForm";
 import EditorActions from "./components/editorActions";
 import { useFirebaseUserContext } from "../../firebase/context/firebaseUserContextProvider";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { IEditorItem } from "./types/editorItem";
 import { EditorDefaults } from "./configs/editorDefaults";
 import { Squares } from "react-activity";
 import ArticleCardWide from "../postView/articleCardWide";
 import { Post } from "../../mst";
+import { useStores } from "../../mst/rootStoreContext";
 
-interface CreateAndEditPostProps {
-  editorInitialData?: Post,
-}
-
-const CreateAndEditPost: React.FC<CreateAndEditPostProps> = ({editorInitialData = EditorDefaults}) => {
+const CreateAndEditPost: React.FC = () => {
   const { isAdmin } = useFirebaseUserContext();
+  const params = useParams<any>();
+  const postId = params.postId;
+  const rootStore = useStores();
   const [postObj, setPostObj] = useState<IEditorItem>(EditorDefaults);
+
+  useMemo(() => {
+    if (postId) {
+      let current = rootStore.unpublishedPosts.find(x => x.id === postId);
+      if (!current) {
+        current = rootStore.posts.find(x => x.id === postId);
+      }
+
+      if (current) {
+        setPostObj({...current, inEditor: true, new: false});
+      } else {
+        console.log(postId, 'not found');
+      }
+    }
+  }, [postId, rootStore.posts, rootStore.unpublishedPosts])
   
   if (isAdmin === undefined) {
     return <Squares />
