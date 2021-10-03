@@ -12,7 +12,11 @@ import { Squares } from "react-activity";
 import ArticleCardWide from "../postView/articleCardWide";
 import { Post } from "../../mst";
 
-const CreateAndEditPost: React.FC = () => {
+interface CreateAndEditPostProps {
+  editorInitialData?: Post,
+}
+
+const CreateAndEditPost: React.FC<CreateAndEditPostProps> = ({editorInitialData = EditorDefaults}) => {
   const { isAdmin } = useFirebaseUserContext();
   const [postObj, setPostObj] = useState<IEditorItem>(EditorDefaults);
   

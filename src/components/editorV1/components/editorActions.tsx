@@ -48,14 +48,18 @@ const EditorActions: React.FC<EditorActionsProps> = ({ newPost, previewOnly = fa
     setInProgress(true);
 
     await addDoc(collection(firestore, 'post'), {
-      caption: newPost.header,
+      header: newPost.header,
+      subHeader: newPost.subHeader,
+      caption: newPost.caption,
       category: newPost.category,
       contentHTML: newPost.contentHTML,
+      displayImage: newPost.displayImage,
       editorVersion: newPost.editorVersion,
       tags: newPost.tags,
       published: publish,
       time: new Date().getTime(),
       userId: uid,
+
     })
     .catch((err) => {
       console.error('Rejected', err)

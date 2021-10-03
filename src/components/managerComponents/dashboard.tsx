@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 import styles from './dashboard.module.scss';
 import { useStores } from '../../mst/rootStoreContext';
 import TimeAgo from '../../helper/timeElapsed';
 import FirebaseServices from '../../firebase/firebaseServices';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { Squares } from "react-activity";
 import { observer } from 'mobx-react-lite';
+import { BiEdit } from 'react-icons/bi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { MdVisibilityOff, MdVisibility } from 'react-icons/md';
 
 type DashboardProps = {
 
@@ -49,6 +52,16 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
     .catch(error => console.log('CANNOT UPDATE', error.message))
   }
 
+  const handleDelete = async (postId: string, header: string) => {
+    const kek = prompt('Confirm the deletion by entering the correct post header:');
+    if (typeof kek === 'string' && kek === header) {
+      const firestoreInstance = FirebaseServices.getFirestoreInstance();
+      await deleteDoc(doc(firestoreInstance, 'post', postId));
+    } else {
+      alert('Cannot delete, You typed wrong header!')
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -58,13 +71,19 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
             {
               unpublishedPosts.map(x => {
                 return (
-                  <li key={x.id} style={{display:'flex', flexDirection:'row', alignItems:'center', height:'20px', marginBottom:'4px'}}>
-                    <p style={{padding:'4px'}}>{x.header}</p>
-                    <p style={{padding:'4px', color:'yellow'}}>Unpublished</p>
-                    <p style={{padding:'4px'}}>{TimeAgo(x.time)}</p>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                    <button onClick={() => setPublished(true, x.id)}>Publish</button>
+                  <li key={x.id} style={{display:'flex', flexDirection:'row', alignItems:'center', height:'20px', marginBottom:'4px', width:'100%', borderBottom: '1px dotted black'}}>
+
+                    <div title={x.header} style={{display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height:'20px'}}>
+                      <button className={styles.button} onClick={() => setPublished(true, x.id)}><MdVisibilityOff /></button>
+                      <p style={{padding:'4px', maxWidth:'150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{x.header}</p>
+                    </div>
+
+                      <p style={{padding:'4px', color:'yellow'}}>Unpublished</p>
+                      <p style={{padding:'4px', whiteSpace: 'nowrap'}}>{TimeAgo(x.time)}</p>
+                    <div style={{display: 'flex', flexDirection: 'row', float: 'right'}}>
+                      <Link className={styles.button} to={`/manage/edit/${x.id}`}><BiEdit /></Link>
+                      <button className={styles.button} onClick={() => handleDelete(x.id, x.header)}><RiDeleteBin6Line /></button>
+                    </div>
                   </li>
                 )
               })
@@ -79,14 +98,18 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
             {
               posts.map(x => {
                 return (
-                  <li key={x.id} style={{display:'flex', flexDirection:'row', alignItems:'center', height:'20px', marginBottom:'4px', margin:'5px', borderBottom:'1px dotted black'}}>
-                    <p style={{padding:'4px'}}>{x.header}</p>
-                    <p style={{padding:'4px', color:'greenyellow'}}>Published</p>
-                    <p style={{padding:'4px'}}>{TimeAgo(x.time)}</p>
-                    <div style={{float:'right'}}>
-                      <button>Edit</button>
-                      <button>Delete</button>
-                      <button onClick={() => setPublished(false, x.id)}>Unpublish</button>
+                  <li key={x.id} style={{display:'flex', flexDirection:'row', alignItems:'center', height:'20px', marginBottom:'4px', width:'100%', borderBottom: '1px dotted black'}}>
+
+                    <div title={x.header} style={{display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', height:'20px'}}>
+                      <button className={styles.button} onClick={() => setPublished(false, x.id)}><MdVisibility /></button>
+                      <p style={{padding:'4px', maxWidth:'150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{x.header}</p>
+                    </div>
+
+                      <p style={{padding:'4px', color:'yellowgreen'}}>Published</p>
+                      <p style={{padding:'4px', whiteSpace: 'nowrap'}}>{TimeAgo(x.time)}</p>
+                    <div style={{display: 'flex', flexDirection: 'row', float: 'right'}}>
+                      <Link className={styles.button} to={`/manage/edit/${x.id}`}><BiEdit /></Link>
+                      <button className={styles.button} onClick={() => handleDelete(x.id, x.header)}><RiDeleteBin6Line /></button>
                     </div>
                   </li>
                 )
