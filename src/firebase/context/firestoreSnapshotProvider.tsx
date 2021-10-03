@@ -24,7 +24,8 @@ const FirestoreSnapshotProvider: React.FC = ({children}) => {
         return row as Post;
       });
 
-      rootStore.setPosts(data as any);
+      rootStore.setPosts(data.sort((a,b) => b.time - a.time));
+
     });
     return () => unsubscribe();
   });
