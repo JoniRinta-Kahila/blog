@@ -44,7 +44,7 @@ const ArticleCardWide: React.FC<ArticleCardWideProps> = ({ blogPost, prefix = fa
       <h2>{blogPost.subHeader}</h2>
       <p>{blogPost.caption}</p>
       <p className={styles.readMore}>
-        <Link to={`posts/${blogPost.time}`}>Read More<GoArrowRight/></Link>
+        <Link to={`posts/${blogPost.id}`}>Read More<GoArrowRight/></Link>
         
       </p>
     </div>

@@ -24,7 +24,7 @@ const ListOfLatestPosts: React.FC<ListOfLatestPostsProps> = observer(({ maxItems
           return (
             <span key={x.time}>
               <b>|</b>
-              <Link to={`/posts/${x.time}`} >{x.header}</Link>
+              <Link to={`/posts/${x.id}`} >{x.header}</Link>
             </span>
           )
         })

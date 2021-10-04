@@ -29,7 +29,7 @@ const PostView: React.FC = observer(() => {
   useMemo(() => {
     let found = false;
     if (postId) {
-      const current = rootStore.posts.find(x => x.time.toString() === postId);
+      const current = rootStore.posts.find(x => x.id === postId);
       setCurrentPost(current);
       
       found = current !== undefined;
