@@ -13,7 +13,7 @@ export const useFirebaseUserContext = () => {
   const context = useContext(FirebaseUserContext);
   
   if (context === undefined)
-    throw new Error('Call "useFirebaseAuthContext" only inside a FirebaseAuthContextProvider');
+    throw new Error('Call "useFirebaseUserContext" only inside a FirebaseUserContextProvider');
     
   return context;
 }
