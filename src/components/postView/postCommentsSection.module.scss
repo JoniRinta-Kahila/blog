@@ -1,0 +1,82 @@
+.container {
+  height: auto;
+  background: rgba(0, 0, 0, 0.034);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  h2 {
+    padding: 10px;
+    margin: 0;
+  }
+
+  .messagebox {
+    border: 1px solid rgba(0, 0, 0, 0.247);
+    border-radius: 5px;
+    padding: 8px;
+    margin: 8px;
+  }
+
+  .messageInfo {
+    display: flex;
+    flex-direction: row;
+    margin-right: 8px;
+    h5 {
+      margin: 0;
+    }
+    h4 {
+      margin: 0;
+      &:after {
+        content: '\00a0-\00a0';
+        font-weight: 500;
+      }
+    }
+  }
+
+  .showMoreLess {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    // flex-wrap: wrap-reverse;
+
+    h3 {
+      margin: 8px;
+      width: 100%;
+    }
+
+    button {
+      white-space: nowrap;
+      &:last-child {
+        margin: 8px;
+      }
+    }
+
+    @media screen and (min-width: 769px) and (max-width: 950px) {
+      justify-content: center;
+      flex-wrap: wrap-reverse;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 650px) {
+      justify-content: center;
+      flex-wrap: wrap-reverse;
+      text-align: center;
+    }
+  }
+
+  .newMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 10px;
+    textarea {
+      resize: none;
+      width: 100%;
+    }
+    button {
+      margin: 8px;
+    }
+  }
+}

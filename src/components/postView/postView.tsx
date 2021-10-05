@@ -11,6 +11,7 @@ import TimeAgo from '../../helper/timeElapsed';
 import styles from './postView.module.scss';
 import { observer } from 'mobx-react-lite';
 import hljs from 'highlight.js';
+// import PostCommentsSection from './postCommentsSection';
 
 const PostView: React.FC = observer(() => {
   const [currentPost, setCurrentPost] = useState<Post>();
@@ -46,7 +47,7 @@ const PostView: React.FC = observer(() => {
   }
 
   return (
-    <article>
+    <div>
 
       {/* ARTICLE HEADER */}
       <ArticleHeader str={currentPost.header} inEditor={false} />
@@ -57,10 +58,12 @@ const PostView: React.FC = observer(() => {
         <span style={{}}><AiOutlineShareAlt/><p style={{marginLeft: '6px', fontSize: '13px'}}>Share</p></span>
       </div>
 
-      {/* ARTICLE CONTENT */}
-      <div className='ck-content' dangerouslySetInnerHTML={{__html: currentPost.contentHTML}} />
+      <article>
+        <div className='ck-content' dangerouslySetInnerHTML={{__html: currentPost.contentHTML}} />
+      </article>
 
-    </article>
+      {/* <PostCommentsSection /> */}
+    </div>
   )
 })
 
