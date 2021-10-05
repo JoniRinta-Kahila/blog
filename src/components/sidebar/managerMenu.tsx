@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import ManagerMenuItems from './managerMenuItems';
 import styles from './managerMenu.module.scss';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
-import { useLoginPopupStateContext } from '../auth/loginPopupContextProvider';
+import { useAuthPopupStateContext } from '../auth/authPopupContextProvider';
 
 const ManagerMenu: React.FC = () => {
   const { isAdmin, user } = useFirebaseUserContext();
-  const { setState } = useLoginPopupStateContext();
+  const { setPopupIsOpen } = useAuthPopupStateContext()
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (!isAdmin && user) {
@@ -15,7 +15,7 @@ const ManagerMenu: React.FC = () => {
       return;
     }
     if (!user) {
-      setState(true);
+      setPopupIsOpen(true)
       event.preventDefault();
       return;
     }

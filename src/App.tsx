@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import CreateAndEditPost from './components/editorV1/createAndEditPost';
 import ProtectedRoute from './components/auth/protectedRoute';
-import Login from './components/auth/login';
 import { RootStoreProvider } from './mst/rootStoreContext';
 import { RootStore } from './mst';
 import { setupRootStore } from './mst/setup';
@@ -14,12 +13,12 @@ import FirestoreSnapshotProvider from './firebase/context/firestoreSnapshotProvi
 import PostsPresentation from './components/postView/postsPresentation';
 import PostView from './components/postView/postView';
 import FirebaseUserContextProvider from './firebase/context/firebaseUserContextProvider';
-import LoginPopupContextProvider from './components/auth/loginPopupContextProvider';
 import Header from './components/basic/header';
 import Sidebar from './components/sidebar/sidebar';
 import { Squares } from "react-activity";
 import Dashboard from './components/managerComponents/dashboard';
 import Notfound from './components/notfound';
+import AuthPopupContextProvider from './components/auth/authPopupContextProvider';
 
 const App: React.FC = () => {
 
@@ -37,7 +36,7 @@ const App: React.FC = () => {
   return (
     <RootStoreProvider value={rootTree}>
       <FirebaseUserContextProvider>
-        <LoginPopupContextProvider>
+        <AuthPopupContextProvider>
           <FirestoreSnapshotProvider>
             <div className={styles.container}>
                 <div className={styles.wrapper}>
@@ -45,7 +44,6 @@ const App: React.FC = () => {
                     <Header />
                     <Switch>
                       <Route exact path='/' component={PostsPresentation} />
-                      <Route exact path='/login' component={Login} />
                       <Route exact path='/posts/:postId' component={PostView} />
                       <ProtectedRoute exact path='/manage' component={Dashboard} />
                       <ProtectedRoute exact path='/manage/create' component={CreateAndEditPost} />
@@ -57,7 +55,7 @@ const App: React.FC = () => {
               <Sidebar />
             </div>
           </FirestoreSnapshotProvider>
-        </LoginPopupContextProvider>
+        </AuthPopupContextProvider>
       </FirebaseUserContextProvider>
     </RootStoreProvider>
   )

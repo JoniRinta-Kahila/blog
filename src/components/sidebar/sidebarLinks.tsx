@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 import FirebaseServices from '../../firebase/firebaseServices';
-import { useLoginPopupStateContext } from '../auth/loginPopupContextProvider';
 import { SidebarLinksData } from './sidebarLinksData';
 import styles from './sidebarLinks.module.scss';
+import { useAuthPopupStateContext } from '../auth/authPopupContextProvider';
 
 type SidebarLinksProps = {
 
@@ -13,7 +13,7 @@ type SidebarLinksProps = {
 const SidebarLinks: React.FC<SidebarLinksProps> = () => {
   const { user } = useFirebaseUserContext();
   const auth = FirebaseServices.getAuthInstance();
-  const { setState } = useLoginPopupStateContext();
+  const { setPopupIsOpen } = useAuthPopupStateContext();
 
   const SignInOrOut = useCallback(() => {
     return (
@@ -26,7 +26,8 @@ const SidebarLinks: React.FC<SidebarLinksProps> = () => {
               auth.signOut()
             } else {
               event.preventDefault();
-              setState(true)
+              setPopupIsOpen(true);
+
             }
           }}
         >
@@ -34,7 +35,7 @@ const SidebarLinks: React.FC<SidebarLinksProps> = () => {
         </Link>
       </span>
     )
-  }, [auth, setState, user]);
+  }, [auth, setPopupIsOpen, user]);
 
   return (
     <div className={styles.container}>

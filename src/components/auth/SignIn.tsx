@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
-import styles from './login.module.scss';
+import styles from './signInOrUp.module.scss';
 import { AiOutlineUser } from 'react-icons/ai';
 import { BiKey } from 'react-icons/bi';
-import { useLoginPopupStateContext } from './loginPopupContextProvider';
+import { useAuthPopupStateContext } from './authPopupContextProvider';
 
-interface LoginProps {
-}
 
-const Login: React.FC<LoginProps> = () => {
+const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const auth = FirebaseServices.getAuthInstance();
 
-  const setPopupState = useLoginPopupStateContext().setState;
+  const { setNeedToSignUp, setPopupIsOpen } = useAuthPopupStateContext();
 
   const handleLogin = (event: React.FormEvent<HTMLInputElement>) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        setPopupState(false);
+        setPopupIsOpen(false);
       })
       .catch(error => {
         console.log(error.code, error.message);
@@ -30,15 +28,15 @@ const Login: React.FC<LoginProps> = () => {
   return (
     <div className={styles.container}>
 
-      <div className={styles.loginForm}>
+      <div className={styles.form}>
         <div className={styles.flexRow}>
-          <label className={styles.label} htmlFor='username'>
+          <label className={styles.label} htmlFor='email'>
             <AiOutlineUser style={{width:'12px', height:'13px'}} color='grey' />
           </label>
           <input
-            id='username'
+            id='email'
             className={styles.input}
-            placeholder='Username'
+            placeholder='Email'
             type='text'
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -63,10 +61,13 @@ const Login: React.FC<LoginProps> = () => {
           value='LOGIN'
           onClick={(event) => handleLogin(event)}
         />
+        <a href='*' onClick={(event) => {
+          event.preventDefault();
+          setNeedToSignUp(true);
+        }}>Sign Up</a>
       </div>
-      
     </div>
   )
 }
 
-export default Login;
+export default SignIn;
