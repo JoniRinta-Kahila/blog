@@ -16,8 +16,23 @@ const SignUp: React.FC<SignUpProps> = () => {
 
   const { setNeedToSignUp } = useAuthPopupStateContext()
 
-  const handleSignUp = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+  const handleSignUp = async (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    if (!email || !username || !password || password !== passwordRepeat) {
+      alert('cant send');
+      return;
+    }
 
+    const response = await fetch('https://us-central1-blog-43f84.cloudfunctions.net/registerUser', {
+      cache: 'no-cache',
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+        displayName: username,
+        password: password,
+      })
+    })
+
+    alert(`Reg resp: ${response.status}`)
   }
   
   return (
