@@ -25,6 +25,10 @@ const SignUp: React.FC<SignUpProps> = () => {
     const response = await fetch('https://us-central1-blog-43f84.cloudfunctions.net/registerUser', {
       cache: 'no-cache',
       method: 'POST',
+      headers: {
+        "Content-Type": "Application/JSON",
+        "Access-Control-Request-Method": "POST"
+      },
       body: JSON.stringify({
         email: email,
         displayName: username,
