@@ -29,7 +29,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         email: email,
         displayName: username,
         password: password,
-      })
+      }),
     })
 
     alert(`Reg resp: ${response.status}`)
