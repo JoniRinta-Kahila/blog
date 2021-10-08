@@ -6,6 +6,7 @@ import { useAuthPopupStateContext } from './authPopupContextProvider';
 import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
 import { endpoints, pageUrl } from '../../appProperties';
+import { Redirect } from 'react-router';
 
 type SignUpProps = {
 
@@ -16,8 +17,10 @@ const SignUp: React.FC<SignUpProps> = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordRepeat, setPasswordRepeat] = useState<string>('');
+  const [regReady, setRegReady] = useState<boolean>(false);
 
-  const { setNeedToSignUp } = useAuthPopupStateContext()
+  const { setNeedToSignUp } = useAuthPopupStateContext();
+  const { setPopupIsOpen } = useAuthPopupStateContext();
 
   const handleSignUp = async (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     if (!email || !username || !password || password !== passwordRepeat) {
@@ -45,16 +48,21 @@ const SignUp: React.FC<SignUpProps> = () => {
       const newUser = await signInWithEmailAndPassword(authInstance, email, password)
       if (newUser.user.uid) {
         const opt = {
-          url: pageUrl,
+          // TODO create message when email is verified
+          url: `${pageUrl}`,
           handleCodeInApp: true
         }
-        await sendEmailVerification(newUser.user, opt)
+        sendEmailVerification(newUser.user, opt)
+          // .then(() => setPopupIsOpen(false))
+          .then(() => setRegReady(true))
+          .catch(err => console.error(err));
       }
     }
-
-    alert(`Reg resp: ${response.status}`)
   }
 
+  if (regReady) {
+    return <Redirect to='/welcome' />
+  }
 
   return (
     <div className={styles.container}>
