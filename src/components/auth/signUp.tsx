@@ -3,6 +3,8 @@ import styles from './signInOrUp.module.scss';
 import { AiOutlineUser, AiOutlineSecurityScan } from 'react-icons/ai';
 import { BiKey, BiUserPin } from 'react-icons/bi';
 import { useAuthPopupStateContext } from './authPopupContextProvider';
+import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
+import FirebaseServices from '../../firebase/firebaseServices';
 
 type SignUpProps = {
 
@@ -23,25 +25,44 @@ const SignUp: React.FC<SignUpProps> = () => {
     }
 
     const response = await fetch('https://us-central1-blog-43f84.cloudfunctions.net/registerUser', {
-      cache: 'no-cache',
-      method: 'POST',
+      method: 'post',
       headers: {
-        "Content-Type": "Application/JSON",
-        "Access-Control-Request-Method": "POST"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         email: email,
         displayName: username,
         password: password,
       }),
-    })
+    });
+
+    // {uid: string}
+    // const responseBody = await response.json();
+    
+    if (response.status === 200) {
+      const authInstance = FirebaseServices.getAuthInstance();
+      const newUser = await signInWithEmailAndPassword(authInstance, email, password)
+      if (newUser.user.uid) {
+        const opt = {
+          url: 'https://blog-43f84.web.app',
+          handleCodeInApp: true
+        }
+        await sendEmailVerification(newUser.user, opt)
+      }
+        // .then((x) => {
+        //   sendEmailVerification(x.user, {
+        //     url: '',
+        //     handleCodeInApp: true
+        //   })
+        // }) 
+    }
 
     alert(`Reg resp: ${response.status}`)
   }
-  
+
+
   return (
     <div className={styles.container}>
-
       <div className={styles.form}>
         <div className={styles.flexRow}>
           <label className={styles.label} htmlFor='email'>

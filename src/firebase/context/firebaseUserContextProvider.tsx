@@ -30,6 +30,7 @@ const FirebaseUserContextProvider: React.FC = ({children}) => {
           .then(idTokenResult => {
             setUser(user);
             setIsAdmin(!!idTokenResult.claims.admin);
+            console.log('EMAIL VERIFIED:', user.emailVerified)
           })
       } else {
         setUser(null);
