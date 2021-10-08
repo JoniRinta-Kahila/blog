@@ -5,6 +5,7 @@ import { BiKey, BiUserPin } from 'react-icons/bi';
 import { useAuthPopupStateContext } from './authPopupContextProvider';
 import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
+import { endpoints, pageUrl } from '../../appProperties';
 
 type SignUpProps = {
 
@@ -24,7 +25,7 @@ const SignUp: React.FC<SignUpProps> = () => {
       return;
     }
 
-    const response = await fetch('https://us-central1-blog-43f84.cloudfunctions.net/registerUser', {
+    const response = await fetch(endpoints.registration, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -44,17 +45,11 @@ const SignUp: React.FC<SignUpProps> = () => {
       const newUser = await signInWithEmailAndPassword(authInstance, email, password)
       if (newUser.user.uid) {
         const opt = {
-          url: 'https://blog-43f84.web.app',
+          url: pageUrl,
           handleCodeInApp: true
         }
         await sendEmailVerification(newUser.user, opt)
       }
-        // .then((x) => {
-        //   sendEmailVerification(x.user, {
-        //     url: '',
-        //     handleCodeInApp: true
-        //   })
-        // }) 
     }
 
     alert(`Reg resp: ${response.status}`)
