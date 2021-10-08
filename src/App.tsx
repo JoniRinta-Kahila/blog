@@ -48,6 +48,7 @@ const App: React.FC = () => {
                       <ProtectedRoute exact path='/manage' component={Dashboard} />
                       <ProtectedRoute exact path='/manage/create' component={CreateAndEditPost} />
                       <ProtectedRoute exact path='/manage/edit/:postId' component={CreateAndEditPost} />
+                      <Route exact path='/notfound' component={Notfound} />
                       <Route component={Notfound} />
                     </Switch>
                   </div>

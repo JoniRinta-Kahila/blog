@@ -21,7 +21,7 @@ const ManagerMenu: React.FC = () => {
     }
   }
 
-  if (!isAdmin && !user) {
+  if (!isAdmin) {
     return null;
   }
 

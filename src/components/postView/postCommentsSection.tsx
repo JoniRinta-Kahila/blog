@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 import TimeAgo from '../../helper/timeElapsed';
 import styles from './postCommentsSection.module.scss';
 
@@ -21,8 +22,8 @@ const commentsData: ICommentData[] = [
     id: '1',
     uid: 'asd',
     mid: 'asd',
-    time: 123456,
-    sender: 'SenderName',
+    time: 1633726243656,
+    sender: 'Tester',
     message: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas itaque laborum distinctio placeat eaque voluptas, rerum fugiat recusandae! Enim autem dicta, maiores, ullam voluptatibus, obcaecati nulla provident doloribus laboriosam veniam ex natus laborum cupiditate dignissimos? Magni beatae soluta impedit ex! Ad delectus vero et? Obcaecati suscipit saepe nesciunt enim id!',
   },
 ]
@@ -31,6 +32,24 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
 
   const [rowsDisplay, setRowsDisplay] = useState<number>(showNMessageOnDefault);
   const [newMessage, setNewMessage] = useState<string>('');
+  const [placeholder, setPlaceholder] = useState<string>('\nLogin to comment');
+
+  const { user } = useFirebaseUserContext();
+
+  useEffect(() => {
+    if (!user) {
+      setPlaceholder('\nLogin to comment');
+      return;
+    }
+
+    if (user && !user.emailVerified) {
+      setPlaceholder('\nPleace, Verify your email to comment');
+      return;
+    }
+
+    setPlaceholder('');
+
+  }, [user])
 
   const showMore = () => {
     setRowsDisplay(rowsDisplay + showNMessagesMore)
@@ -56,6 +75,13 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
           )
         })
       }
+      {
+        commentsData.length < 1
+          ? <div className={styles.messagebox}>
+              <h3 style={{textAlign: 'center', color: 'silver'}}>Be the first to comment.</h3>
+            </div>
+          : null
+      }
       <div className={styles.showMoreLess}>
         <h3>Comment post</h3>
         {
@@ -69,16 +95,25 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
             : null
         }
       </div>
+
       <div className={styles.newMessage}>
         <textarea 
           value={newMessage}
           onChange={(event) => setNewMessage(event.target.value)}
-          rows={4}
+          rows={user?.emailVerified ? 4 : 3}
+          disabled={!user?.emailVerified}
+          placeholder={placeholder}
+          style={user?.emailVerified ? {} : {textAlign: 'center', fontSize: '25px'}}
         />
-        <button>Send</button>
+        <button
+          disabled={!user}
+        >
+          Send
+        </button>
       </div>
+
     </div>
   )
 }
 
-export default PostCommentsSection
+export default PostCommentsSection;
