@@ -18,9 +18,9 @@ const SignUp: React.FC<SignUpProps> = () => {
   const [password, setPassword] = useState<string>('');
   const [passwordRepeat, setPasswordRepeat] = useState<string>('');
   const [regReady, setRegReady] = useState<boolean>(false);
+  const [regOnProgress, setRegOnProgress] = useState<boolean>(false);
 
   const { setNeedToSignUp } = useAuthPopupStateContext();
-  const { setPopupIsOpen } = useAuthPopupStateContext();
 
   const handleSignUp = async (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     if (!email || !username || !password || password !== passwordRepeat) {
