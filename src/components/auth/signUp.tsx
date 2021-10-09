@@ -7,6 +7,7 @@ import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/aut
 import FirebaseServices from '../../firebase/firebaseServices';
 import { endpoints, pageUrl } from '../../appProperties';
 import { Redirect } from 'react-router';
+import LoadingIcons from 'react-loading-icons';
 
 type SignUpProps = {
 
@@ -18,16 +19,24 @@ const SignUp: React.FC<SignUpProps> = () => {
   const [password, setPassword] = useState<string>('');
   const [passwordRepeat, setPasswordRepeat] = useState<string>('');
   const [regReady, setRegReady] = useState<boolean>(false);
-  // TODO add progress spinner
-  // const [regOnProgress, setRegOnProgress] = useState<boolean>(false);
+  const [regOnProgress, setRegOnProgress] = useState<boolean>(false);
 
   const { setNeedToSignUp } = useAuthPopupStateContext();
 
+  const progressLayer = (
+    <div className={styles.progressOn}>
+          <LoadingIcons.ThreeDots/>
+    </div>
+  )
+  
+  // TODO create better form check and error handler
   const handleSignUp = async (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     if (!email || !username || !password || password !== passwordRepeat) {
       alert('cant send');
       return;
     }
+
+    setRegOnProgress(true);
 
     const response = await fetch(endpoints.registration, {
       method: 'post',
@@ -54,10 +63,15 @@ const SignUp: React.FC<SignUpProps> = () => {
           handleCodeInApp: true
         }
         sendEmailVerification(newUser.user, opt)
-          // .then(() => setPopupIsOpen(false))
-          .then(() => setRegReady(true))
+          .then(() => {
+            setRegOnProgress(false);
+            setRegReady(true);
+          })
           .catch(err => console.error(err));
       }
+    } else {
+      // some error happend
+      setRegOnProgress(false)
     }
   }
 
@@ -68,6 +82,11 @@ const SignUp: React.FC<SignUpProps> = () => {
   return (
     <div className={styles.container}>
       <div className={styles.form}>
+        {
+          regOnProgress
+            ? progressLayer
+            : null
+        }
         <div className={styles.flexRow}>
           <label className={styles.label} htmlFor='email'>
             <AiOutlineUser style={{width:'12px', height:'13px'}} color='grey' />
