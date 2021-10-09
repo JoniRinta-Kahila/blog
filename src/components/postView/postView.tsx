@@ -11,7 +11,7 @@ import TimeAgo from '../../helper/timeElapsed';
 import styles from './postView.module.scss';
 import { observer } from 'mobx-react-lite';
 import hljs from 'highlight.js';
-// import PostCommentsSection from './postCommentsSection';
+import PostCommentsSection from './postCommentsSection';
 
 const PostView: React.FC = observer(() => {
   const [currentPost, setCurrentPost] = useState<Post>();
@@ -62,7 +62,7 @@ const PostView: React.FC = observer(() => {
         <div className='ck-content' dangerouslySetInnerHTML={{__html: currentPost.contentHTML}} />
       </article>
 
-      {/* <PostCommentsSection /> */}
+      <PostCommentsSection postId={currentPost.id} />
     </div>
   )
 })

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
+import FirebaseServices from '../../firebase/firebaseServices';
 import TimeAgo from '../../helper/timeElapsed';
 import styles from './postCommentsSection.module.scss';
+import { collection, query, where, onSnapshot, addDoc } from "firebase/firestore";
 
 type PostCommentsSectionProps = {
   showNMessageOnDefault?: number,
   showNMessagesMore?: number
+  postId: string
 }
 
 interface ICommentData {
@@ -17,24 +20,31 @@ interface ICommentData {
   message: string
 }
 
-const commentsData: ICommentData[] = [
-  {
-    id: '1',
-    uid: 'asd',
-    mid: 'asd',
-    time: 1633726243656,
-    sender: 'Tester',
-    message: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas itaque laborum distinctio placeat eaque voluptas, rerum fugiat recusandae! Enim autem dicta, maiores, ullam voluptatibus, obcaecati nulla provident doloribus laboriosam veniam ex natus laborum cupiditate dignissimos? Magni beatae soluta impedit ex! Ad delectus vero et? Obcaecati suscipit saepe nesciunt enim id!',
-  },
-]
+const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOnDefault = 5, showNMessagesMore = 5, postId}) => {
 
-const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOnDefault = 5, showNMessagesMore = 5}) => {
-
+  const { user } = useFirebaseUserContext();
   const [rowsDisplay, setRowsDisplay] = useState<number>(showNMessageOnDefault);
   const [newMessage, setNewMessage] = useState<string>('');
   const [placeholder, setPlaceholder] = useState<string>('\nLogin to comment');
+  const [commentsData, setCommentsData] = useState<ICommentData[]>([]);
+  
+  useEffect(() => {
+    const firestoreInstance = FirebaseServices.getFirestoreInstance();
+    const q = query(collection(firestoreInstance, 'postcomments'), where('mid', '==', postId));
+    console.log('settin up comment listener...')
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      console.log('Fetch new comments');
+      const data = querySnapshot.docs.map(x => {
+        let row = x.data()
+        row.id = x.id;
+        return row as ICommentData;
+      });
 
-  const { user } = useFirebaseUserContext();
+      setCommentsData(data.sort((a,b) => b.time - a.time));
+    });
+
+    return () => unsubscribe();
+  }, [postId]);
 
   useEffect(() => {
     if (!user) {
@@ -49,14 +59,37 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
 
     setPlaceholder('');
 
-  }, [user])
+  }, [user]);
 
   const showMore = () => {
     setRowsDisplay(rowsDisplay + showNMessagesMore)
-  }
+  };
 
   const showLess = () => {
     setRowsDisplay(showNMessageOnDefault)
+  };
+
+  const postComment = async () => {
+    if (!user || !user.emailVerified) {
+      console.warn('EMAIL VERIFICATION IS REQUIRED TO COMMENT');
+      return;
+    }
+
+    if (!newMessage) {
+      console.warn('MESSAGE IS REQUIRED');
+      return;
+    }
+
+    const firestoreInstance = FirebaseServices.getFirestoreInstance();
+    addDoc(collection(firestoreInstance, 'postcomments'), {
+      uid: user.uid,
+      mid: postId,
+      time: new Date().getTime(),
+      sender: user.displayName,
+      message: newMessage,
+    })
+    .then(() => setNewMessage(''))
+    .catch((err) => console.error(err));
   }
 
   return (
@@ -107,6 +140,7 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
         />
         <button
           disabled={!user}
+          onClick={() => postComment()}
         >
           Send
         </button>
