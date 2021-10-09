@@ -126,10 +126,12 @@ const SignUp: React.FC<SignUpProps> = () => {
           value='SIGNUP'
           onClick={(event) => handleSignUp(event)}
         />
-        <a href='*' onClick={(event) => {
-          event.preventDefault();
-          setNeedToSignUp(false);
-        }}>Sign in</a>
+        <div className={styles.actions}>
+          <a href='*' onClick={(event) => {
+            event.preventDefault();
+            setNeedToSignUp(false);
+          }}>Sign in</a>
+        </div>
       </div>
     </div>
   )

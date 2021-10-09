@@ -10,15 +10,37 @@ $gray-light:  #f5f6f8;
   .form {
     width: 100%;
     padding: 2em;
+    padding-bottom: 1em;
     position: relative;
     background: rgba(black, .15);
         
+    .progressOn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+      position: absolute;
+      align-self: center;
+      justify-self: center;
+      background: rgba(4, 163, 255, 0.582);
+      height: 100%;
+      width: 100%;
+      z-index: 100000;
+      &::before {
+        content: 'Please wait.';
+        justify-self: flex-start;
+        color: #fff;
+      }
+    }
     @media screen and (min-width: 600px) {
       width: 50vw;
       max-width: 15em;
     }
   }
   
+
     .flexRow {
       display: flex;
       margin-bottom: 1em;
@@ -62,6 +84,33 @@ $gray-light:  #f5f6f8;
         outline: none;
         transition: transform .15s ease;
         transform: scale(1.1);
+      }
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin-top: 15px;
+      a {
+        text-decoration: none;
+        &:first-child {
+          color: #35c3c1;
+        }
+        &:last-child {
+          color: #00d6b7;
+        }
+        &:hover {
+          background: #f5f6f8;
+        }
+        &:hover::before {
+          color: red;
+          content: '> ';
+        }
+        &:hover::after {
+          color: red;
+          content: ' <';
+        }
       }
     }
 }
