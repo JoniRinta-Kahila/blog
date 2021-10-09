@@ -20,6 +20,7 @@ import Dashboard from './components/managerComponents/dashboard';
 import Notfound from './components/notfound';
 import AuthPopupContextProvider from './components/auth/authPopupContextProvider';
 import Welcome from './components/auth/welcome';
+import EmailVerified from './components/auth/emailVerified';
 
 const App: React.FC = () => {
 
@@ -50,6 +51,7 @@ const App: React.FC = () => {
                       <ProtectedRoute exact path='/manage/create' component={CreateAndEditPost} />
                       <ProtectedRoute exact path='/manage/edit/:postId' component={CreateAndEditPost} />
                       <Route exact path='/welcome' component={Welcome} />
+                      <Route exact path='/verified' component={EmailVerified} />
                       <Route exact path='/notfound' component={Notfound} />
                       <Route component={Notfound} />
                     </Switch>

@@ -58,8 +58,7 @@ const SignUp: React.FC<SignUpProps> = () => {
       const newUser = await signInWithEmailAndPassword(authInstance, email, password)
       if (newUser.user.uid) {
         const opt = {
-          // TODO create message when email is verified
-          url: `${pageUrl}`,
+          url: `${pageUrl}/verified`,
           handleCodeInApp: true
         }
         sendEmailVerification(newUser.user, opt)
