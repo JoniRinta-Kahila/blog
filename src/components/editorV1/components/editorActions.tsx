@@ -3,6 +3,7 @@ import FirebaseServices from '../../../firebase/firebaseServices';
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore"; 
 import { IEditorItem } from '../types/editorItem';
 import styles from './editorActions.module.scss';
+import dev from '../../../helper/devLogger';
 
 type EditorActionsProps = {
   postObj: IEditorItem,
@@ -118,7 +119,7 @@ const EditorActions: React.FC<EditorActionsProps> = ({ postObj, previewOnly = fa
     await action(postObj, publish)
       .then((res) => {
         if (res.canResolve) {
-          console.log('Firebase action', action.name, 'completed!');
+          dev.log('Firebase action', action.name, 'completed!');
         } else {
           console.error('Firebase action', action.name, 'rejected!', res.error);
         }

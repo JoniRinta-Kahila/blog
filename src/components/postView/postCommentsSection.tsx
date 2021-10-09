@@ -4,6 +4,7 @@ import FirebaseServices from '../../firebase/firebaseServices';
 import TimeAgo from '../../helper/timeElapsed';
 import styles from './postCommentsSection.module.scss';
 import { collection, query, where, onSnapshot, addDoc } from "firebase/firestore";
+import dev from '../../helper/devLogger';
 
 type PostCommentsSectionProps = {
   showNMessageOnDefault?: number,
@@ -31,9 +32,9 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
   useEffect(() => {
     const firestoreInstance = FirebaseServices.getFirestoreInstance();
     const q = query(collection(firestoreInstance, 'postcomments'), where('mid', '==', postId));
-    console.log('settin up comment listener...')
+    dev.log('settin up comment listener...')
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log('Fetch new comments');
+      dev.log('Fetch new comments');
       const data = querySnapshot.docs.map(x => {
         let row = x.data()
         row.id = x.id;

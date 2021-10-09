@@ -12,6 +12,7 @@ import styles from './postView.module.scss';
 import { observer } from 'mobx-react-lite';
 import hljs from 'highlight.js';
 import PostCommentsSection from './postCommentsSection';
+import dev from '../../helper/devLogger';
 
 const PostView: React.FC = observer(() => {
   const [currentPost, setCurrentPost] = useState<Post>();
@@ -20,7 +21,7 @@ const PostView: React.FC = observer(() => {
   const rootStore = useStores();
 
   useEffect(() => {
-    console.log('Hilight update')
+    dev.log('Hilight update')
     document.querySelectorAll('pre code').forEach((el: any) => {
       el.classList.add(styles.codeblock);
       hljs.highlightElement(el);

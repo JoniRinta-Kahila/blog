@@ -6,6 +6,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { BiKey } from 'react-icons/bi';
 import { useAuthPopupStateContext } from './authPopupContextProvider';
 import LoadingIcons from 'react-loading-icons';
+import dev from '../../helper/devLogger';
 
 interface ISignInError {
   emailErr: boolean,
@@ -78,7 +79,7 @@ const SignIn: React.FC = () => {
               const newValue = event.target.value;
               setEmail(newValue)
               setErr({...err, emailErr: !!!newValue})
-              console.log(err)
+              dev.log(err)
             }}
           />
         </div>

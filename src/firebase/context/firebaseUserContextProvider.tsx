@@ -1,5 +1,6 @@
 import { onAuthStateChanged, User } from '@firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import dev from '../../helper/devLogger';
 import FirebaseServices from '../firebaseServices';
 
 interface UserContext {
@@ -30,7 +31,7 @@ const FirebaseUserContextProvider: React.FC = ({children}) => {
           .then(idTokenResult => {
             setUser(user);
             setIsAdmin(!!idTokenResult.claims.admin);
-            console.log('EMAIL VERIFIED:', user.emailVerified)
+            dev.log('EMAIL VERIFIED:', user.emailVerified)
           })
       } else {
         setUser(null);

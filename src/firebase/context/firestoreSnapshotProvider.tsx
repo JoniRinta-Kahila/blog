@@ -4,6 +4,7 @@ import FirebaseServices from '../firebaseServices';
 import { useStores } from '../../mst/rootStoreContext';
 import { useFirebaseUserContext } from './firebaseUserContextProvider';
 import { Post } from '../../mst';
+import dev from '../../helper/devLogger';
 
 const FirestoreSnapshotProvider: React.FC = ({children}) => {
   const rootStore = useStores();
@@ -17,7 +18,7 @@ const FirestoreSnapshotProvider: React.FC = ({children}) => {
       : query(collection(firebase, 'post'), where('published', '==', true))
 
     const unsubscribe = onSnapshot(qu, (querySnapshot) => {
-      console.log('Firestore onSnapshot called.')
+      dev.log('Firestore onSnapshot called.')
       const data = querySnapshot.docs.map(x => {
         let row = x.data()
         row.id = x.id;

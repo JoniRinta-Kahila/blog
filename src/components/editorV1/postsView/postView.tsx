@@ -9,6 +9,7 @@ import ArticleCategory from '../components/articleCategory';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import { IEditorItem } from '../types/editorItem';
+import dev from '../../../helper/devLogger';
 
 type PostViewProps = {
   blogPost: IEditorItem 
@@ -16,7 +17,7 @@ type PostViewProps = {
 
 const PostView: React.FC<PostViewProps> = ({ blogPost }) => {
   useEffect(() => {
-    console.log('Hilight update')
+    dev.log('Hilight update')
     document.querySelectorAll('pre code').forEach((el: any) => {
       el.classList.add(styles.codeblock);
       hljs.highlightElement(el);

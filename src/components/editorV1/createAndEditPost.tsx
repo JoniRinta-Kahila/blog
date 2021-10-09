@@ -12,6 +12,7 @@ import { Squares } from "react-activity";
 import ArticleCardWide from "../postView/articleCardWide";
 import { Post } from "../../mst";
 import { useStores } from "../../mst/rootStoreContext";
+import dev from "../../helper/devLogger";
 
 const CreateAndEditPost: React.FC = () => {
   const { isAdmin } = useFirebaseUserContext();
@@ -30,7 +31,7 @@ const CreateAndEditPost: React.FC = () => {
       if (current) {
         setPostObj({...current, inEditor: true, new: false});
       } else {
-        console.log(postId, 'not found');
+        dev.log(postId, 'not found');
       }
     }
   }, [postId, rootStore.posts, rootStore.unpublishedPosts])

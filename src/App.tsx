@@ -21,13 +21,14 @@ import Notfound from './components/notfound';
 import AuthPopupContextProvider from './components/auth/authPopupContextProvider';
 import Welcome from './components/auth/welcome';
 import EmailVerified from './components/auth/emailVerified';
+import dev from './helper/devLogger';
 
 const App: React.FC = () => {
 
   const [rootTree, setRootTree] = useState<RootStore|undefined>();
 
   useEffect(() => {
-    console.log('Setting-up Root-tree');
+    dev.log('Setting-up Root-tree');
     setRootTree(setupRootStore());
   }, []);
 

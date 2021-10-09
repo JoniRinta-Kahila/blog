@@ -4,6 +4,7 @@ import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import ImageUploadAdapter from './plugins/imageUploadAdapter';
 import { IEditorItem } from './types/editorItem';
 import { EditorConfig } from './configs/editorConfig';
+import dev from '../../helper/devLogger';
 
 type RichTextEditorProps = {
   setNewPostObj: React.Dispatch<React.SetStateAction<IEditorItem>>,
@@ -18,7 +19,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ newPostObj, setNewPostO
         data={newPostObj.contentHTML}
         config={EditorConfig}
         onReady={editor => {
-          console.log( 'Editor is ready to use!', editor );
+          dev.log( 'Editor is ready to use!', editor );
           editor.plugins.get('FileRepository').createUploadAdapter = loader => {
             return new ImageUploadAdapter(loader)
           }

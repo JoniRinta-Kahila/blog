@@ -11,6 +11,7 @@ import { observer } from 'mobx-react-lite';
 import { BiEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdVisibilityOff, MdVisibility } from 'react-icons/md';
+import dev from '../../helper/devLogger';
 
 type DashboardProps = {
 
@@ -22,7 +23,7 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
   const firestore = FirebaseServices.getFirestoreInstance();
   
   useEffect(() => {
-    console.log('USER IS ADMIN:',isAdmin)
+    dev.log('USER IS ADMIN:',isAdmin)
   }, [isAdmin])
   
   if (isAdmin === undefined) {
@@ -49,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
       published: nextState
     })
     .then(() => console.log(id, 'UPDATED'))
-    .catch(error => console.log('CANNOT UPDATE', error.message))
+    .catch(error => console.error('CANNOT UPDATE', error.message))
   }
 
   const handleDelete = async (postId: string, header: string) => {
