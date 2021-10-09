@@ -100,7 +100,11 @@ const SignIn: React.FC = () => {
             }}
           />
         </div>
-        <p style={{marginTop: 0, marginBottom: '8px', fontSize: '.8em', color: 'orangered'}}>Check your email or password</p>
+        {
+          err.signInErr
+            ? <p style={{marginTop: 0, marginBottom: '8px', fontSize: '.8em', color: 'orangered'}}>Check your email or password</p>
+            : null
+        }
         <input
           className={styles.submit}
           type='submit'
