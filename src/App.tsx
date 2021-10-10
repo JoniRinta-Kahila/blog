@@ -34,17 +34,17 @@ const App: React.FC = () => {
     setRootTree(setupRootStore());
   }, []);
 
+  const fi = FirebaseServices.getFunctionsInstance();
   useEffect(() => {
     console.log('init fb-test')
     const sub = () => {
       console.log('call fb-test')
-      const fi = FirebaseServices.getFunctionsInstance();
       const action = functions.httpsCallable(fi, "getUsers");
       action().then(x => console.log(x.data)).catch(err => console.error(err));
     }
 
-    return () => sub();
-  }, [])
+    return sub()
+  }, [fi])
 
   if (!rootTree) {
     return <Squares />
