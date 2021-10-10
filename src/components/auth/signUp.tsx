@@ -5,12 +5,18 @@ import { BiKey, BiUserPin } from 'react-icons/bi';
 import { useAuthPopupStateContext } from './authPopupContextProvider';
 import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
-import { endpoints, pageUrl } from '../../appProperties';
+import { pageUrl } from '../../appProperties';
 import { Redirect } from 'react-router';
 import LoadingIcons from 'react-loading-icons';
+import RegisterUser from './registerUser';
 
 type SignUpProps = {
 
+}
+
+const emailVerificationOptions = {
+  url: `${pageUrl}/verified`,
+  handleCodeInApp: true,
 }
 
 const SignUp: React.FC<SignUpProps> = () => {
@@ -29,8 +35,9 @@ const SignUp: React.FC<SignUpProps> = () => {
     </div>
   )
   
-  // TODO create better form check and error handler
-  const handleSignUp = async (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+  const ai = FirebaseServices.getAuthInstance();
+
+  const handleSignUp = async () => {
     if (!email || !username || !password || password !== passwordRepeat) {
       alert('cant send');
       return;
@@ -38,39 +45,33 @@ const SignUp: React.FC<SignUpProps> = () => {
 
     setRegOnProgress(true);
 
-    const response = await fetch(endpoints.registration, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        displayName: username,
-        password: password,
-      }),
-    });
-
-    // {uid: string}
-    // const responseBody = await response.json();
-    
-    if (response.status === 200) {
-      const authInstance = FirebaseServices.getAuthInstance();
-      const newUser = await signInWithEmailAndPassword(authInstance, email, password)
-      if (newUser.user.uid) {
-        const opt = {
-          url: `${pageUrl}/verified`,
-          handleCodeInApp: true
+    const uid = await RegisterUser(email, username, password)
+      .then(response => {
+        if (response.error) {
+          const signUpError = Error();
+          signUpError.message = response.error.message;
+          signUpError.name = response.error.status;
+          return console.error(signUpError);
         }
-        sendEmailVerification(newUser.user, opt)
-          .then(() => {
-            setRegOnProgress(false);
-            setRegReady(true);
-          })
-          .catch(err => console.error(err));
-      }
+        if (!response.data) {
+          return console.error('handleSignUp: null_data_error');
+        }
+
+        return response.data.uid;
+      });
+
+    if (typeof uid === 'string') { // user is created
+      const firstSignIn = await signInWithEmailAndPassword(ai, email, password);
+      sendEmailVerification(firstSignIn.user, emailVerificationOptions)
+        .then(() => {
+          setRegOnProgress(false);
+          setRegReady(true);
+          ai.signOut();
+        })
+        .catch((err) => console.error(err));
     } else {
-      // some error happend
-      setRegOnProgress(false)
+      // some error was happened;
+      setRegOnProgress(false);
     }
   }
 
@@ -142,7 +143,7 @@ const SignUp: React.FC<SignUpProps> = () => {
           className={styles.submit}
           type='submit'
           value='SIGNUP'
-          onClick={(event) => handleSignUp(event)}
+          onClick={() => handleSignUp()}
         />
         <div className={styles.actions}>
           <a href='*' onClick={(event) => {
