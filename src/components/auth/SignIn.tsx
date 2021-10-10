@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
 import styles from './signInOrUp.module.scss';
-import { AiOutlineUser } from 'react-icons/ai';
+import { MdAlternateEmail } from 'react-icons/md';
 import { BiKey } from 'react-icons/bi';
 import { useAuthPopupStateContext } from './authPopupContextProvider';
 import LoadingIcons from 'react-loading-icons';
@@ -66,7 +66,7 @@ const SignIn: React.FC = () => {
 
         <div className={styles.flexRow}>
           <label className={styles.label} htmlFor='email'>
-            <AiOutlineUser style={{width:'12px', height:'13px'}} color='grey' />
+            <MdAlternateEmail style={{width:'12px', height:'13px'}} color='grey' />
           </label>
           <input
             id='email'

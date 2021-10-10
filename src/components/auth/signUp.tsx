@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './signInOrUp.module.scss';
 import { AiOutlineUser, AiOutlineSecurityScan } from 'react-icons/ai';
-import { BiKey, BiUserPin } from 'react-icons/bi';
+import { BiKey } from 'react-icons/bi';
 import { useAuthPopupStateContext } from './authPopupContextProvider';
 import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
@@ -9,6 +9,7 @@ import { pageUrl } from '../../appProperties';
 import { Redirect } from 'react-router';
 import LoadingIcons from 'react-loading-icons';
 import RegisterUser from './registerUser';
+import { MdAlternateEmail } from 'react-icons/md';
 
 type SignUpProps = {
 
@@ -89,7 +90,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         }
         <div className={styles.flexRow}>
           <label className={styles.label} htmlFor='email'>
-            <AiOutlineUser style={{width:'12px', height:'13px'}} color='grey' />
+            <MdAlternateEmail style={{width:'12px', height:'13px'}} color='grey' />
           </label>
           <input
             id='email'
@@ -102,7 +103,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         </div>
         <div className={styles.flexRow}>
           <label className={styles.label} htmlFor='username'>
-            <BiUserPin style={{width:'12px', height:'13px'}} color='grey' />
+            <AiOutlineUser style={{width:'12px', height:'13px'}} color='grey' />
           </label>
           <input
             id='username'
