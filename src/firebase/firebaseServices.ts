@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from 'firebase/firestore';
 import IsLocalhost from '../helper/isLocalhost';
+import { getFunctions } from '@firebase/functions';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCGGqVYPqKow-6QoV6c9MbpDeqjPb1OQnk",
@@ -44,6 +45,11 @@ const GetStorageInstance = () => {
   return getStorage(appCheckInstance.app);
 }
 
+const GetFunctionsInstance = () => {
+  const appCheckInstance = InitializeAppCheck();
+  return getFunctions(appCheckInstance.app);
+}
+
 const InitializeAppDebug = () => {
   if (!firebaseInstance) {
     firebaseInstance = initializeApp(firebaseConfig);
@@ -67,10 +73,16 @@ const GetStorageDebugInstance = () => {
   return getStorage(appCheckInstance);
 }
 
+const GetFunctionsDebugInstance = () => {
+  const appCheckInstance = InitializeAppDebug();
+  return getFunctions(appCheckInstance);
+}
+
 const FirebaseServices = {
   getAuthInstance: debug ? GetAuthDebugInstance : GetAuthInstance,
   getFirestoreInstance: debug ? GetFirestoreDebugInstance : GetFirestoreInstance,
   getStorageInstance: debug ? GetStorageDebugInstance : GetStorageInstance,
+  getFunctionsInstance: debug ? GetFunctionsDebugInstance : GetFunctionsInstance,
 }
 
 export default FirebaseServices;

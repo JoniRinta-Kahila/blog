@@ -54,7 +54,7 @@ const SignUp: React.FC<SignUpProps> = () => {
           return console.error(signUpError);
         }
         if (!response.data) {
-          return console.error('handleSignUp: null_data_error');
+          return console.error(response);
         }
 
         return response.data.uid;

@@ -6,25 +6,9 @@ type WelcomeProps = {
 }
 
 const Welcome: React.FC<WelcomeProps> = () => {
-  // const { user } = useFirebaseUserContext();
-
-  // const [curentUser, setCurrentUser] = useState<User|null>();
   const { setPopupIsOpen } = useAuthPopupStateContext();
 
-  useEffect(() => setPopupIsOpen(false))
-
-  // useEffect(() => {
-  //   if (user === undefined) return;
-  //   setCurrentUser(user);
-  // }, [user]);
-
-  // if (curentUser && curentUser.emailVerified) {
-  //   return <Redirect to='/notfound' />
-  // }
-
-  // if (curentUser === null) {
-  //   return <Redirect to='/notfound' />
-  // }
+  useEffect(() => setPopupIsOpen(false), [setPopupIsOpen])
 
   return (
     <div style={{display: 'flex', flexDirection:'column', justifySelf: 'center', justifyContent: 'center', textAlign: 'center'}}>

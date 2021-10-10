@@ -1,4 +1,11 @@
-import { endpoints } from "../../appProperties";
+import * as functions from 'firebase/functions'
+import FirebaseServices from "../../firebase/firebaseServices";
+
+export interface IRegisterUserProps {
+  email: string,
+  displayName: string,
+  password: string,
+}
 
 export interface IRegisterUserResponse {
   data?: {
@@ -11,23 +18,23 @@ export interface IRegisterUserResponse {
   }
 }
 
-const RegisterUser = async (email: string, displayName: string, password: string): Promise<IRegisterUserResponse> => {
-  const response = await fetch(endpoints.registration, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      data: {
-        email: email,
-        displayName: displayName,
-        password: password,
-      },
-    }),
-  });
+type Tdata = IRegisterUserProps | null | undefined
+type TdataReturn = (data: Tdata) => Promise<functions.HttpsCallableResult<unknown>>
 
-  const responseData: IRegisterUserResponse = await response.json();
-  return responseData;
+const RegisterUser = (email: string, displayName: string, password: string): Promise<IRegisterUserResponse> => {
+
+  const functionsInstance = FirebaseServices.getFunctionsInstance();
+  const registration: TdataReturn = functions.httpsCallable<IRegisterUserProps>(functionsInstance, 'userRegistration', {timeout: 70000})
+
+  const response: Promise<IRegisterUserResponse> = registration({
+    email: email,
+    displayName: displayName,
+    password: password,
+  })
+    .then((response) => response)
+    .catch((err) => err)
+
+  return response;
 };
 
 export default RegisterUser;
