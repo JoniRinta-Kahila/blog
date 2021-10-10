@@ -22,6 +22,8 @@ import AuthPopupContextProvider from './components/auth/authPopupContextProvider
 import Welcome from './components/auth/welcome';
 import EmailVerified from './components/auth/emailVerified';
 import dev from './helper/devLogger';
+import * as functions from 'firebase/functions'
+import FirebaseServices from './firebase/firebaseServices';
 
 const App: React.FC = () => {
 
@@ -32,9 +34,22 @@ const App: React.FC = () => {
     setRootTree(setupRootStore());
   }, []);
 
+  useEffect(() => {
+    console.log('init fb-test')
+    const sub = () => {
+      console.log('call fb-test')
+      const fi = FirebaseServices.getFunctionsInstance();
+      const action = functions.httpsCallable(fi, "getUsers");
+      action().then(x => console.log(x.data)).catch(err => console.error(err));
+    }
+
+    return () => sub();
+  }, [])
+
   if (!rootTree) {
     return <Squares />
   }
+
 
   return (
     <RootStoreProvider value={rootTree}>
