@@ -8,6 +8,10 @@ import 'reactjs-popup/dist/index.css';
 import "react-activity/dist/Dots.css";
 import 'react-tabs/style/react-tabs.scss';
 
+// ag-grid-react
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import './components/agGridReact/styles/ag-theme-material.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>

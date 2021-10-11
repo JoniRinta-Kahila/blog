@@ -1,0 +1,49 @@
+.defaultState {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.defaultState button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.defaultState .edit {
+  padding-right: 20px;
+}
+
+.defaultState button svg {
+  height: 24px;
+  width: 24px;
+  fill: #909090;
+}
+
+.editState {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.editState button {
+  height: 40px;
+  width: 45px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.editState .save {
+  background: #0077FF;
+  color: #EDEDED;
+}
+
+.editState .cancel {
+  width: 45px;
+  margin-right: 8px;
+  background: #EDEDED;
+  color: #0077FF;
+}

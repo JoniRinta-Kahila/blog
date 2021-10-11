@@ -12,6 +12,7 @@ import { BiEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdVisibilityOff, MdVisibility } from 'react-icons/md';
 import dev from '../../helper/devLogger';
+import UsersGrid from './usersGrid/usersGrid';
 
 type DashboardProps = {
 
@@ -120,7 +121,7 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
         }
       </div>
       <div className={styles.card}>
-        <h1>User</h1>
+        <UsersGrid />
       </div>
       <div className={styles.card}>
         <h1>Logs</h1>
