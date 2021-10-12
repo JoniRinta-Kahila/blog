@@ -1,0 +1,15 @@
+.iconCell {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  text-align: center !important;
+
+  svg {
+    display: flex;
+    justify-self: center;
+    color: blue;
+    &:hover {
+      color: red;
+    }
+  }
+}

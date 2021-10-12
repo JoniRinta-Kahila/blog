@@ -28,7 +28,7 @@ const UsersGrid: React.FC<UsersGridProps> = () => {
 
   return (
     <div className={'ag-theme-material'} style={{height: 'calc(100% - 30px)', width: '100%'}}>
-      <h3 style={{height: '30px', margin:0, color: '#fff'}}>USERS</h3>
+      <h3 style={{height: '30px', margin:0, color: '#fff'}}>USERS <i style={{color: 'orange'}}>- Not observed</i></h3>
       <AgGridReact
         modules={AllCommunityModules}
         rowData={userData}
