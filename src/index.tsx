@@ -9,7 +9,8 @@ import "react-activity/dist/Dots.css";
 import 'react-tabs/style/react-tabs.scss';
 
 // ag-grid-react
-import 'ag-grid-community/dist/styles/ag-grid.css';
+// import 'ag-grid-community/dist/styles/ag-grid.css';
+import './components/agGridReact/styles/ag-grid.min.css'
 import './components/agGridReact/styles/ag-theme-material.css';
 
 ReactDOM.render(
