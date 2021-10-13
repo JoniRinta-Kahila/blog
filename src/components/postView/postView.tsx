@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import {useParams } from "react-router-dom";
-import { Post } from '../../mst';
+import { useParams } from "react-router-dom";
+import { PostSnapshot, RootStoreSnapshot } from '../../mst';
 import { useStores } from '../../mst/rootStoreContext';
 import ArticleHeader from '../editorV1/components/articleHeader';
 import { IoCalendarSharp } from 'react-icons/io5';
@@ -13,13 +13,20 @@ import { observer } from 'mobx-react-lite';
 import hljs from 'highlight.js';
 import PostCommentsSection from './postCommentsSection';
 import dev from '../../helper/devLogger';
+import ScrollToTop from '../basic/scrollToTop';
+import { getSnapshot, onSnapshot } from 'mobx-state-tree';
 
 const PostView: React.FC = observer(() => {
-  const [currentPost, setCurrentPost] = useState<Post>();
   const params = useParams<any>();
   const postId = params.postId;
-  const rootStore = useStores();
+  
+  const [currentPost, setCurrentPost] = useState<PostSnapshot>();
+  const [snap, setSnap] = useState<RootStoreSnapshot>(getSnapshot(useStores()));
+  onSnapshot(useStores(), (newSnapShot) => setSnap(newSnapShot));
 
+  // Init hljs
+  // BUG One of your code blocks includes unescaped HTML. This is a potentially serious security risk. 
+  // happen on hard-reload page, where post content have codeblock
   useEffect(() => {
     dev.log('Hilight update')
     document.querySelectorAll('pre code').forEach((el: any) => {
@@ -31,16 +38,16 @@ const PostView: React.FC = observer(() => {
   useMemo(() => {
     let found = false;
     if (postId) {
-      const current = rootStore.posts.find(x => x.id === postId);
+      const current = snap.posts.find(x => x.id === postId);
       setCurrentPost(current);
       
       found = current !== undefined;
     }
 
     if (!found) {
-      // TODO: redirect to 404
+      
     }
-  }, [postId, rootStore.posts]);
+  }, [postId, snap.posts]);
 
   if (!currentPost) {
     // TODO: redirect to 404
@@ -49,7 +56,7 @@ const PostView: React.FC = observer(() => {
 
   return (
     <div>
-
+      <ScrollToTop />
       {/* ARTICLE HEADER */}
       <ArticleHeader str={currentPost.header} inEditor={false} />
       {/* ARTICLE INFO-BAR */}
