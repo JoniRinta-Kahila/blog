@@ -11,11 +11,80 @@
   }
 
   .messagebox {
+    position: relative;
     border: 1px solid rgba(0, 0, 0, 0.247);
     border-radius: 5px;
     padding: 8px;
     margin: 8px;
   }
+/// COMMENT ACTION HAMBURGER START -->
+.actionsContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.drop {
+  // background: lightblue;
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  &::before { // hamburger button
+    content: '\2807';
+    display: flex;
+    margin-left: 3px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+}
+
+.drop input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.drop .actions {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+};
+
+.drop .actions {
+  display: none;
+}
+
+input:checked + .actions {
+  display: flex;
+  flex-direction: column;
+  background-color: beige;
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid black;
+  z-index: 1000;
+}
+
+.action {
+  user-select: none;
+  margin: 5px;
+
+  button {
+    background: ghostwhite;
+  }
+}
+
+input:checked + .actions {
+  -webkit-transform: translate(-25px, 20px);
+  -ms-transform: translate(-25px, 20px);
+  transform: translate(-25px, 20px);
+}
+
+/// <-- COMMENT ACTION HAMBURGER END
 
   .messageInfo {
     display: flex;

@@ -3,8 +3,9 @@ import { useFirebaseUserContext } from '../../firebase/context/firebaseUserConte
 import FirebaseServices from '../../firebase/firebaseServices';
 import TimeAgo from '../../helper/timeElapsed';
 import styles from './postCommentsSection.module.scss';
-import { collection, query, where, onSnapshot, addDoc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
 import dev from '../../helper/devLogger';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 type PostCommentsSectionProps = {
   showNMessageOnDefault?: number,
@@ -93,6 +94,11 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
     .catch((err) => console.error(err));
   }
 
+  const deleteComment = async (messageId: string) => {
+    const firestoreInstance = FirebaseServices.getFirestoreInstance();
+    deleteDoc(doc(firestoreInstance, 'postcomments', messageId))
+  }
+
   return (
     <div className={styles.container}>
       <h2>Discussion</h2>
@@ -100,6 +106,24 @@ const PostCommentsSection: React.FC<PostCommentsSectionProps> = ({showNMessageOn
         commentsData.slice(0, rowsDisplay).map(x => {
           return (
             <div key={x.id} className={styles.messagebox}>
+
+              {
+                x.uid !== user?.uid
+                ? null
+                : (
+                    <div className={styles.actionsContainer}>
+                      <label className={styles.drop}>
+                        <input type='checkbox' />
+                        <div className={styles.actions}>
+                          <button className={styles.action} onClick={() => deleteComment(x.id)}>
+                            <RiDeleteBin6Line color='orangeRed' />
+                          </button>
+                        </div>
+                      </label>
+                    </div>
+                  )
+              }
+
               <span className={styles.messageInfo}>
                 <h4>{x.sender}</h4>
                 <h5>{TimeAgo(x.time)}</h5>
