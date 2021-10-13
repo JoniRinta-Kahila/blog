@@ -25,12 +25,11 @@ const PostView: React.FC = observer(() => {
   onSnapshot(useStores(), (newSnapShot) => setSnap(newSnapShot));
 
   // Init hljs
-  // BUG One of your code blocks includes unescaped HTML. This is a potentially serious security risk. 
-  // happen on hard-reload page, where post content have codeblock
   useEffect(() => {
     dev.log('Hilight update')
+    hljs.configure({ignoreUnescapedHTML: true})
     document.querySelectorAll('pre code').forEach((el: any) => {
-      el.classList.add(styles.codeblock);
+      // el.classList.add(styles.codeblock);
       hljs.highlightElement(el);
     })
   }, [currentPost]);
