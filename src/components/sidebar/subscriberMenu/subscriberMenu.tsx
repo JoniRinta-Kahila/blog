@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
-import FirebaseServices from '../../firebase/firebaseServices';
-import { SidebarLinksData } from './sidebarLinksData';
-import styles from './sidebarLinks.module.scss';
-import { useAuthPopupStateContext } from '../auth/authPopupContextProvider';
+import { useFirebaseUserContext } from '../../../firebase/context/firebaseUserContextProvider';
+import FirebaseServices from '../../../firebase/firebaseServices';
+import { SidebarLinksData } from './subscriberLinksData';
+import styles from './subscriberMenu.module.scss';
+import { useAuthPopupStateContext } from '../../auth/authPopupContextProvider';
 
 type SidebarLinksProps = {
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ManagerMenuItems from './managerMenuItems';
 import styles from './managerMenu.module.scss';
-import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
-import { useAuthPopupStateContext } from '../auth/authPopupContextProvider';
+import { useFirebaseUserContext } from '../../../firebase/context/firebaseUserContextProvider';
+import { useAuthPopupStateContext } from '../../auth/authPopupContextProvider';
 
 const ManagerMenu: React.FC = () => {
   const { isAdmin, user } = useFirebaseUserContext();

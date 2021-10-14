@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStores } from '../../mst/rootStoreContext';
+import { useStores } from '../../../mst/rootStoreContext';
 import { Link } from 'react-router-dom';
 import styles from './latestPosts.module.scss';
 import { observer } from 'mobx-react-lite';

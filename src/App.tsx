@@ -14,10 +14,10 @@ import PostsPresentation from './components/postView/postsPresentation';
 import PostView from './components/postView/postView';
 import FirebaseUserContextProvider from './firebase/context/firebaseUserContextProvider';
 import Header from './components/basic/header';
-import Sidebar from './components/sidebar/sidebar';
+import SidebarComponents from './components/sidebar/sidebarComponents';
 import { Squares } from "react-activity";
 import Dashboard from './components/managerComponents/dashboard';
-import Notfound from './components/notfound';
+import Notfound from './components/notfound/notfound';
 import AuthPopupContextProvider from './components/auth/authPopupContextProvider';
 import Welcome from './components/auth/welcome';
 import EmailVerified from './components/auth/emailVerified';
@@ -59,7 +59,9 @@ const App: React.FC = () => {
                     </Switch>
                   </div>
                 </div>
-              <Sidebar />
+              <div className={styles.sidebar}>
+                <SidebarComponents />
+              </div>
             </div>
           </FirestoreSnapshotProvider>
         </AuthPopupContextProvider>

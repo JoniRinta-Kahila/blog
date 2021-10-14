@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import rickRoll from './assets/rickroll.gif';
-import rickRollMP3 from './assets/rickrollmp3.mp3';
+import rickRoll from '../assets/rickroll.gif';
+import rickRollMP3 from '../assets/rickrollmp3.mp3';
 import styles from './notfound.module.scss';
 
-type NotfoundProps = {
-
-}
-
-
-const Notfound: React.FC<NotfoundProps> = () => {
+const Notfound: React.FC = () => {
   const playAudio = () => {
     const audioEl = document.getElementsByClassName("audio-element")[0] as HTMLAudioElement
     audioEl.play();
@@ -44,4 +39,4 @@ const Notfound: React.FC<NotfoundProps> = () => {
   )
 }
 
-export default Notfound
+export default Notfound;
