@@ -20,7 +20,7 @@
     "firebase": "^9.0.2",
     "highlight.js": "^11.2.0",
     "immutable": "^4.0.0-rc.14",
-    "mobx": "^6.3.3",
+    "mobx": "^6.3.5",
     "mobx-react-lite": "^3.2.1",
     "mobx-state-tree": "^5.0.3",
     "node-sass": "^6.0.0",
