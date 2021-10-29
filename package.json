@@ -66,7 +66,7 @@
     "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
     "@types/crypto-js": "^4.0.2",
     "@types/react-router-dom": "^5.3.2",
-    "@types/react-select": "^4.0.17",
+    "@types/react-select": "^5.0.1",
     "@types/react-tabs": "^2.3.3"
   }
 }
