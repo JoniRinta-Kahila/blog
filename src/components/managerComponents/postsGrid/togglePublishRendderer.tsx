@@ -15,20 +15,20 @@ const TogglePublishRendderer: React.FC<ICellRendererParams> = ({ api, node, valu
    * @returns Promise<void>
    */
   const setPublished = async (nextState: boolean, id: string) => {
-    const firestoreInstance = FirebaseServices.getFirestoreInstance()
+    const firestoreInstance = FirebaseServices.getFirestoreInstance();
     const ref = doc(firestoreInstance, 'post', id);
     const data = nextState
       ? unpublishedPosts.find(x => x.id === id)
       : posts.find(x => x.id === id)
     await updateDoc(ref, {
       ...data,
-      published: nextState
+      published: nextState,
     })
     .then(() => {
       console.log(id, 'UPDATED');
-      api.refreshCells()
+      api.refreshCells();
     })
-    .catch(error => console.error('CANNOT UPDATE', error.message))
+    .catch(error => console.error('CANNOT UPDATE', error.message));
   }
 
   return (

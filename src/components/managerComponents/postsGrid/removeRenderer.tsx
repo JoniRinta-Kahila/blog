@@ -11,6 +11,7 @@ const handleDelete = async (postId: string, header: string) => {
     await deleteDoc(doc(firestoreInstance, 'post', postId));
   } else {
     alert('Cannot delete, You typed wrong header!')
+    alert(header)
   }
 }
 

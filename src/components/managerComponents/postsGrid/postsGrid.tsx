@@ -9,6 +9,7 @@ import TogglePublishRendderer from './togglePublishRendderer';
 import { getSnapshot, onSnapshot } from 'mobx-state-tree';
 import { RootStoreSnapshot } from '../../../mst';
 import RemoveRenderer from './removeRenderer';
+import EditRenderer from './editRenderer';
 
 type PostsGridProps = {
   published?: boolean,
@@ -57,7 +58,8 @@ const PostsGrid: React.FC<PostsGridProps> = observer(({published = false}) => {
         <AgGridColumn field='published' headerName='' cellClass={styles.iconCell} maxWidth={80} cellRendererFramework={TogglePublishRendderer}/>
         <AgGridColumn field='header' />
         <AgGridColumn field='time' headerName='Created' valueFormatter={(param) => TimeAgo(param.value)} />
-        <AgGridColumn headerName='' cellRendererFramework={RemoveRenderer} maxWidth={80} cellClass={styles.iconCell} />
+        <AgGridColumn headerName='actions' cellRendererFramework={EditRenderer} maxWidth={60} cellClass={styles.iconCell} />
+        <AgGridColumn headerName='actions' cellRendererFramework={RemoveRenderer} maxWidth={60} cellClass={styles.iconCell} />
       </AgGridReact>
     </div>
   )
