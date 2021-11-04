@@ -49,6 +49,8 @@ const App: React.FC = () => {
                     <Switch>
                       <Route exact path='/' component={PostsPresentation} />
                       <Route exact path='/posts/:postId' component={PostView} />
+                      <Route exact path='/tag/:filter' children={<PostsPresentation byTag />} />
+                      <Route exact path='/category/:filter' children={<PostsPresentation byCategory />} />
                       <ProtectedRoute exact path='/manage' component={Dashboard} />
                       <ProtectedRoute exact path='/manage/create' component={CreateAndEditPost} />
                       <ProtectedRoute exact path='/manage/edit/:postId' component={CreateAndEditPost} />

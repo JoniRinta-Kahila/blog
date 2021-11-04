@@ -61,7 +61,7 @@ const PostView: React.FC = observer(() => {
       {/* ARTICLE INFO-BAR */}
       <div className={styles.infoBar}>
         <span style={{}}><IoCalendarSharp/><p style={{marginLeft: '6px', fontSize: '13px'}}>{TimeAgo(currentPost.time)}</p></span>
-        <span style={{}}><RiFlag2Fill/><ArticleCategory str={currentPost.category} inEditor={false} /></span>
+        <span style={{}}><RiFlag2Fill/><ArticleCategory data={currentPost} inEditor={false} /></span>
         <span style={{}}><AiOutlineShareAlt/><p style={{marginLeft: '6px', fontSize: '13px'}}>Share</p></span>
       </div>
 

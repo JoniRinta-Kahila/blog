@@ -31,7 +31,7 @@ const PostView: React.FC<PostViewProps> = ({ blogPost }) => {
       {/* ARTICLE INFO-BAR */}
       <div className={styles.infoBar}>
         <span style={{}}><IoCalendarSharp/><p style={{marginLeft: '6px', fontSize: '13px'}}>{TimeAgo(blogPost.time)}</p></span>
-        <span style={{}}><RiFlag2Fill/><ArticleCategory str={blogPost.category} inEditor={blogPost.inEditor} /></span>
+        <span style={{}}><RiFlag2Fill/><ArticleCategory data={blogPost} inEditor={blogPost.inEditor} /></span>
         <span style={{}}><AiOutlineShareAlt/><p style={{marginLeft: '6px', fontSize: '13px'}}>Share</p></span>
       </div>
       {/* ARTICLE CONTENT */}
