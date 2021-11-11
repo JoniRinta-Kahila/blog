@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './app.module.scss';
 import {
-  Switch,
+  Routes,
   Route,
 } from 'react-router-dom';
 import CreateAndEditPost from './components/editorV1/createAndEditPost';
@@ -46,19 +46,19 @@ const App: React.FC = () => {
                 <div className={styles.wrapper}>
                   <div className={styles.content}>
                     <Header />
-                    <Switch>
-                      <Route exact path='/' component={PostsPresentation} />
-                      <Route exact path='/posts/:postId' component={PostView} />
-                      <Route exact path='/tag/:filter' children={<PostsPresentation byTag />} />
-                      <Route exact path='/category/:filter' children={<PostsPresentation byCategory />} />
-                      <ProtectedRoute exact path='/manage' component={Dashboard} />
-                      <ProtectedRoute exact path='/manage/create' component={CreateAndEditPost} />
-                      <ProtectedRoute exact path='/manage/edit/:postId' component={CreateAndEditPost} />
-                      <Route exact path='/welcome' component={Welcome} />
-                      <Route exact path='/verified' component={EmailVerified} />
-                      <Route exact path='/notfound' component={Notfound} />
-                      <Route component={Notfound} />
-                    </Switch>
+                    <Routes>
+                      <Route path='/' element={<PostsPresentation />} />
+                      <Route path='/posts/:postId' element={<PostView />} />
+                      <Route path='/tag/:filter' element={<PostsPresentation byTag />} />
+                      <Route path='/category/:filter' element={<PostsPresentation byCategory />} />
+                      <ProtectedRoute path='/manage' element={<Dashboard />} />
+                      <ProtectedRoute path='/manage/create' element={<CreateAndEditPost />} />
+                      <ProtectedRoute path='/manage/edit/:postId' element={<CreateAndEditPost />} />
+                      <Route path='/welcome' element={<Welcome />} />
+                      <Route path='/verified' element={<EmailVerified />} />
+                      <Route path='/notfound' element={<Notfound />} />
+                      <Route element={<Notfound />} />
+                    </Routes>
                   </div>
                 </div>
               <div className={styles.sidebar}>

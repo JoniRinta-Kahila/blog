@@ -16,8 +16,8 @@ const PostsPresentation: React.FC<PostsPresentationProps> = observer(({ byTag = 
 
   const sorter = () => {
     console.log(filter);
-    if (byTag) return rootStore.posts.filter(x => x.tags.find(c => c.toLowerCase() === filter.toLowerCase()));
-    if (byCategory) return rootStore.posts.filter(x => x.category.toLowerCase() === filter.toLowerCase());
+    if (byTag) return rootStore.posts.filter(x => x.tags.find(c => c.toLowerCase() === filter?.toLowerCase()));
+    if (byCategory) return rootStore.posts.filter(x => x.category.toLowerCase() === filter?.toLowerCase());
     return rootStore.posts;
   }
 

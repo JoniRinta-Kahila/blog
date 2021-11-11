@@ -6,10 +6,11 @@ import { useAuthPopupStateContext } from './authPopupContextProvider';
 import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
 import { pageUrl } from '../../appProperties';
-import { Redirect } from 'react-router';
+// import Redirect from 'react-router-dom';
 import LoadingIcons from 'react-loading-icons';
 import RegisterUser from './registerUser';
 import { MdAlternateEmail } from 'react-icons/md';
+import { Navigate } from 'react-router-dom';
 
 type SignUpProps = {
 
@@ -77,7 +78,7 @@ const SignUp: React.FC<SignUpProps> = () => {
   }
 
   if (regReady) {
-    return <Redirect to='/welcome' />
+    return <Navigate to='/welcome' />
   }
 
   return (

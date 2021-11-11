@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, RouteProps, } from 'react-router-dom';
+import { Navigate, Route, RouteProps, } from 'react-router-dom';
 import { Squares } from "react-activity";
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 
@@ -15,7 +15,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ ...rest}) => {
     return <Squares />
   }
 
-  if (user === null) return <Redirect to='' />;
+  if (user === null) return <Navigate to='' />;
 
   return <Route {...rest} />
 

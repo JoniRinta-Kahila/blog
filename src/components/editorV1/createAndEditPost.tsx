@@ -5,7 +5,7 @@ import PostView from "./postsView/postView";
 import PostDetailForm from "./components/postDetailForm";
 import EditorActions from "./components/editorActions";
 import { useFirebaseUserContext } from "../../firebase/context/firebaseUserContextProvider";
-import { Redirect, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { IEditorItem } from "./types/editorItem";
 import { EditorDefaults } from "./configs/editorDefaults";
 import { Squares } from "react-activity";
@@ -41,7 +41,7 @@ const CreateAndEditPost: React.FC = () => {
   }
   
   if (!isAdmin) {
-    return <Redirect to='' />
+    return <Navigate to='' />
   }
 
   return (

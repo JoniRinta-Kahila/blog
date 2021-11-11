@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 import styles from './dashboard.module.scss';
 import { Squares } from "react-activity";
@@ -24,7 +24,7 @@ const Dashboard: React.FC<DashboardProps> = observer(() => {
   }
 
   if (!isAdmin) {
-    return <Redirect to ='' />
+    return <Navigate to ='' />
   }
 
   return (
