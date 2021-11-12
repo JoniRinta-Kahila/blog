@@ -22,6 +22,7 @@ import Welcome from './components/auth/welcome';
 import EmailVerified from './components/auth/emailVerified';
 import dev from './helper/devLogger';
 import ProtectedRoutes from './components/auth/protectedRoutes';
+import ProfilePage from './components/profile/profilePage';
 
 const App: React.FC = () => {
 
@@ -61,6 +62,12 @@ const App: React.FC = () => {
                         <Route path='/manage/create' element={<CreateAndEditPost />} />
                         <Route path='/manage/edit/:postId' element={<CreateAndEditPost />} />
                       </Route>
+
+                      {/* 🚧 */}
+                      <Route element={<ProtectedRoutes />}>
+                        <Route path='/profile' element={<ProfilePage />} />
+                      </Route>
+                      {/* 🚧 */}
 
                       <Route path='/welcome' element={<Welcome />} />
                       <Route path='/verified' element={<EmailVerified />} />
