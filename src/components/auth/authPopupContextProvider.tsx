@@ -31,15 +31,19 @@ const AuthPopupContextProvider: React.FC = ({children}) => {
       setPopupIsOpen: setAuthModalState,
       setNeedToSignUp: setNeedToSignUp,
     }}>
-      <Popup  
-        children={SignInOrUp}
-        contentStyle={{width:'fit-content'}} overlayStyle={{background:'rgba(0, 0, 0, 0.85)'}}
-        onClose={() => {
-          setAuthModalState(false);
-          setNeedToSignUp(false);
-        }}
-        open={authModalState}
-      />
+      {
+        authModalState 
+        ? <Popup  
+            children={SignInOrUp}
+            contentStyle={{width:'fit-content'}} overlayStyle={{background:'rgba(0, 0, 0, 0.85)'}}
+            onClose={() => {
+              setAuthModalState(false);
+              setNeedToSignUp(false);
+            }}
+            open={authModalState}
+          />
+        : null
+      }
       {children}
     </AuthPopupStateContext.Provider>
   )

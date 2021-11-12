@@ -43,6 +43,27 @@ body {
   box-shadow:         3px 0 5px 0 #555;
 }
 
+.activityIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  position: absolute;
+  align-self: center;
+  justify-self: center;
+  background: rgba(4, 163, 255, 0.582);
+  height: 100%;
+  width: 100%;
+  z-index: 100000;
+  &::before {
+    content: 'Please wait.';
+    justify-self: flex-start;
+    color: #fff;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .sidebar {
     display: none;

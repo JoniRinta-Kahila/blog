@@ -5,7 +5,6 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, } from 'react-router-dom';
 import './fonts/mukta/Mukta-ExtraBold.ttf';
 import 'reactjs-popup/dist/index.css';
-import "react-activity/dist/Dots.css";
 import 'react-tabs/style/react-tabs.scss';
 
 // ag-grid-react

@@ -1,30 +1,22 @@
 import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 import styles from './dashboard.module.scss';
-import { Squares } from "react-activity";
+import LoadingIcons from 'react-loading-icons';
 import { observer } from 'mobx-react-lite';
 import dev from '../../helper/devLogger';
 import UsersGrid from './usersGrid/usersGrid';
 import PostsGrid from './postsGrid/postsGrid';
 
-type DashboardProps = {
-
-}
-
-const Dashboard: React.FC<DashboardProps> = observer(() => {
+const Dashboard: React.FC = observer(() => {
   const { isAdmin } = useFirebaseUserContext();
   
+
   useEffect(() => {
     dev.log('USER IS ADMIN:',isAdmin)
   }, [isAdmin])
   
   if (isAdmin === undefined) {
-    return <Squares />
-  }
-
-  if (!isAdmin) {
-    return <Navigate to ='' />
+    return <LoadingIcons.Circles />
   }
 
   return (

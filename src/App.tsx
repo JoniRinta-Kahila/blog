@@ -14,7 +14,7 @@ import PostView from './components/postView/postView';
 import FirebaseUserContextProvider from './firebase/context/firebaseUserContextProvider';
 import Header from './components/basic/header';
 import SidebarComponents from './components/sidebar/sidebarComponents';
-import { Squares } from "react-activity";
+import LoadingIcons from 'react-loading-icons';
 import Dashboard from './components/managerComponents/dashboard';
 import Notfound from './components/notfound/notfound';
 import AuthPopupContextProvider from './components/auth/authPopupContextProvider';
@@ -33,9 +33,12 @@ const App: React.FC = () => {
   }, []);
 
   if (!rootTree) {
-    return <Squares />
+    return ( 
+      <div className={styles.activityIndicator}>
+        <LoadingIcons.ThreeDots color='blue'/>
+      </div>
+    );
   }
-
 
   return (
     <RootStoreProvider value={rootTree}>
@@ -48,11 +51,12 @@ const App: React.FC = () => {
                     <Header />
                     <Routes>
                       <Route path='/' element={<PostsPresentation />} />
+                      <Route path='/login' element={<PostsPresentation />} />
                       <Route path='/posts/:postId' element={<PostView />} />
                       <Route path='/tag/:filter' element={<PostsPresentation byTag />} />
                       <Route path='/category/:filter' element={<PostsPresentation byCategory />} />
 
-                      <Route path='/manage' element={<ProtectedRoutes />} >
+                      <Route element={<ProtectedRoutes requireAdmin />}>
                         <Route path='/manage' element={<Dashboard />} />
                         <Route path='/manage/create' element={<CreateAndEditPost />} />
                         <Route path='/manage/edit/:postId' element={<CreateAndEditPost />} />

@@ -8,7 +8,7 @@ import { useFirebaseUserContext } from "../../firebase/context/firebaseUserConte
 import { Navigate, useParams } from "react-router-dom";
 import { IEditorItem } from "./types/editorItem";
 import { EditorDefaults } from "./configs/editorDefaults";
-import { Squares } from "react-activity";
+import LoadingIcons from 'react-loading-icons';
 import ArticleCardWide from "../postView/articleCardWide";
 import { Post } from "../../mst";
 import { useStores } from "../../mst/rootStoreContext";
@@ -37,7 +37,7 @@ const CreateAndEditPost: React.FC = () => {
   }, [postId, rootStore.posts, rootStore.unpublishedPosts])
   
   if (isAdmin === undefined) {
-    return <Squares />
+    return <LoadingIcons.Circles />
   }
   
   if (!isAdmin) {
