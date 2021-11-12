@@ -23,6 +23,7 @@ import EmailVerified from './components/auth/emailVerified';
 import dev from './helper/devLogger';
 import ProtectedRoutes from './components/auth/protectedRoutes';
 import ProfilePage from './components/profile/profilePage';
+import Gravatar from './components/gravatar/gravatar';
 
 const App: React.FC = () => {
 
@@ -67,6 +68,10 @@ const App: React.FC = () => {
                       <Route element={<ProtectedRoutes />}>
                         <Route path='/profile' element={<ProfilePage />} />
                       </Route>
+
+                      <Route path='/gravatar/:email' element={<Gravatar />} />
+                      <Route path='/gravatar/:email/:size' element={<Gravatar />} />
+
                       {/* 🚧 */}
 
                       <Route path='/welcome' element={<Welcome />} />
