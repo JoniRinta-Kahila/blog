@@ -15,7 +15,7 @@ import GetEmailHash from './components/gravatar/getEmailHash';
 
 const isApi = (): boolean => {
   let host = window.location.host;
-  let protocol = window.location.protocol;
+  // let protocol = window.location.protocol;
   let parts = host.split('.');
   let subdomain = '';
   // If we get more than 3 parts, then we have a subdomain
