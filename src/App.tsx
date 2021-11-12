@@ -5,7 +5,6 @@ import {
   Route,
 } from 'react-router-dom';
 import CreateAndEditPost from './components/editorV1/createAndEditPost';
-import ProtectedRoute from './components/auth/protectedRoute';
 import { RootStoreProvider } from './mst/rootStoreContext';
 import { RootStore } from './mst';
 import { setupRootStore } from './mst/setup';
@@ -22,6 +21,7 @@ import AuthPopupContextProvider from './components/auth/authPopupContextProvider
 import Welcome from './components/auth/welcome';
 import EmailVerified from './components/auth/emailVerified';
 import dev from './helper/devLogger';
+import ProtectedRoutes from './components/auth/protectedRoutes';
 
 const App: React.FC = () => {
 
@@ -51,13 +51,17 @@ const App: React.FC = () => {
                       <Route path='/posts/:postId' element={<PostView />} />
                       <Route path='/tag/:filter' element={<PostsPresentation byTag />} />
                       <Route path='/category/:filter' element={<PostsPresentation byCategory />} />
-                      <ProtectedRoute path='/manage' element={<Dashboard />} />
-                      <ProtectedRoute path='/manage/create' element={<CreateAndEditPost />} />
-                      <ProtectedRoute path='/manage/edit/:postId' element={<CreateAndEditPost />} />
+
+                      <Route path='/manage' element={<ProtectedRoutes />} >
+                        <Route path='/manage' element={<Dashboard />} />
+                        <Route path='/manage/create' element={<CreateAndEditPost />} />
+                        <Route path='/manage/edit/:postId' element={<CreateAndEditPost />} />
+                      </Route>
+
                       <Route path='/welcome' element={<Welcome />} />
                       <Route path='/verified' element={<EmailVerified />} />
                       <Route path='/notfound' element={<Notfound />} />
-                      <Route element={<Notfound />} />
+                      <Route path='*' element={<Notfound />} />
                     </Routes>
                   </div>
                 </div>

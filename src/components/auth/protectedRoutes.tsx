@@ -1,17 +1,9 @@
 import React from 'react';
-import { Navigate, Route, RouteProps, } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { Squares } from "react-activity";
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 
-interface ProtectedRouteProps extends RouteProps {
-
-}
-
-/**
- * Deprecated after react-router-dom@6.0.2
- */
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ ...rest}) => {
-
+const ProtectedRoutes: React.FC = () => {
   const user = useFirebaseUserContext();
 
   if (user === undefined) {
@@ -20,8 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ ...rest}) => {
 
   if (user === null) return <Navigate to='' />;
 
-  return <Route {...rest} />
-
+  return <Outlet />
 }
 
-export default ProtectedRoute;
+export default ProtectedRoutes;
