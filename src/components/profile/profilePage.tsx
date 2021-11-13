@@ -3,11 +3,7 @@ import { useFirebaseUserContext } from '../../firebase/context/firebaseUserConte
 import Gravatar from '../gravatar/gravatar';
 import styles from './profilePage.module.scss';
 
-type ProfilePageProps = {
-
-}
-
-const ProfilePage: React.FC<ProfilePageProps> = () => {
+const ProfilePage: React.FC = () => {
   const { user } = useFirebaseUserContext();
 
   if (!user) {
@@ -17,8 +13,8 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
   return (
     <div className={styles.container}>
 
-      <div>
-        <Gravatar className={styles.gravatar} email={user.email!} size='200' />
+      <div className={styles.profileImg}>
+        <Gravatar round className={styles.gravatar} email={user.email!} size='200' />
       </div>
 
       <div className={styles.profileInfoCard}>

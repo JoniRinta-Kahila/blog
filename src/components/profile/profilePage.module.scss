@@ -1,15 +1,26 @@
 .container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   background: #f7f1ff;
   padding: 13px 0;
   border-radius: 16px;
   border: 1px solid #36494850;
+
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+  }
 }
 
+.profileImg {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30%;
+  min-width: 200px;
+}
 .gravatar {
-  border-radius: calc(200px/2);
   background-size: contain;
   box-shadow: 1px 1px 8px 0 grey;
   margin: 25px;
@@ -24,6 +35,8 @@
   height: auto;
   padding: 20px 0 20px 50px;
   width: 65%;
+  max-width: 520px;
+  min-width: 478px;
 
   table {
     font-size: 16px;
