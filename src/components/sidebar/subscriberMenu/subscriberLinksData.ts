@@ -7,5 +7,11 @@ interface ISidebarMenuItem {
 }
 
 export const SidebarLinksData: ISidebarMenuItem[] = [
-
+  {
+    key: 1,
+    name: 'Profile',
+    to:'/profile',
+    requireLogin: true,
+    requireAdmin: false,
+  }
 ]

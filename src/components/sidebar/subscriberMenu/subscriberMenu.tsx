@@ -6,11 +6,7 @@ import { SidebarLinksData } from './subscriberLinksData';
 import styles from './subscriberMenu.module.scss';
 import { useAuthPopupStateContext } from '../../auth/authPopupContextProvider';
 
-type SidebarLinksProps = {
-
-}
-
-const SidebarLinks: React.FC<SidebarLinksProps> = () => {
+const SidebarLinks: React.FC = () => {
   const { user } = useFirebaseUserContext();
   const auth = FirebaseServices.getAuthInstance();
   const { setPopupIsOpen } = useAuthPopupStateContext();
@@ -23,7 +19,7 @@ const SidebarLinks: React.FC<SidebarLinksProps> = () => {
           to=''
           onClick={(event) => {
             if (user) {
-              auth.signOut()
+              auth.signOut();
             } else {
               event.preventDefault();
               setPopupIsOpen(true);
@@ -39,9 +35,16 @@ const SidebarLinks: React.FC<SidebarLinksProps> = () => {
 
   return (
     <div className={styles.container}>
-      <h3>Subscriber?</h3>
-      {
-        SidebarLinksData.map(x => {
+      <h3>
+        {
+          user !== null
+          ? 'Account'
+          : 'Subscriber?'
+        }
+      </h3>
+      { // menu Items that are only visible to logged in users
+        user !== null
+        ? SidebarLinksData.filter(x => x.requireLogin).map(x => {
           return (
             <span key={x.key}>
               <b>|</b>
@@ -49,10 +52,11 @@ const SidebarLinks: React.FC<SidebarLinksProps> = () => {
             </span>
           )
         })
+        :null
       }
       <SignInOrOut />
     </div>
   )
 }
 
-export default SidebarLinks
+export default SidebarLinks;
