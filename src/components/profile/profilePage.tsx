@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
+import Gravatar from '../gravatar/gravatar';
 import styles from './profilePage.module.scss';
 
 type ProfilePageProps = {
@@ -15,6 +16,11 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
 
   return (
     <div className={styles.container}>
+
+      <div>
+        <Gravatar className={styles.gravatar} email={user.email!} size='200' />
+      </div>
+
       <div className={styles.profileInfoCard}>
         <table>
           <tbody>
@@ -24,15 +30,15 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
             </tr>
             <tr>
               <td>Email:</td>
-              <td>{user.email}</td>
+              <td style={{padding:'0 5px'}}>{user.email}</td>
             </tr>
             <tr>
               <td>Registered at:</td>
-              <td>{user.metadata.creationTime}</td>
+              <td style={{padding:'0 5px'}}>{user.metadata.creationTime}</td>
             </tr>
             <tr>
               <td>Email verified:</td>
-              <td>{
+              <td style={{padding:'0 5px'}}>{
                 user.emailVerified
                 ? 'True'
                 : 'False'
@@ -45,12 +51,17 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
             </tr>
             <tr>
               <td>GitHub profile:</td>
-              <td>profilelink</td>
+              <td style={{padding:'0 5px'}}>profilelink</td>
               <td><button onClick={() => alert('🚧🔧 You are on an unfinished site! 🔧🚧')}>Update</button></td>
             </tr>
           </tbody>
         </table>
       </div>
+
+      <div>
+        
+      </div>
+
     </div>
   )
 }

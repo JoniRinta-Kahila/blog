@@ -1,6 +1,18 @@
 .container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  background: #f7f1ff;
+  padding: 13px 0;
+  border-radius: 16px;
+  border: 1px solid #36494850;
+}
+
+.gravatar {
+  border-radius: calc(200px/2);
+  background-size: contain;
+  box-shadow: 1px 1px 8px 0 grey;
+  margin: 25px;
 }
 
 .profileInfoCard {
