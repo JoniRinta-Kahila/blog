@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFirebaseUserContext } from '../../firebase/context/firebaseUserContextProvider';
 import Gravatar from '../gravatar/gravatar';
+import { SendEmailVerification } from './profileActions';
 import styles from './profilePage.module.scss';
 
 const ProfilePage: React.FC = () => {
   const { user } = useFirebaseUserContext();
+  const [emailVerificationIsSend, setEmailVerificationIsSend]
+    = useState<boolean>(false);
 
   if (!user) {
     return <p>Loading...</p>
@@ -29,10 +32,6 @@ const ProfilePage: React.FC = () => {
               <td style={{padding:'0 5px'}}>{user.email}</td>
             </tr>
             <tr>
-              <td>Registered at:</td>
-              <td style={{padding:'0 5px'}}>{user.metadata.creationTime}</td>
-            </tr>
-            <tr>
               <td>Email verified:</td>
               <td style={{padding:'0 5px'}}>{
                 user.emailVerified
@@ -40,24 +39,21 @@ const ProfilePage: React.FC = () => {
                 : 'False'
               }</td>
               <td>{
-                user.emailVerified
+                user.emailVerified || emailVerificationIsSend
                 ? null
-                : <button onClick={() => alert('🚧🔧 You are on an unfinished site! 🔧🚧')}>Resend</button>
+                : <button onClick={() => {
+                  SendEmailVerification(user)
+                    .then(x => setEmailVerificationIsSend(x));
+                }}>Resend</button>
               }</td>
             </tr>
             <tr>
-              <td>GitHub profile:</td>
-              <td style={{padding:'0 5px'}}>profilelink</td>
-              <td><button onClick={() => alert('🚧🔧 You are on an unfinished site! 🔧🚧')}>Update</button></td>
+              <td>Registered at:</td>
+              <td style={{padding:'0 5px'}}>{user.metadata.creationTime}</td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <div>
-        
-      </div>
-
     </div>
   )
 }

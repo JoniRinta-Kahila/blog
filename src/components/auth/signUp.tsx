@@ -5,23 +5,13 @@ import { BiKey } from 'react-icons/bi';
 import { useAuthPopupStateContext } from './authPopupContextProvider';
 import { sendEmailVerification, signInWithEmailAndPassword } from '@firebase/auth';
 import FirebaseServices from '../../firebase/firebaseServices';
-import { pageUrl } from '../../appProperties';
-// import Redirect from 'react-router-dom';
 import LoadingIcons from 'react-loading-icons';
 import RegisterUser from './registerUser';
 import { MdAlternateEmail } from 'react-icons/md';
 import { Navigate } from 'react-router-dom';
+import EmailVerificationOptions from './emailVerificationOptions';
 
-type SignUpProps = {
-
-}
-
-const emailVerificationOptions = {
-  url: `${pageUrl}/verified`,
-  handleCodeInApp: true,
-}
-
-const SignUp: React.FC<SignUpProps> = () => {
+const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -33,7 +23,7 @@ const SignUp: React.FC<SignUpProps> = () => {
 
   const progressLayer = (
     <div className={styles.progressOn}>
-          <LoadingIcons.ThreeDots/>
+      <LoadingIcons.ThreeDots/>
     </div>
   )
   
@@ -64,7 +54,7 @@ const SignUp: React.FC<SignUpProps> = () => {
 
     if (typeof uid === 'string') { // user is created
       const firstSignIn = await signInWithEmailAndPassword(ai, email, password);
-      sendEmailVerification(firstSignIn.user, emailVerificationOptions)
+      sendEmailVerification(firstSignIn.user, EmailVerificationOptions)
         .then(() => {
           setRegOnProgress(false);
           setRegReady(true);
@@ -158,4 +148,4 @@ const SignUp: React.FC<SignUpProps> = () => {
   )
 }
 
-export default SignUp
+export default SignUp;
