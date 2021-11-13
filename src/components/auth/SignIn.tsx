@@ -29,7 +29,9 @@ const SignIn: React.FC = () => {
     </div>
   )
 
-  const handleLogin = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     if (!email || !password) {
       setErr({...err, emailErr: !!!email, passwordErr: !!!password})
       return;
@@ -48,8 +50,8 @@ const SignIn: React.FC = () => {
       .catch(() => {
         setErr({emailErr: true, passwordErr: true, signInErr: true})
         setSignInOnProgress(false);
-        return event.preventDefault();
-      })
+        event.preventDefault();
+      });
   }
   
   return (
@@ -64,6 +66,7 @@ const SignIn: React.FC = () => {
             : null
         }
 
+        <form onSubmit={(event) => handleLogin(event)}>
         <div className={styles.flexRow}>
           <label className={styles.label} htmlFor='email'>
             <MdAlternateEmail style={{width:'12px', height:'13px'}} color='grey' />
@@ -106,12 +109,12 @@ const SignIn: React.FC = () => {
             ? <p style={{marginTop: 0, marginBottom: '8px', fontSize: '.8em', color: 'orangered'}}>Check your email or password</p>
             : null
         }
-        <input
+        <button
           className={styles.submit}
           type='submit'
           value='LOGIN'
-          onClick={(event) => handleLogin(event)}
-        />
+        >Login</button>
+        </form>
         <div className={styles.actions}>
           <a href='*' onClick={(event) => {
             event.preventDefault();
