@@ -21,7 +21,7 @@ const SignIn: React.FC = () => {
   const [err, setErr] = useState<ISignInError>({emailErr: false, passwordErr: false, signInErr: false});
   const [signInOnProgress, setSignInOnProgress] = useState<boolean>(false);
 
-  const { setNeedToSignUp, setPopupIsOpen } = useAuthPopupStateContext();
+  const { setNeedToSignUp, setPopupIsOpen, setNeedToResetPwd } = useAuthPopupStateContext();
 
   const progressLayer = (
     <div className={styles.progressOn}>
@@ -56,16 +56,12 @@ const SignIn: React.FC = () => {
   
   return (
     <div className={styles.container}>
-
-
       <div className={styles.form}>
-
         {
           signInOnProgress
             ? progressLayer
             : null
         }
-
         <form onSubmit={(event) => handleLogin(event)}>
         <div className={styles.flexRow}>
           <label className={styles.label} htmlFor='email'>
@@ -118,7 +114,7 @@ const SignIn: React.FC = () => {
         <div className={styles.actions}>
           <a href='*' onClick={(event) => {
             event.preventDefault();
-            // do something
+            setNeedToResetPwd(true);
           }}>Forgot password?</a>
           <a href='*' onClick={(event) => {
             event.preventDefault();
