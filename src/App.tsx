@@ -23,6 +23,7 @@ import EmailVerified from './components/auth/emailVerified';
 import dev from './helper/devLogger';
 import ProtectedRoutes from './components/auth/protectedRoutes';
 import ProfilePage from './components/profile/profilePage';
+// import ScrollToTopProvider from './components/context/scrollToTopProvider';
 
 const App: React.FC = () => {
 
@@ -46,40 +47,42 @@ const App: React.FC = () => {
       <FirebaseUserContextProvider>
         <AuthPopupContextProvider>
           <FirestoreSnapshotProvider>
-            <div className={styles.container}>
-                <div className={styles.wrapper}>
-                  <div className={styles.content}>
-                    <Header />
-                    <Routes>
-                      <Route path='/' element={<PostsPresentation />} />
-                      <Route path='/login' element={<PostsPresentation />} />
-                      <Route path='/posts/:postId' element={<PostView />} />
-                      <Route path='/tag/:filter' element={<PostsPresentation byTag />} />
-                      <Route path='/category/:filter' element={<PostsPresentation byCategory />} />
+              <div className={styles.container}>
+                  <div className={styles.wrapper}>
+                    <div className={styles.content}>
+                      {/* <ScrollToTopProvider> */}
+                      <Header />
+                      <Routes>
+                        <Route path='/' element={<PostsPresentation />} />
+                        <Route path='/login' element={<PostsPresentation />} />
+                        <Route path='/posts/:postId' element={<PostView />} />
+                        <Route path='/tag/:filter' element={<PostsPresentation byTag />} />
+                        <Route path='/category/:filter' element={<PostsPresentation byCategory />} />
 
-                      <Route element={<ProtectedRoutes requireAdmin />}>
-                        <Route path='/manage' element={<Dashboard />} />
-                        <Route path='/manage/create' element={<CreateAndEditPost />} />
-                        <Route path='/manage/edit/:postId' element={<CreateAndEditPost />} />
-                      </Route>
+                        <Route element={<ProtectedRoutes requireAdmin />}>
+                          <Route path='/manage' element={<Dashboard />} />
+                          <Route path='/manage/create' element={<CreateAndEditPost />} />
+                          <Route path='/manage/edit/:postId' element={<CreateAndEditPost />} />
+                        </Route>
 
-                      {/* 🚧 */}
-                      <Route element={<ProtectedRoutes />}>
-                        <Route path='/profile' element={<ProfilePage />} />
-                      </Route>
-                      {/* 🚧 */}
+                        {/* 🚧 */}
+                        <Route element={<ProtectedRoutes />}>
+                          <Route path='/profile' element={<ProfilePage />} />
+                        </Route>
+                        {/* 🚧 */}
 
-                      <Route path='/welcome' element={<Welcome />} />
-                      <Route path='/verified' element={<EmailVerified />} />
-                      <Route path='/notfound' element={<Notfound />} />
-                      <Route path='*' element={<Notfound />} />
-                    </Routes>
+                        <Route path='/welcome' element={<Welcome />} />
+                        <Route path='/verified' element={<EmailVerified />} />
+                        <Route path='/notfound' element={<Notfound />} />
+                        <Route path='*' element={<Notfound />} />
+                      </Routes>
+                      {/* </ScrollToTopProvider> */}
+                    </div>
                   </div>
+                <div className={styles.sidebar}>
+                  <SidebarComponents />
                 </div>
-              <div className={styles.sidebar}>
-                <SidebarComponents />
               </div>
-            </div>
           </FirestoreSnapshotProvider>
         </AuthPopupContextProvider>
       </FirebaseUserContextProvider>
