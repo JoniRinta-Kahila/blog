@@ -13,7 +13,6 @@ import { observer } from 'mobx-react-lite';
 import hljs from 'highlight.js';
 import PostCommentsSection from './postCommentsSection';
 import dev from '../../helper/devLogger';
-import ScrollToTop from '../basic/scrollToTop';
 import { getSnapshot, onSnapshot } from 'mobx-state-tree';
 
 const PostView: React.FC = observer(() => {
@@ -55,7 +54,6 @@ const PostView: React.FC = observer(() => {
 
   return (
     <div>
-      <ScrollToTop />
       {/* ARTICLE HEADER */}
       <ArticleHeader str={currentPost.header} inEditor={false} />
       {/* ARTICLE INFO-BAR */}
